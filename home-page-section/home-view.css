@@ -28,8 +28,9 @@ header {
     gap: 3em;
     list-style-type: none;
     margin-top: 2.7em;
-    margin-left: 4em;
+    margin-left: 5em;
     font-size: 1.3em;
+    color: #B10F2E;
 }
 
 .logo, #logo-text {
@@ -78,15 +79,89 @@ header {
 *********************************************/
 .home {
     display: flex;
+    flex-direction: row-reverse;
 }
 
-#sisig {
-    background: url(home-images/chef_babs.png) no-repeat; 
+#home-vertical-line {
     position: absolute;
-    width: 1369.19px;
-    height: 1174.49px;
-    left: 589px;
-    top: 394.7px;-
-    filter: drop-shadow(0px 4px 82.4px rgba(0, 0, 0, 0.25));
-    transform: rotate(-4.93deg);
+    margin-top: 423px;
+    margin-right: 423px;
+    background-color: black;
+    transform: rotate(90deg);
+    height: 17px;
+    width: 500px;
 }
+
+#quote {
+    font-size: 9em;
+    margin-right: 4em;
+    height: 0px;
+    background-color: blueviolet;
+}
+
+#home-review {
+    font-family: 'Staatliches';
+    font-size: 5em;
+    position: absolute;
+    top: 300px;
+    line-height: 80px;
+}
+
+.stars {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    padding-left: 1.8em;
+    list-style: url(home-images/star.png);
+    gap: 24px;
+    background-size: 1px;
+}
+
+#review {
+    position: relative;
+    top: 300px;
+    line-height: 5px;
+    font-size: large;
+}
+
+.home-est-button {
+    position: relative;
+    top: 300px;
+}
+
+#home-reviewer {
+    position: relative;
+    top: 5px;
+    font-weight: bold;
+    font-style: italic;
+    letter-spacing: 0.4px;
+}
+
+#home-reviewer-info {
+    position: relative;
+    top: 4px;
+    font-style: italic;
+    letter-spacing: 0.1px;
+}
+
+.home-est-button {
+    /* VIEW ESTABLISMENTS */
+    font-family: 'Staatliches';
+    font-size: 1.2em;
+    position: rel;
+    background: #ffffff;
+    color: #B10F2E;
+    border-radius: 50px;
+    border: 3px solid #B10F2E;
+    width: 180px;
+    height: 40px;
+    margin-top: 420px;
+}
+
+#home-view-est {
+    position: relative;
+    margin-right: 60px;
+}
+
+
