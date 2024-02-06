@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200;400;700&display=swap');
+
+:root {
+    font-family: 'Kanit', sans-serif;
+    font-weight: 200;
+    font-size: 17px;
+}
+
+body {
+    background-color: rgba(255, 195, 43, 1);
+    margin: 0;
+    padding: 0;
+}
+
+
+.container-template {
+    width: 100%;
+    padding: 1%;
+    box-sizing: border-box;
+}
+
+.bar-container {
+    display: flex;
+    background-color: rgba(40, 42, 55, 1);
+    font-weight: 800;
+    font-size: 50px;
+    color: white;
+
+}
+
+.bar-title {
+    display: flex;
+    margin-left: 1%;
+}
+
+.est-container {
+    display: grid;
+    grid-auto-flow: row; /*creates new rows when container row overfills to 4*/
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 30px;
+    margin: 30px;
+}
+
+.est-content {
+    background-color: white;
+    border-radius: 35px;
+    display: flex;
+    flex-direction: column;
+    padding: 10%;
+    box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.25)
+    
+}
+
+.est-cover {
+    width: 100%;
+}
+
+.est-title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.est-title {
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 45px;
+    color: rgba(40, 42, 55, 1);
+}
+
+.est-rating-container {
+    display: flex;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: rgba(255, 195, 43, 1);
+    align-items: center;
+
+}
+
+.est-rating {
+    font-weight: 600;
+    font-size: 20px;
+    color: #FFFFFF;
+}
+
+.est-rating-icon {
+    height: 15px;
+    width: 15px;
+    padding-left: 5px;
+}
+
+.est-subtitle-container {
+    font-weight: 400;
+    font-size: 20px;
+    color: #868686;
+    display: flex;
+
+}
+
+.est-price {
+    background-color: none;
+}
+
+.est-description-container {
+    display: flex;
+}
+
+.est-description {
+    font-weight: 200;
+    font-size: 17px;
+    line-height: 25px;
+    text-align: justify;
+    color: #868686;
+}
+
+.est-review-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.est-review-section {
+    display: flex;
+    justify-content: space-around;
+}
+
+.est-add-review, .est-view-review{
+    font-weight: 600;
+    font-size: 18px;
+    color: rgba(40, 42, 55, 1);
+}
+
+
+
+/*
+                <div class="est-review-section">
+                    <div class="est-add-review">Add Review</div>
+                    <div class="est-view-review">View Review</div>
+                </div>
+*/

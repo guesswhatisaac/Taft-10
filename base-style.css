@@ -1,0 +1,38 @@
+/* [SCROLL BAR MODIFICATION] */
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+    
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #5d5c5c;
+}
+
+
+/* [COLORS] */
+.yellow {
+    color: rgba(255, 195, 43, 1);
+}
+
+.white {
+    color: white;
+}
+
+/*placeholder header*/
+.header {
+    background-color: white;
+    padding: 3%;
+    display: flex;
+}
+
+.header-taft-logo {
+    height: 32px;
+}
