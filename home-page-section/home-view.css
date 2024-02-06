@@ -33,6 +33,11 @@ header {
     color: #B10F2E;
 }
 
+#home-btn:hover {
+    /* TODO Fix this (not working) */
+    text-decoration-line: underline;
+}
+
 .logo, #logo-text {
     font-weight: normal;
     font-size: 64px;
@@ -53,7 +58,13 @@ header {
     top: 39px;
     background: #B10F2E;
     color: #FFFFFF;
+    border: 2px solid #B10F2E;
     border-radius: 50px;
+}
+
+#sign-in:hover {
+    background: #FFFFFF;
+    color: #B10F2E;
     border: 2px solid #B10F2E;
 }
 
@@ -72,6 +83,12 @@ header {
     color: #B10F2E;
     border: 2px solid #B10F2E;
     border-radius: 50px;
+}
+
+#sign-up:hover {
+    background: #B10F2E;
+    color: #FFFFFF;
+    border: 2px solid #B10F2E;
 }
 
 /*********************************************
@@ -128,6 +145,12 @@ header {
 .home-est-button {
     position: relative;
     top: 300px;
+}
+
+.home-est-button:hover {
+    background: #B10F2E;
+    color: #FFFFFF;
+    border: 2px solid #B10F2E;
 }
 
 #home-reviewer {
