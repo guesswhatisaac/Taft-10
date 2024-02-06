@@ -1,11 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200;400;700&display=swap');
 
-:root {
-    font-family: 'Kanit', sans-serif;
-    font-weight: 200;
-    font-size: 17px;
-}
-
 body {
     background-color: rgba(255, 195, 43, 1);
     margin: 0;

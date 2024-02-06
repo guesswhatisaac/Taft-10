@@ -1,3 +1,12 @@
+/* [ROOT] */
+
+:root {
+    font-family: 'Kanit', sans-serif;
+    font-weight: 200;
+    font-size: 17px;
+}
+
+
 /* [SCROLL BAR MODIFICATION] */
 
 ::-webkit-scrollbar {
