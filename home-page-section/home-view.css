@@ -30,12 +30,11 @@ header {
     margin-top: 2.7em;
     margin-left: 5em;
     font-size: 1.3em;
-    color: #B10F2E;
 }
 
-#home-btn:hover {
-    /* TODO Fix this (not working) */
+.navbar > li:hover {
     text-decoration-line: underline;
+    text-decoration-color: #B10F2E;
 }
 
 .logo, #logo-text {
