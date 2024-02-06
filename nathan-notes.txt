@@ -1,0 +1,11 @@
+[VIEW EST. SECTION NOTES]
+
+* modify title, review section, and subtitle fonts to karrif? kannif? kiffy.
+
+* use container as mask for image.
+
+* fix flexing when resizing window.
+
+* fix sizing of rating box.
+
+* add margins to containers.
