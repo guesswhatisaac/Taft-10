@@ -1,25 +1,26 @@
+/* Import Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200;400;700&display=swap');
 
+/* Global Styles */
 body {
     background-color: rgba(255, 195, 43, 1);
     margin: 0;
     padding: 0;
 }
 
-
 .container-template {
     width: 100%;
+    height: auto;
     padding: 1%;
     box-sizing: border-box;
 }
 
-.bar-container {
+.bar-container{
     display: flex;
     background-color: rgba(40, 42, 55, 1);
     font-weight: 800;
     font-size: 50px;
     color: white;
-
 }
 
 .bar-title {
@@ -27,25 +28,92 @@ body {
     margin-left: 1%;
 }
 
+.bar-button-container {
+    font-size: 20px;
+    font-weight: 400;
+    background-color: none;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+/* clear ul's default style */
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+}
+
+ul li {
+        display: inline-block;
+        position: relative;
+}
+
+ul li a {
+    margin-left: 15px;
+    border-radius: 15px;
+    text-decoration: none;
+    display: block;
+    padding: 20px 25px;
+    color: white;
+}
+
+/* style for options in category dropdown */
+.category-option {
+    margin-bottom: 10px;
+}
+
+/* drop down for categories */
+ul li ul.category-dropdown {
+    width: 100px;
+    position: absolute;
+    z-index: 999;
+    display: none;
+    background-color: rgba(40, 42, 55, 1);  
+     
+}
+
+/* hovering action creates yellow highlight */
+ul li a:hover {
+    background-color: rgba(255, 195, 43, 1);;    
+}
+
+
+/* shows categories when hovered */
+ul li:hover ul.category-dropdown { 
+    display: block;
+    width: 75%;
+}
+
 .est-container {
-    display: grid;
-    grid-auto-flow: row; /*creates new rows when container row overfills to 4*/
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 30px;
-    margin: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5vh;
+    margin: 5vh;
+    justify-content: space-around;
+    align-self: center;
+    max-width: fit-content;
 }
 
 .est-content {
     background-color: white;
+    overflow: hidden;
     border-radius: 35px;
     display: flex;
     flex-direction: column;
-    padding: 10%;
-    box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.25);   
+    padding: 3vh;
+    box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.25);
+    width: calc(33.33% - 10vh); /* sets 3 max per row */
+    max-height: 80%;
 }
 
 .est-cover {
-    width: 100%;
+    width: 130%;
+    height: auto; 
+    align-self: center;
+    bottom: 3vh;
+    position: relative;
 }
 
 .est-title-container {
@@ -67,10 +135,10 @@ body {
     padding: 5px;
     background-color: rgba(255, 195, 43, 1);
     align-items: center;
-
 }
 
 .est-rating {
+    margin-left: 5px;
     font-weight: 600;
     font-size: 20px;
     color: #FFFFFF;
@@ -87,7 +155,6 @@ body {
     font-size: 20px;
     color: #868686;
     display: flex;
-
 }
 
 .est-price {
@@ -95,6 +162,7 @@ body {
 }
 
 .est-description-container {
+    margin-top: 1rem;
     display: flex;
 }
 
@@ -107,26 +175,26 @@ body {
 }
 
 .est-review-icon {
+    margin-right: 0.5rem;
     width: 20px;
     height: 20px;
 }
 
 .est-review-section {
+    margin-top: 2rem;
     display: flex;
     justify-content: space-around;
 }
 
-.est-add-review, .est-view-review{
+.est-add-review, .est-view-review {
     font-weight: 600;
     font-size: 18px;
     color: rgba(40, 42, 55, 1);
 }
 
 
+.est-add-review:hover, .est-view-review:hover {
+    color: red;
+    /*text-decoration: underline;*/
+}
 
-/*
-                <div class="est-review-section">
-                    <div class="est-add-review">Add Review</div>
-                    <div class="est-view-review">View Review</div>
-                </div>
-*/
