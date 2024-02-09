@@ -37,6 +37,7 @@ body {
     align-items: center;
 }
 
+
 /* clear ul's default style */
 ul {
     list-style: none;
@@ -46,8 +47,15 @@ ul {
 }
 
 ul li {
-        display: inline-block;
-        position: relative;
+    display: inline-block;
+    position: relative;
+    box-sizing: border-box;
+
+    border: 1.5px solid #FAB82B;
+    border-radius: 10px;
+    font-size: 20px;
+    border-width: 2px;
+    
 }
 
 ul li a {
@@ -62,10 +70,12 @@ ul li a {
 /* style for options in category dropdown */
 .category-option {
     margin-bottom: 10px;
+
 }
 
 /* drop down for categories */
 ul li ul.category-dropdown {
+    
     width: 100px;
     position: absolute;
     z-index: 999;
@@ -142,6 +152,7 @@ ul li:hover ul.category-dropdown {
     font-weight: 600;
     font-size: 20px;
     color: #FFFFFF;
+    
 }
 
 .est-rating-icon {
@@ -158,7 +169,33 @@ ul li:hover ul.category-dropdown {
 }
 
 .est-price {
-    background-color: none;
+    font-weight: lighter;
+}
+
+.bold {
+    font-weight: 600;
+}
+
+.food-tag {
+
+    font-family: 'Kanit';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #868686;
+
+
+    background: #EFEFEF;
+    border-radius: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-right: 7px;
+
+    
 }
 
 .est-description-container {
@@ -197,4 +234,3 @@ ul li:hover ul.category-dropdown {
     color: red;
     /*text-decoration: underline;*/
 }
-
