@@ -118,6 +118,7 @@ body {
 *********************************************/
 .sign-up-container {
     position: absolute;
+    width: 400px;
     top: 220px;
     height: 565px;
     background-color: #FFFFFF;
