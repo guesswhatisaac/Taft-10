@@ -24,7 +24,11 @@
     background: #5d5c5c;
 }
 
-.sign-in-page, .sign-up-page, .recover-account-page, .recover-success-container {
+.sign-in-page, .sign-up-page, .recover-account-page {
+    animation: transitionIn 0.3s;
+}
+
+.recover-success-container {
     animation: transitionIn 0.75s;
 }
 
