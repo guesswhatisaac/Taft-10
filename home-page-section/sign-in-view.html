@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Sign In </title>
+        <link rel="stylesheet" href="sign-up-in-index.css">
+    </head>
+    <body>
+        <!-------------------- BLUE DIVIDER -------------------->
+        <div class="blue-div-sign-in">&nbsp;</div>
+        <!--------------------- SIGN UP ------------------------>
+        <div class="sign-up">
+            <div class="welcome-container">
+                <a href="home-view.html"><button class="button" id="back-button"> Back to Home Page </button></a>
+                <div class="heading">
+                    <div class="welcome-message"> Welcome Back to </div>
+                    <div class="taft-10"> Taft 10! </div>
+                </div>
+            </div>
+            <div class="sign-in-container">
+                <div class="sign-in-message">
+                    <span id="message-1"> Sign In </span><br>
+                    <span id="message-2"> Don't have an account yet? </span>
+                    <a href="sign-up-view.html" class="sign-up-link"> Sign Up </a>
+                </div>
+                <form action="home-view.html" class="sign-in-form">
+                    <!-------------------- FIELDS -------------------->
+                    <div class="fields-sign-in">
+                        <label for="username"> Username </label><br>
+                        <input type="text" id="username" name="username" required><br>
+                        <label for="password"> Password </label><br>
+                        <input type="password" id="password" name="password" required><br>
+                    </div>
+                    <!----------------- FORGOT PASSWORD ---------------->
+                    <div class="forgot-password">
+                        <a href="recover-account.html" id="forgot-password-link">I forgot my password</a>
+                    </div>
+                    <!--------------------- BUTTON --------------------->
+                    <div class="submit-button">
+                        <input type="submit" class="button" id="sign-in-submit-button" value="Sign In" required>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,285 @@
+/* Import Fonts */
+@import url(https://fonts.googleapis.com/css?family=Staatliches|Kanit);
+
+/* Root */
+:root {
+    font-family: 'Kanit';
+    background-color: #FFC32B;
+}
+
+body {
+    display: flex;
+    height: 100%;
+}
+
+.blue-div-sign-up {
+    width: 30%;
+    background-color:  #282A37;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    height: 1100px;
+}
+
+.blue-div-sign-in {
+    width: 30%;
+    background-color:  #282A37;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    height: 110%;
+}
+
+.blue-div-recover {
+    width: 30%;
+    background-color:  #282A37;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+}
+
+.sign-up {
+    position: absolute;
+    left: 40%;
+    top: 100px;
+    right: 40px;
+}
+
+.recover {
+    position: absolute;
+    left: 40%;
+    top: 100px;
+    right: 40px;
+}
+
+.button {
+    font-family: 'Staatliches';
+    font-size: 1em;
+    border-radius: 50px;
+    height: 29px;
+    width: 140px;
+}
+
+#back-button {
+    font-family: 'Staatliches';
+    background: none;
+    color: #B10F2E;
+    border: 3px solid #B10F2E;
+}
+
+#back-button:hover {
+    background: rgb(219, 174, 61);
+    color: #B10F2E;
+    border: 3px solid #B10F2E;
+    transition: .5s ease;
+}
+
+.heading {
+    font-family: 'Staatliches';
+    line-height: 65px;
+}
+
+.heading > .welcome-message {
+    position: relative;
+    top: 10px;
+    font-size: 35px;
+}
+
+.heading > .taft-10 {
+    position: relative;
+    top: 5px;
+    font-size: 90px;
+    color: #B10F2E;
+}
+
+/*********************************************
+                Fields/Container
+*********************************************/
+.sign-up-container {
+    position: absolute;
+    top: 220px;
+    height: 565px;
+    background-color: #FFFFFF;
+    border-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+    box-shadow: 0px 0px 51px rgba(0, 0, 0, 0.25);
+}
+
+.sign-in-container {
+    position: absolute;
+    top: 220px;
+    height: 270px;
+    width: 400px;
+    background-color: #FFFFFF;
+    border-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+    box-shadow: 0px 0px 51px rgba(0, 0, 0, 0.25);
+}
+
+.recover-container {
+    position: absolute;
+    top: 120px;
+    height: 230px;
+    width: 400px;
+    background-color: #FFFFFF;
+    border-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+    box-shadow: 0px 0px 51px rgba(0, 0, 0, 0.25);
+}
+
+.recover-success-container {
+    position: absolute;
+    top: 120px;
+    height: 230px;
+    width: 400px;
+    background-color: #FFFFFF;
+    border-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: 50px;
+    box-shadow: 0px 0px 51px rgba(0, 0, 0, 0.25);
+}
+
+.sign-up-message, .sign-in-message, .recover-message {
+    line-height: 23px;
+    height: 80px;
+    padding-left: 20px;
+}
+
+.recover-message > #message-2 {
+    color: #6f6f6f;
+}
+
+#message-1 {
+    font-family: 'Staatliches';
+    font-size: 40px;
+}
+
+.sign-in-link, .sign-up-link, #terms-of-service, #privacy-policy, #forgot-password-link {
+    color: #EF8354;
+    text-decoration: none;
+}
+
+.forgot-password {
+    position: relative;
+    top: 15px;
+    text-align: center;
+}
+
+.asterisk {
+    color: #B10F2E;
+}
+
+.fields-sign-up, .fields-sign-in {
+    line-height: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#username, #email, #lname, #fname, #number, #password, #confirm-password, #file {
+    box-sizing: border-box;
+    width: 100%;
+    height: 30px;
+    padding: 10px;
+    margin-bottom: 9px;
+    border: 2px solid #212431;
+    border-radius: 6px;
+    font-family: 'Kanit';
+    font-size: 14px;
+    color: 212431;
+}
+
+#file {
+    display: inline-block;
+    padding: 2px; 
+    cursor: pointer;
+    height: 30px;
+}
+
+#file::file-selector-button {
+    border-radius: 5px;
+    background-color: #212431;
+    border: 1px solid #212431;
+    color: #FFFFFF;
+    font-size: 13px;
+    font-family: 'Kanit';
+}
+
+.name {
+    display: flex;
+    gap: 8px;
+}
+
+.name > div {
+    width: 50%;
+}
+
+.name > div + div {
+    width: 50%;
+}
+
+.checkbox {
+    padding-left: 9px;
+    position: relative;
+    top: 30px;
+    font-size: 13px;
+}
+
+.submit-button {
+    position: relative;
+    top: 70px;
+    display: flex;
+    justify-content: center;
+}
+
+#sign-in-submit-button {
+    position: relative;
+    bottom: 25px;
+}
+
+#sign-up-submit-button {
+    position: relative;
+    bottom: 25px;
+}
+
+#sign-up-submit-button, #sign-in-submit-button, #recover-button {
+    width: 90px;
+    border: 3px solid #B10F2E;
+    background: #B10F2E;
+    color: #FFFFFF;
+}
+
+#recover-button {
+    position: relative;
+    bottom: 10px;
+    width: 130px;
+}
+
+#sign-up-submit-button:hover, #sign-in-submit-button:hover, #recover-button:hover {
+    background: #c41637;
+    color: #FFFFFF;
+    border: 3px solid #c41637;
+    transition: .5s ease;
+}
+
+.recover-email-field {
+    padding-left: 20px;
+}
+
+.recover-success-message > #message-2 {
+    font-style: italic;
+    color: #6f6f6f;
+    font-size: 14px;
+}
