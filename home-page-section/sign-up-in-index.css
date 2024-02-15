@@ -68,7 +68,7 @@ body {
     top: 0;
     left: 0;
     bottom: 0;
-    height: 110%;
+    height: 120%;
 }
 
 .blue-div-recover {
@@ -101,6 +101,8 @@ body {
     border-radius: 50px;
     height: 29px;
     width: 140px;
+    text-decoration: none;
+    text-align: center;
 }
 
 #back-button {
@@ -154,7 +156,7 @@ body {
 .sign-in-container {
     position: absolute;
     top: 220px;
-    height: 270px;
+    height: 320px;
     width: 400px;
     background-color: #FFFFFF;
     border-radius: 50px;
@@ -284,6 +286,12 @@ body {
     justify-content: center;
 }
 
+#button-text {
+    position: relative;
+    top: 5px;
+    z-index: 99;
+}
+
 #sign-in-submit-button {
     position: relative;
     bottom: 40px;
@@ -329,4 +337,10 @@ form i {
     position: relative;
     bottom: 3px;
     cursor: pointer;
+}
+
+.remember-me {
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
 }
