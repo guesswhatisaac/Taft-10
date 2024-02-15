@@ -41,6 +41,8 @@
                                 <input type="text" id="fname" name="fname" required>
                             </div>
                         </div>
+                        <label for="description"> Bio </label>
+                        <textarea id="description" placeholder="Short Description" name="description"></textarea>
                         <label for="number"> Phone Number </label><br>
                         <input type="tel" id="number" name="number" placeholder="09XXXXXXXXX" pattern="[0]{1}[9]{1}[0-9]{2}[0-9]{3}[0-9]{4}"><br>
                         
@@ -77,16 +79,10 @@
                                 e.preventDefault();
                             });
                         </script>
-
                         <label for="file"> Upload Profile Picure </label><br>
                         <input type="file" id="file" name="file" accept="image/png, image/jpeg"><br>
                     </div>
-                    <!-------------------- CHECKBOX -------------------
-                    <div class="checkbox">
-                        <input type="checkbox" name="checkbox" id="checkbox">
-                        <label for="checkbox"> I have read and agreed to the <a href="terms-of-service.html" id="terms-of-service">Terms of Service</a> and <a href="privacy-policy.html" id="privacy-policy">Privacy Policy</a></label><br>
-                    </div>
-                    ------------------- BUTTON --------------------->
+                    <!------------------- BUTTON --------------------->
                     <div class="submit-button">
                         <a href="home-view-user.html" class="button" id="sign-up-submit-button"><span id="button-text">Sign Up</span></a>
                     </div>
