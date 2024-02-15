@@ -1,11 +1,13 @@
 /* [ROOT] */
 
+@import url(https://fonts.googleapis.com/css?family=Staatliches|Kanit);
+
 :root {
     font-family: 'Kanit', sans-serif;
     font-weight: 200;
     font-size: 17px;
+    scroll-behavior: smooth;
 }
-
 
 /* [SCROLL BAR MODIFICATION] */
 
@@ -35,54 +37,142 @@
     color: white;
 }
 
-/*placeholder header*/
 .header {
+    font-family: 'Staatliches';
     background-color: white;
-    padding: 3%;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 10px;
+    height: 90px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
 }
 
 .header-taft-logo {
-    height: 32px;
+    height: 36px;
+    margin-right: 30px;
+    margin-left: 20px;
+}
+
+.header-nav {
+    display: flex;
 }
 
 .header-button {
     font-style: normal;
-    font-weight: 700;
-    font-size: 15px;
+    font-weight: 500;
+    font-size: 18px;
     color: #282A37;
+    display: inline-block;
+    padding: 10px 20px;
+    position: relative;
+    text-decoration: none;
+}
+
+.header-button:hover,
+.header-button:focus {
+    text-decoration-line: underline;
+    text-decoration-thickness: 2.5px;
+    text-decoration-color: #B10F2E;
+    transition: text-underline-offset 300ms;
+    text-underline-offset: 0.1em;
+}
+
+.header-button:hover::after,
+.header-button:focus::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+  
+.header-button::after {
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #ff0000;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-in-out;
 }
 
 .profile-icon {
     background-color: red;
     border-radius: 100%;
     background-image: url('./global-assets/header/icon.jpg');
-    width: 64px;
-    height: 64px;
+    background-size:contain;
+    width: 45px;
+    height: 45px;
+    margin-right: 10px;
+    cursor: pointer;
 }
 
 .search-form {
-    width: 350px;
-    height: 40px;
-    background: #fff;
-
+    border: none;
+    font-size: 14px;
 }
 
-.header-nav {
-    background-color: red;
+.search-icon {
+  height: 24px;
+  width: 25px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.search-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.search-bar {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.search-bar {
+    height: 45px;
+    width: 225px;
+    background-color: var(--color-white);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+    margin-right: 10px;
+    border-radius: 300px;
+    display: flex;
+    align-items: center;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.header-signout {
+    cursor: pointer;
+    margin-right: 10px;
 }
 
 .header-signout {
     font-weight: 400;
-    font-size: 24px;
-    line-height: 30px;
+    font-size: 18px;
+    line-height: 8px;
     text-align: center;
-
     border-radius: 300px;
     padding: 15px;  
-    background-color: rgba(177, 15, 46, 1) ;
-    
+    margin-right: 15px;
+    background-color: #B10F2E;
     color: #FFFCE8;
+}
+
+.header-signout:hover {
+    background: #c41637;
+    color: #FFFFFF;
+    border: 1px solid #c41637;
+    transition: .2s ease;
 }
 
