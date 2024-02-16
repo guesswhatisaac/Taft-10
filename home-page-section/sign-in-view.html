@@ -23,12 +23,12 @@
                     <span id="message-2"> Don't have an account yet? </span>
                     <a href="sign-up-view.html" class="sign-up-link"> Sign Up </a>
                 </div>
-                <form action="home-view.html" class="sign-in-form">
+                <form action="home-view-user.html" class="sign-in-form">
                     <!-------------------- FIELDS -------------------->
                     <div class="fields-sign-in">
                         <label for="username"> Username </label><br>
                         <input type="text" id="username" name="username" required><br>
-                        <label for="password"> Password </label><span class="asterisk">*</span>
+                        <label for="password"> Password </label>
                         <input type="password" name="password" id="password" />
                         <i class="bi bi-eye-slash" id="togglePassword"></i>
 
@@ -48,7 +48,11 @@
                                 e.preventDefault();
                             });
                         </script>
-
+                    </div>
+                    <!------------------- REMEMBER ME ------------------>
+                    <div class="remember-me">
+                        <input type="checkbox" id="checkbox" name="checkbox" value="checkbox">
+                        <label for="checkbox"> Remember Me </label><br>
                     </div>
                     <!----------------- FORGOT PASSWORD ---------------->
                     <div class="forgot-password">
@@ -56,7 +60,7 @@
                     </div>
                     <!--------------------- BUTTON --------------------->
                     <div class="submit-button">
-                        <input type="submit" class="button" id="sign-in-submit-button" value="Sign In" required>
+                        <a href="home-view-user.html" class="button" id="sign-in-submit-button"><span id="button-text">Sign In</span></a>
                     </div>
                 </form>
             </div>
