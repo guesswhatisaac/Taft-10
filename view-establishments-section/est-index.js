@@ -104,3 +104,36 @@ document.querySelector('.view-window-container-ateRicas .close-button').addEvent
     document.getElementById('view-reviewWindow-ateRicas').style.display = 'none';
 });
 
+document.querySelectorAll('.est-view-review-tomo').forEach(function(button) {
+
+    button.addEventListener('click', function () {
+        document.getElementById('view-reviewWindow-tomo').style.display = 'flex';
+    });
+});
+
+document.querySelector('.view-window-container-tomo .close-button').addEventListener('click', function () {
+    document.getElementById('view-reviewWindow-tomo').style.display = 'none';
+});
+
+document.querySelectorAll('.est-view-review-tinuhog').forEach(function(button) {
+
+    button.addEventListener('click', function () {
+        document.getElementById('view-reviewWindow-tinuhog').style.display = 'flex';
+    });
+});
+
+document.querySelector('.view-window-container-tinuhog .close-button').addEventListener('click', function () {
+    document.getElementById('view-reviewWindow-tinuhog').style.display = 'none';
+});
+
+document.querySelectorAll('.est-view-review-hungry-seoul').forEach(function(button) {
+
+    button.addEventListener('click', function () {
+        document.getElementById('view-reviewWindow-hungry-seoul').style.display = 'flex';
+    });
+});
+
+document.querySelector('.view-window-container-hungry-seoul .close-button').addEventListener('click', function () {
+    document.getElementById('view-reviewWindow-hungry-seoul').style.display = 'none';
+});
+
