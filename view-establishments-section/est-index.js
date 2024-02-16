@@ -28,10 +28,10 @@ const max = document.querySelector('.max');
 function outputTag(tagValue) {
     const tag = `
         <span class="tag">
-            <b>${tagValue}</b>
             <span class="material-icons-outlined remove-button">
-                close
+                x
             </span>
+            <b>${tagValue}</b>
         </span>
     `;
 
@@ -39,25 +39,25 @@ function outputTag(tagValue) {
 }
 
 tagForm.addEventListener('submit', e => {
-    e.preventDefault(); // Prevent the default form submission behavior
+    e.preventDefault(); 
 
     if (input.value === "") {
-        return; // Exit early if the input is empty
+        return; 
     }
 
     if (output.children.length >= 4) {
         input.disabled = true;
         input.placeholder = "Max tags reached!";
-        return; // Exit early if the maximum number of tags is reached
+        return;
     }
 
-    const tagValue = input.value.trim(); // Trim whitespace from the input value
-    outputTag(tagValue); // Output the tag
-    input.value = ""; // Clear the input field
+    const tagValue = input.value.trim();
+    outputTag(tagValue); 
+    input.value = "";
 });
 
 input.addEventListener('input', e => {
-    const sanitizedValue = input.value.replace(/[^\w]/g, ""); // Remove non-word characters
+    const sanitizedValue = input.value.replace(/[^\w]/g, ""); 
     input.value = sanitizedValue;
 });
 
