@@ -294,6 +294,15 @@ body {
     width: 40px;
 }
 
+#shane-pic {
+    background-image: url('../global-assets/header/chef.jpg');
+    background-repeat: no-repeat;
+    background-color: rgb(211, 211, 211);
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
 #name-display {
     font-weight: bold;
     font-size: 19px;
