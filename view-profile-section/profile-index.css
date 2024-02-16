@@ -346,7 +346,7 @@ footer {
 }
 
 #facebook {
-    background: url('home-page-section/images/socmed_sprites.png') -33px -0px;
+    background: url('/home-page-section/images/socmed_sprites.png') -33px -0px;
     background-size: 100px;
     display: inline-block;
     width: 30px; 
