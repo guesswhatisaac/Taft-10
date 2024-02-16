@@ -588,31 +588,7 @@
         </div>   
     </div>
 
-    <script>
-        document.querySelectorAll('.est-add-review').forEach(function(button) {
-
-            button.addEventListener('click', function () {
-                document.getElementById('reviewWindow').style.display = 'flex';
-            });
-        });
-
-        document.querySelector('.review-window-container .close-button').addEventListener('click', function () {
-            document.getElementById('reviewWindow').style.display = 'none';
-        });
-    </script>
-
-    <script>
-        document.querySelectorAll('.est-view-review').forEach(function(button) {
-
-            button.addEventListener('click', function () {
-                document.getElementById('view-reviewWindow').style.display = 'flex';
-            });
-        });
-
-        document.querySelector('.view-window-container .close-button').addEventListener('click', function () {
-            document.getElementById('view-reviewWindow').style.display = 'none';
-        });
-    </script>
+    <script src="est-index.js"></script>;
     
 </body>
 </html>

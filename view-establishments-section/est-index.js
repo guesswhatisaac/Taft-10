@@ -30,7 +30,7 @@ function outputTag(tagValue) {
         <span class="tag">
             <b>${tagValue}</b>
             <span class="material-icons-outlined remove-button">
-                x
+                close
             </span>
         </span>
     `;
@@ -68,3 +68,28 @@ window.addEventListener('click', e => {
         input.placeholder = "Add a tag...";
     }
 });
+
+
+
+document.querySelectorAll('.est-add-review').forEach(function(button) {
+
+    button.addEventListener('click', function () {
+        document.getElementById('reviewWindow').style.display = 'flex';
+    });
+});
+
+document.querySelector('.review-window-container .close-button').addEventListener('click', function () {
+    document.getElementById('reviewWindow').style.display = 'none';
+});
+
+document.querySelectorAll('.est-view-review').forEach(function(button) {
+
+    button.addEventListener('click', function () {
+        document.getElementById('view-reviewWindow').style.display = 'flex';
+    });
+});
+
+document.querySelector('.view-window-container .close-button').addEventListener('click', function () {
+    document.getElementById('view-reviewWindow').style.display = 'none';
+});
+
