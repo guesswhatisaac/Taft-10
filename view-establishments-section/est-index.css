@@ -227,12 +227,13 @@ ul li:hover ul.category-dropdown {
     font-weight: 600;
     font-size: 18px;
     color: rgba(40, 42, 55, 1);
+    cursor: pointer;
+    
 }
 
 
 .est-add-review:hover, .est-view-review:hover {
     color: red;
-    /*text-decoration: underline;*/
 }
 
 .inner-frame-child {
