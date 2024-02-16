@@ -26,7 +26,7 @@ body {
     margin-right: 80px;
     height: 100%;
     background-color: #FFC32B;
-    border-radius: 1em 1em 0 0;
+    border-radius: 1em;
 }
 
 .profile-container {
@@ -66,7 +66,6 @@ body {
 }
 
 .user-more-info-container {
-    /* border: 1px solid black; */
     width: 50em;
     margin-left: 30px;
     margin-top: 10px;
@@ -288,6 +287,42 @@ body {
     background-image: url('../global-assets/header/icon.jpg');
     background-repeat: no-repeat;
     background-size: 45px;
+    background-color: rgb(211, 211, 211);
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+#shane-pic {
+    background-image: url('../global-assets/header/chef.jpg');
+    background-repeat: no-repeat;
+    background-color: rgb(211, 211, 211);
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+#alexis-pic {
+    background-image: url('../global-assets/header/alexis-pic.jpeg');
+    background-repeat: no-repeat;
+    background-color: rgb(211, 211, 211);
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+#kathleen-pic {
+    background-image: url('../global-assets/header/chef.jpg');
+    background-repeat: no-repeat;
+    background-color: rgb(211, 211, 211);
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+#nathan-pic {
+    background-image: url('../global-assets/header/chef.jpg');
+    background-repeat: no-repeat;
     background-color: rgb(211, 211, 211);
     border-radius: 50%;
     height: 40px;
