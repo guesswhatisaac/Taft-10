@@ -312,7 +312,7 @@ body {
 }
 
 #kathleen-pic {
-    background-image: url('../global-assets/header/chef.jpg');
+    background-image: url('../global-assets/header/kathleen-pic.png');
     background-repeat: no-repeat;
     background-color: rgb(211, 211, 211);
     border-radius: 50%;
@@ -321,7 +321,7 @@ body {
 }
 
 #nathan-pic {
-    background-image: url('../global-assets/header/chef.jpg');
+    background-image: url('../global-assets/header/isaac-pic.jpg');
     background-repeat: no-repeat;
     background-color: rgb(211, 211, 211);
     border-radius: 50%;
