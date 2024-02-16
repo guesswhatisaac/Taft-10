@@ -160,6 +160,7 @@
 .upvote {
     width: 30px; 
     height: 30px; 
+    cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
 }
 
