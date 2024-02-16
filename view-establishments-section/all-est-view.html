@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="../base-index.css">
         <link rel="stylesheet" href="est-index.css">
         <link rel="stylesheet" href="add-review.css">
+        <link rel="stylesheet" href="view-review.css">
         <title>All Est. View</title>
     </head>
 
@@ -106,7 +107,7 @@
 
             <div class="est-review-section">
                 <div class="est-add-review addReviewBtn">Add Review</div>
-                <div class="est-view-review">View Review</div>
+                <div class="est-view-review viewReviewBtn">View Review</div>
             </div>
         </div>
         
@@ -136,38 +137,7 @@
 
             <div class="est-review-section">
                 <div class="est-add-review addReviewBtn">Add Review</div>
-                <div class="est-view-review">View Review</div>
-            </div>
-        </div>
-
-        
-        <div class="est-content">
-            <img src="assets/est/content-cover/24Chicken.jpg" alt="24 Chicken" class="est-cover">
-            
-            <div class="est-title-container">
-                <div class="est-title">24 Chicken</div>
-                <div class="est-rating-container">
-                    <span class="est-rating">4.9</span>
-                    <img src="assets/est/content-icons/rating-icon.png" alt="Rating Icon" class="est-rating-icon">
-                </div>
-            </div>
-    
-            <div class="est-subtitle-container">
-                <div class="est-price bold">₱₱</div>
-                <div class="est-price">₱₱</div>
-                &nbsp; • &nbsp;
-                <span class="food-tag">Filipino</span>
-                <span class="food-tag">Chicken</span>
-            </div>
-            
-            <div class="est-description-container">
-                <img src="assets/est/content-icons/review-icon.png" alt="Review Icon" class="est-review-icon">
-                <div class="est-description">“If you're on the hunt for a chicken experience that transcends the ordinary, look no further than 24 Chicken”</div>
-            </div>
-
-            <div class="est-review-section">
-                <div class="est-add-review addReviewBtn">Add Review</div>
-                <div class="est-view-review">View Review</div>
+                <div class="est-view-review viewReviewBtn">View Review</div>
             </div>
         </div>
 
@@ -198,7 +168,7 @@
 
             <div class="est-review-section">
                 <div class="est-add-review addReviewBtn">Add Review</div>
-                <div class="est-view-review">View Review</div>
+                <div class="est-view-review viewReviewBtn">View Review</div>
             </div>
         </div>
 
@@ -229,7 +199,7 @@
 
             <div class="est-review-section">
                 <div class="est-add-review addReviewBtn">Add Review</div>
-                <div class="est-view-review">View Review</div>
+                <div class="est-view-review viewReviewBtn">View Review</div>
             </div>
         </div>
 
@@ -260,7 +230,7 @@
 
             <div class="est-review-section">
                 <div class="est-add-review addReviewBtn">Add Review</div>
-                <div class="est-view-review">View Review</div>
+                <div class="est-view-review viewReviewBtn">View Review</div>
             </div>
         </div>
 
@@ -291,7 +261,7 @@
 
             <div class="est-review-section">
                 <div class="est-add-review addReviewBtn">Add Review</div>
-                <div class="est-view-review">View Review</div>
+                <div class="est-view-review viewReviewBtn">View Review</div>
             </div>
         </div>
 
@@ -322,7 +292,7 @@
 
             <div class="est-review-section">
                 <div class="est-add-review addReviewBtn">Add Review</div>
-                <div class="est-view-review">View Review</div>
+                <div class="est-view-review viewReviewBtn">View Review</div>
             </div>
         </div>
 
@@ -353,7 +323,38 @@
 
             <div class="est-review-section">
                 <div class="est-add-review addReviewBtn">Add Review</div>
-                <div class="est-view-review">View Review</div>
+                <div class="est-view-review viewReviewBtn">View Review</div>
+            </div>
+        </div>
+
+        
+        <div class="est-content">
+            <img src="assets/est/content-cover/24Chicken.jpg" alt="24 Chicken" class="est-cover">
+            
+            <div class="est-title-container">
+                <div class="est-title">24 Chicken</div>
+                <div class="est-rating-container">
+                    <span class="est-rating">4.9</span>
+                    <img src="assets/est/content-icons/rating-icon.png" alt="Rating Icon" class="est-rating-icon">
+                </div>
+            </div>
+    
+            <div class="est-subtitle-container">
+                <div class="est-price bold">₱₱</div>
+                <div class="est-price">₱₱</div>
+                &nbsp; • &nbsp;
+                <span class="food-tag">Filipino</span>
+                <span class="food-tag">Chicken</span>
+            </div>
+            
+            <div class="est-description-container">
+                <img src="assets/est/content-icons/review-icon.png" alt="Review Icon" class="est-review-icon">
+                <div class="est-description">“If you're on the hunt for a chicken experience that transcends the ordinary, look no further than 24 Chicken”</div>
+            </div>
+
+            <div class="est-review-section">
+                <div class="est-add-review addReviewBtn">Add Review</div>
+                <div class="est-view-review viewReviewBtn">View Review</div>
             </div>
         </div>
     </div>
@@ -372,7 +373,7 @@
                     <span id="title"> 24 Chicken </span>
                     <div class="rating-container">
                         <span id="rating"> 4.9 </span>
-                        <img src="../view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating"
+                        <img src="../view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating">
                     </div>
                 </div>
 
@@ -435,9 +436,153 @@
         </div>
     </div>
 
-    <script src="est-index.js"></script>
+    <div id="view-reviewWindow" class="view-window-container">
+        <div class="view-review-container"> 
+            <img src="../view-establishments-section/assets/est/content-main/24-Chicken.jpg" alt="Ate Rica's Bacsilog" class="main-photo">
 
-    </body>
+            <div class="view-right-side">
+                <div class="close-button">
+                    <img src="../view-establishments-section/assets/est/content-icons/close.png" alt="Close" class="close-icon">
+                </div>
+
+                <div class="view-title-header">
+                    <span id="title"> 24 Chicken </span>
+                    <div class="rating-container">
+                        <span id="rating"> 4.9 </span>
+                        <img src="../view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating">
+                    </div>
+                </div>
+
+                <div class="view-sub-header">
+                    <div class="price-holder">
+                        <span class="price bold">₱₱</span>
+                        <span class="price bold-light">₱₱</span>
+                        <span id="dot"> • </span>
+                    </div>
+                    <div class="tag-container">
+                        <span class="tag"> Filipino </span>
+                    </div>
+                    <div class="tag-container">
+                        <span class="tag"> Rice Meal </span>
+                    </div>
+                </div>
+
+                <div class="view-review-placeholder">
+                    <div class="view-review">
+                        <div class="user-info">
+                            <img src="../view-establishments-section/assets/est/user-profile/alexis-arcega.jfif" class="user-icon">
+                            <div class="user-text">
+                                <span class="username">Alexis Arcega</span>
+                                <span class="user-status">De la Salle University Student</span>
+                            </div>
+    
+                            <div class="upvote-container">
+                                <img src="../view-establishments-section/assets/est/content-icons/thumbs-up.png" class="upvote">
+                                <span> 32 </span>
+                            </div>
+    
+                            <div class="user-info-sub">
+                                <div class="user-rating">
+                                    <span class="rating-user"> 4.9 </span>
+                                    <img src="../view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
+                                </div>
+                                <span class="dot1"> • </span>
+                                <span class="date"> January 20, 2024 </span>
+                            </div>
+                        </div>
+    
+                        <div class="post-review-content">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis. 
+                        </div>
+                    </div>
+
+                    <div class="view-review">
+                        <div class="user-info">
+                            <img src="../view-establishments-section/assets/est/user-profile/alexis-arcega.jfif" class="user-icon">
+                            <div class="user-text">
+                                <span class="username">Alexis Arcega</span>
+                                <span class="user-status">De la Salle University Student</span>
+                            </div>
+    
+                            <div class="upvote-container">
+                                <img src="../view-establishments-section/assets/est/content-icons/thumbs-up.png" class="upvote">
+                                <span> 32 </span>
+                            </div>
+    
+                            <div class="user-info-sub">
+                                <div class="user-rating">
+                                    <span class="rating-user"> 4.9 </span>
+                                    <img src="../view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
+                                </div>
+                                <span class="dot1"> • </span>
+                                <span class="date"> January 20, 2024 </span>
+                            </div>
+                        </div>
+    
+                        <div class="post-review-content">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis. 
+                        </div>
+                    </div>
+
+                    <div class="view-review">
+                        <div class="user-info">
+                            <img src="../view-establishments-section/assets/est/user-profile/alexis-arcega.jfif" class="user-icon">
+                            <div class="user-text">
+                                <span class="username">Alexis Arcega</span>
+                                <span class="user-status">De la Salle University Student</span>
+                            </div>
+    
+                            <div class="upvote-container">
+                                <img src="../view-establishments-section/assets/est/content-icons/thumbs-up.png" class="upvote">
+                                <span> 32 </span>
+                            </div>
+    
+                            <div class="user-info-sub">
+                                <div class="user-rating">
+                                    <span class="rating-user"> 4.9 </span>
+                                    <img src="../view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
+                                </div>
+                                <span class="dot1"> • </span>
+                                <span class="date"> January 20, 2024 </span>
+                            </div>
+                        </div>
+    
+                        <div class="post-review-content">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis. 
+                        </div>
+                    </div>
+                    
+                    <div class="view-review">
+                        <div class="user-info">
+                            <img src="../view-establishments-section/assets/est/user-profile/alexis-arcega.jfif" class="user-icon">
+                            <div class="user-text">
+                                <span class="username">Alexis Arcega</span>
+                                <span class="user-status">De la Salle University Student</span>
+                            </div>
+    
+                            <div class="upvote-container">
+                                <img src="../view-establishments-section/assets/est/content-icons/thumbs-up.png" class="upvote">
+                                <span> 32 </span>
+                            </div>
+    
+                            <div class="user-info-sub">
+                                <div class="user-rating">
+                                    <span class="rating-user"> 4.9 </span>
+                                    <img src="../view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
+                                </div>
+                                <span class="dot1"> • </span>
+                                <span class="date"> January 20, 2024 </span>
+                            </div>
+                        </div>
+    
+                        <div class="post-review-content">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis. 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>   
+    </div>
 
     <script>
         document.querySelectorAll('.est-add-review').forEach(function(button) {
@@ -449,6 +594,19 @@
 
         document.querySelector('.review-window-container .close-button').addEventListener('click', function () {
             document.getElementById('reviewWindow').style.display = 'none';
+        });
+    </script>
+
+    <script>
+        document.querySelectorAll('.est-view-review').forEach(function(button) {
+
+            button.addEventListener('click', function () {
+                document.getElementById('view-reviewWindow').style.display = 'flex';
+            });
+        });
+
+        document.querySelector('.view-window-container .close-button').addEventListener('click', function () {
+            document.getElementById('view-reviewWindow').style.display = 'none';
         });
     </script>
     
