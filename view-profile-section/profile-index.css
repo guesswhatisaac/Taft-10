@@ -271,9 +271,81 @@ body {
     margin: 20px;
     border-radius: 1em;
     padding: 10px;
+    font-size: 15px;
 }
 
+.review-display {
+    display: flex;
+}
 
+.reviewer-display {
+    line-height: 20px;
+    margin-left: 10px;
+    flex-grow: 2;
+}
+
+.profile-display {
+    background-image: url('../global-assets/header/icon.jpg');
+    background-repeat: no-repeat;
+    background-size: 45px;
+    background-color: rgb(211, 211, 211);
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+#name-display {
+    font-weight: bold;
+    font-size: 19px;
+}
+
+#label-display {
+    color: #868686;
+    font-size: small;
+}
+
+.rating-and-date {
+    color: #868686;
+    display: flex;
+    font-size: small;
+    position: relative;
+    top: 5px;
+    gap: 7px;
+}
+
+#rating-display {
+    background-color: #FFC32B;
+    color: #FFFFFF;
+    width: 40px;
+    text-align: center;
+    border: #FFC32B 1px solid;
+    border-radius: 5px;
+}
+
+#review-text-display {
+    position: relative;
+    margin-top: 20px;
+    margin-left: 50px;
+    font-size: small;
+}
+
+.upvote-display {
+    background-image: url('../global-assets/header/upvote.png');
+    background-repeat: no-repeat;
+    background-size: 30px;
+    position: relative;
+    left: 10px;
+    height: 30px;
+    width: 48px;
+}
+
+.upvote-container {
+    color: #868686;
+    text-align: center;
+    align-items: center;
+    font-size: small;
+    font-weight: bold;
+}
 
 
 /*********************************************
