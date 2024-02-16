@@ -355,8 +355,7 @@ body {
 footer {
     justify-content: center;
     display: flex;
-    top: 800px;
-    bottom: 0;
+    top: 800;
     right: 0;
     left: 0;
     background-color: #212431;
