@@ -8,6 +8,18 @@ body {
     padding: 0;
 }
 
+.header {
+  font-family: 'Staatliches';
+  position: fixed;
+  z-index: 99;
+  top: 0px;
+  right: 0px;
+  left: 0px;
+  gap: 20em;
+  box-shadow: 0px 0px 51px rgba(0, 0, 0, 0.25);
+  background-color: #FFFFFF;
+}
+
 .container-template {
     width: 100%;
     height: auto;
@@ -153,6 +165,7 @@ body {
 }
 
 .bar-container {
+    margin-top: 75px;
     display: flex;
     background-color: rgba(40, 42, 55, 1);
     font-weight: 800;
