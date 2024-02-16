@@ -26,6 +26,11 @@
     display: flex;
 }
 
+.add-review-window-container-24chicken,
+.add-review-window-container-ateRicas,
+.add-review-window-container-tomo,
+.add-review-window-container-tinuhog,
+.add-review-window-container-hungry-seoul,
 .add-review-container {
     display: flex;
     flex-wrap: wrap;
