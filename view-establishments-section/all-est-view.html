@@ -10,17 +10,7 @@
 
     <body>
 
-    <header class="header">
-        <img src="../global-assets/header/taft-10.png" alt="Taft Logo" class="header-taft-logo">
-        <nav class="header-nav">
-            <a href="#" class="header-button">Home</a>
-            <a href="#" class="header-button">About</a>
-            <a href="#" class="header-button">Contact Us</a> 
-        </nav>
-        <input type="search" class="search-form" placeholder="Search"/>
-        <div class="profile-icon"></div>
-        <div class="header-signout">LOGOUT</div>
-    </header>
+    <!--IMPORT SHANES HEADER-->
 
     <!-- Content -->
     <div class="bar-container container-template">
@@ -30,16 +20,26 @@
             <span class="yellow">BY</span>
         </div>
         
-        <ul class="bar-button-container">
-            <li>
-                <a href="#">Highest Rated</a>
-                <ul class="category-dropdown">
-                    <li><a href="#" class="category-option">Most Popular</a></li>
-                    <li><a href="#" class="category-option">Most Reviews</a></li>
-                    <li><a href="#" class="category-option">Trending</a></li>
-                </ul>
-            </li>
-        </ul>
+
+        <div class="sort-options">
+            <div class="category-dropdown-container">
+                <div class="category-dropdown-title">Highest Rated</div> 
+                <div class="category-options-container">
+                    <p class="category-option">option 1</p>
+                    <p class="category-option">option 2</p>
+                    <p class="category-option">option 3</p>
+                </div>
+            </div>
+
+            <div class="price-range-container">
+                <button class="price-button-outer-left">₱</button>
+                <button class="price-button-inner">₱₱</button>
+                <button class="price-button-inner">₱₱₱</button>
+                <button class="price-button-outer-right">₱₱₱₱</button>
+            </div>
+        </div>
+
+        
     </div>
 
     <div class="est-container">
