@@ -9,7 +9,11 @@
     scroll-behavior: smooth;
 }
 
-.view-window-container {
+.view-window-container-24chicken,
+.view-window-container-ateRicas,
+.view-window-container-tomo,
+.view-window-container-tinuhog,
+.view-window-container-hungry-seoul {
     display: none;
     position: fixed;
     top: 50%;
@@ -22,7 +26,13 @@
     height: 100%;
 }
 
-#viewReviewBtn:target + .view-window-container {
+#viewReviewBtn:target +
+.view-window-container-24chicken {
+    display: flex;
+}
+
+#viewReviewBtn:target +
+.view-window-container-ateRicas {
     display: flex;
 }
 

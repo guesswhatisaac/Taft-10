@@ -443,16 +443,24 @@ ul li {
     justify-content: space-around;
 }
 
-.est-add-review, .est-view-review {
+.est-add-review, 
+.est-view-review-24chicken,
+.est-view-review-ateRicas,
+.est-view-review-tomo,
+.est-view-review-tinuhog,
+.est-view-review-hungry-seoul {
     font-weight: 600;
     font-size: 18px;
     color: rgba(40, 42, 55, 1);
     cursor: pointer;
-    
 }
 
-
-.est-add-review:hover, .est-view-review:hover {
+.est-add-review:hover,
+.est-view-review-24chicken:hover,
+.est-view-review-ateRicas:hover,
+.est-view-review-tomo:hover,
+.est-view-review-tinuhog:hover,
+.est-view-review-hungry-seoul:hover {
     color: red;
 }
 

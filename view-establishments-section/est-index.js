@@ -82,14 +82,25 @@ document.querySelector('.review-window-container .close-button').addEventListene
     document.getElementById('reviewWindow').style.display = 'none';
 });
 
-document.querySelectorAll('.est-view-review').forEach(function(button) {
+document.querySelectorAll('.est-view-review-24chicken').forEach(function(button) {
 
     button.addEventListener('click', function () {
-        document.getElementById('view-reviewWindow').style.display = 'flex';
+        document.getElementById('view-reviewWindow-24chicken').style.display = 'flex';
     });
 });
 
-document.querySelector('.view-window-container .close-button').addEventListener('click', function () {
-    document.getElementById('view-reviewWindow').style.display = 'none';
+document.querySelector('.view-window-container-24chicken .close-button').addEventListener('click', function () {
+    document.getElementById('view-reviewWindow-24chicken').style.display = 'none';
+});
+
+document.querySelectorAll('.est-view-review-ateRicas').forEach(function(button) {
+
+    button.addEventListener('click', function () {
+        document.getElementById('view-reviewWindow-ateRicas').style.display = 'flex';
+    });
+});
+
+document.querySelector('.view-window-container-ateRicas .close-button').addEventListener('click', function () {
+    document.getElementById('view-reviewWindow-ateRicas').style.display = 'none';
 });
 
