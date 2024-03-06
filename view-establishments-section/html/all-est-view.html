@@ -2,22 +2,23 @@
 
 <html>
     <head>
-        <script src="../js/est-index.js"></script>;
+        <script src="../js/est-index.js"></script>
         <link rel="stylesheet" href="../../base-index.css">
         <link rel="stylesheet" href="../css/est-index.css">
         <link rel="stylesheet" href="../css/add-review.css">
         <link rel="stylesheet" href="../css/view-review.css">
-        <title>All Est. View</title>
+        
+        <title> All Est. View </title>
     </head>
 
     <body>
-    <!-- Header -->
+    <!-------------------- HEADER -------------------->
     <header class="header">
         <div class="header-left">
             <img src="../../global-assets/header/taft-10.png" alt="Taft Logo" class="header-taft-logo">
             <nav class="header-nav">
-                <a href="../../home-page-section/home-view-user.html" class="header-button">Home</a>
-                <a href="../../home-page-section/home-view-user.html#about" class="header-button">About</a>
+                <a href="../../home-page-section/html/home-view-user.html" class="header-button"> Home </a>
+                <a href="../../home-page-section/html/home-view-user.html#about" class="header-button"> About </a>
                 <a href="#contact" class="header-button">Contact</a>
             </nav>
         </div>
@@ -27,10 +28,11 @@
                 <input type="search" class="search-form" placeholder="Search Establishment"/>
             </div>
             <div class="profile-icon"></div>
-            <a href="../../home-page-section/home-view.html" class="header-signout">LOG OUT</a>
+            <a href="../../home-page-section/html/home-view.html" class="header-signout">LOG OUT</a>
         </div>
     </header>
 
+    <!-------------------- BAR CONTAINER -------------------->
     <div class="bar-container container-template">
         <div class="bar-title">
             <span class="white">SORT</span>
@@ -48,11 +50,8 @@
                     <p class="category-option" onclick="changeText(this)">Most Reviewed</p>
                     <p class="category-option" onclick="changeText(this)">Highest Rated</p>
                 </div>
-
-            
             </div>
             
-
             <div class="price-range-container">
                 <button class="price-button-outer-left">₱</button>
                 <button class="price-button-inner">₱₱</button>
@@ -62,180 +61,26 @@
         </div>
     </div>
 
+
+    <!-------------------- TAGS -------------------->
     <div class="tags-container container-template">
         <div class="bar-title">Tags:</div>
-        
         <div class="tagInput">
             <form id="tagForm">
                 <div class="input-wrap">
                     <input type="text" placeholder="Add a tag..." id="tag-input" maxlength="25" autocomplete="off"/>
                 </div>
             </form>
-
         </div>
-
-        <div class="tags"></div>
-
+        <div class="tags"> </div>
     </div>
 
-    <div class="est-container">
 
-        <div class="est-content">
-            <img src="../assets/est/content-cover/24Chicken.png" class="est-cover">
-            
-            <div class="est-title-container">
-                <div class="est-title">24 Chicken</div>
-                <div class="est-rating-container">
-                    <span class="est-rating">4.9</span>
-                    <img src="../assets/est/content-icons/rating-icon.png" alt="Rating Icon" class="est-rating-icon">
-                </div>
-            </div>
-    
-            <div class="est-subtitle-container">
-                <div class="est-price bold">₱₱</div>
-                <div class="est-price">₱₱</div>
-                &nbsp; • &nbsp;
-                <span class="food-tag">Filipino</span>
-                <span class="food-tag">Chicken</span>
-            </div>
-            
-            <div class="est-description-container">
-                <img src="../assets/est/content-icons/review-icon.png" alt="Review Icon" class="est-review-icon">
-                <div class="est-description">“If you're on the hunt for a chicken experience that transcends the ordinary, look no further than 24 Chicken”</div>
-            </div>
+    <!-------------------- ESTABLISHMENTS CONTENT -------------------->
+    <div class="est-container"> </div>
 
-            <div class="est-review-section">
-                <div class="est-add-review addReviewBtn">Add Review</div>
-                <div class="est-view-review-24chicken addReviewBtn">View Review</div>
-            </div>
-        </div>
-        
-        <div class="est-content">
-            <img src="../assets/est/content-cover/AteRicasBacsilog.png" class="est-cover">
-            
-            <div class="est-title-container">
-                <div class="est-title">Ate Rica's Bacsilog</div>
-                <div class="est-rating-container">
-                    <span class="est-rating">4.9</span>
-                    <img src="../assets/est/content-icons/rating-icon.png" alt="Rating Icon" class="est-rating-icon">
-                </div>
-            </div>
-    
-            <div class="est-subtitle-container">
-                <div class="est-price bold">₱</div>
-                <div class="est-price">₱₱₱</div>
-                &nbsp; • &nbsp;
-                <span class="food-tag">Filipino</span>
-                <span class="food-tag">Rice Meal</span>
-            </div>
-            
-            <div class="est-description-container">
-                <img src="../assets/est/content-icons/review-icon.png" alt="Review Icon" class="est-review-icon">
-                <div class="est-description">“Ate Rica's Bacsilog lives up to its "Sauce Sarap" promise! Delicious, affordable Filipino comfort food with generous portions and...”</div>
-            </div>
 
-            <div class="est-review-section">
-                <div class="est-add-review addReviewBtn">Add Review</div>
-                <div class="est-view-review-ateRicas viewReviewBtn">View Review</div>
-            </div>
-        </div>
-        
-        <div class="est-content">
-            <img src="../assets/est/content-cover/TomoCoffee.png" class="est-cover">
-            
-            <div class="est-title-container">
-                <div class="est-title">Tomo Coffee</div>
-                <div class="est-rating-container">
-                    <span class="est-rating">4.7</span>
-                    <img src="../assets/est/content-icons/rating-icon.png" alt="Rating Icon" class="est-rating-icon">
-                </div>
-            </div>
-    
-            <div class="est-subtitle-container">
-                <div class="est-price bold">₱₱</div>
-                <div class="est-price">₱₱</div>
-                &nbsp; • &nbsp;
-                <span class="food-tag">Drinks</span>
-            </div>
-            
-            <div class="est-description-container">
-                <img src="../assets/est/content-icons/review-icon.png" alt="Review Icon" class="est-review-icon">
-                <div class="est-description">"Tucked away in a vibrant student district, Tomo Coffee is a haven for caffeine-craving scholars. I love it so so much!"</div>
-            </div>
-
-            <div class="est-review-section">
-                <div class="est-add-review addReviewBtn">Add Review</div>
-                <div class="est-view-review-tomo viewReviewBtn">View Review</div>
-            </div>
-        </div>
-
-        <div class="est-content">
-            <img src="../assets/est/content-cover/TinuhogNiBenny.png" class="est-cover">
-            
-            <div class="est-title-container">
-                <div class="est-title">Tinuhog ni Benny</div>
-                <div class="est-rating-container">
-                    <span class="est-rating">5.0</span>
-                    <img src="../assets/est/content-icons/rating-icon.png" alt="Rating Icon" class="est-rating-icon">
-                </div>
-            </div>
-    
-            <div class="est-subtitle-container">
-                <div class="est-price bold">₱</div>
-                <div class="est-price">₱₱₱</div>
-                &nbsp; • &nbsp;
-                <span class="food-tag">Filipino</span>
-                <span class="food-tag">Rice Meal</span>
-            </div>
-            
-            <div class="est-description-container">
-                <img src="../assets/est/content-icons/review-icon.png" alt="Review Icon" class="est-review-icon">
-                <div class="est-description">
-                    “
-                    Tinuhog ni Benny is a haven for budget-friendly, delicious Filipino comfort food. The highlight is undoubtedly their namesake "tinuhog"...
-                    ”</div>
-            </div>
-
-            <div class="est-review-section">
-                <div class="est-add-review addReviewBtn">Add Review</div>
-                <div class="est-view-review-tinuhog viewReviewBtn">View Review</div>
-            </div>
-        </div>
-
-        <div class="est-content">
-            <img src="../assets/est/content-cover/HungrySeoul.png" class="est-cover">
-            
-            <div class="est-title-container">
-                <div class="est-title">Hungry Seoul</div>
-                <div class="est-rating-container">
-                    <span class="est-rating">4.9</span>
-                    <img src="../assets/est/content-icons/rating-icon.png" alt="Rating Icon" class="est-rating-icon">
-                </div>
-            </div>
-    
-            <div class="est-subtitle-container">
-                <div class="est-price bold">₱₱</div>
-                <div class="est-price">₱₱</div>
-                &nbsp; • &nbsp;
-                <span class="food-tag">Korean</span>
-                <span class="food-tag">Rice Meal</span>
-            </div>
-            
-            <div class="est-description-container">
-                <img src="../assets/est/content-icons/review-icon.png" alt="Review Icon" class="est-review-icon">
-                <div class="est-description">“
-                    If you're craving a taste of Korea in Manila, Hungry Seoul is definitely worth a visit. This casual restaurant...
-                    ”</div>
-            </div>
-
-            <div class="est-review-section">
-                <div class="est-add-review addReviewBtn">Add Review</div>
-                <div class="est-view-review-hungry-seoul viewReviewBtn">View Review</div>
-            </div>
-        </div>
-
-    </div>
-
+    <!-------------------- ADD ESTABLISHMENT REVIEW -------------------->
     <div id="reviewWindow" class="review-window-container">
         <div class="add-review-container"> 
             <img src="../assets/est/content-main/24-Chicken.jpg" class="main-photo">
@@ -312,6 +157,8 @@
         </div>
     </div>
 
+
+    <!-------------------- VIEW ESTABLISHMENT'S REVIEWS -------------------->
     <div id="view-reviewWindow-24chicken" class="view-window-container-24chicken">
         <div class="view-review-container"> 
             <img src="../assets/est/content-main/24-Chicken.jpg" alt="24 Chicken" class="main-photo"></img>
@@ -475,7 +322,7 @@
 
     <div id="view-reviewWindow-ateRicas" class="view-window-container-ateRicas">
         <div class="view-review-container"> 
-            <img src="../assets/est/content-main/ate-ricas-bacsilog.jpeg" alt="Ate Rica's Bacsilog" class="main-photo">
+            <img src="../assets/est/content-main/ate-ricas-bacsilog.jpg" alt="Ate Rica's Bacsilog" class="main-photo">
 
             <div class="view-right-side">
                 <div class="close-button">
@@ -796,7 +643,7 @@
 
     <div id="view-reviewWindow-tinuhog" class="view-window-container-tinuhog">
         <div class="view-review-container"> 
-            <img src="../assets/est/content-main/tinuhog-benny.jpg" alt="Tinuhog ni Benny" class="main-photo">
+            <img src="../assets/est/content-main/tinuhog-ni-benny.jpg" alt="Tinuhog ni Benny" class="main-photo">
 
             <div class="view-right-side">
                 <div class="close-button">
@@ -1121,7 +968,6 @@
         </div>   
     </div>
 
-    
     <!-------------------- FOOTER -------------------->
     <footer id="contact">
         <div class="footer-follow">

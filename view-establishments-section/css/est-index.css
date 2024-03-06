@@ -5,13 +5,39 @@
   transition: all 0.3s ease;
 }
 
-/* Global Styles */
-body {
-    background-color: rgba(255, 195, 43, 1);
-    margin: 0;
-    padding: 0;
+::-webkit-scrollbar {
+  width: 10px;
+}
+  
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
 }
 
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #5d5c5c;
+}
+
+body {
+  animation: transitionIn 0.75s;
+  background-color: rgba(255, 195, 43, 1);
+    margin: 0;
+    padding: 0;
+    animation: transitionIn 0.75s;
+}
+
+@keyframes transitionIn {
+  from {
+      opacity: 0; 
+  }
+
+  to {
+      opacity: 1;
+  }
+}
 
 .header {
   font-family: 'Staatliches';
@@ -796,7 +822,7 @@ footer {
 }
 
 #facebook {
-  background: url('../../home-page-section/images/socmed_sprites.png') -33px -0px;
+  background: url('../../home-page-section/assets/socmed_sprites.png') -33px -0px;
   background-size: 100px;
   display: inline-block;
   width: 30px; 
@@ -805,7 +831,7 @@ footer {
 }
 
 #instagram {
-  background: url('../../home-page-section/images/socmed_sprites.png') 0px 0px;
+  background: url('../../home-page-section/assets/socmed_sprites.png') 0px 0px;
   background-size: 104px;
   display: inline-block;
   width: 33px; 
@@ -814,7 +840,7 @@ footer {
 }
 
 #twitter {
-  background: url('../../home-page-section/images/socmed_sprites.png') -3px 34px;
+  background: url('../../home-page-section/assets/socmed_sprites.png') -3px 34px;
   background-size: 104px;
   display: inline-block;
   width: 30px; 
@@ -823,7 +849,7 @@ footer {
 }
 
 #threads {
-  background: url('../../home-page-section/images/socmed_sprites.png') 31px -1px;
+  background: url('../../home-page-section/assets/socmed_sprites.png') 31px -1px;
   background-size: 104px;
   display: inline-block;
   width: 30px; 
@@ -832,7 +858,7 @@ footer {
 }
 
 #youtube {
-  background: url('../../home-page-section/images/socmed_sprites.png') 66px 34px;
+  background: url('../../home-page-section/assets/socmed_sprites.png') 66px 34px;
   background-size: 104px;
   display: inline-block;
   width: 33px; 
@@ -842,7 +868,7 @@ footer {
 
 #facebook:hover {
   filter: opacity(80%);
-  background: url('../../home-page-section/images/socmed_sprites.png') -33px -0px;
+  background: url('../../home-page-section/assets/socmed_sprites.png') -33px -0px;
   background-size: 100px;
   display: inline-block;
   width: 30px; 
@@ -852,7 +878,7 @@ footer {
 
 #instagram:hover {
   filter: opacity(80%);
-  background: url('../../home-page-section/images/socmed_sprites.png') 0px 0px;
+  background: url('../../home-page-section/assets/socmed_sprites.png') 0px 0px;
   background-size: 104px;
   display: inline-block;
   width: 33px; 
@@ -862,7 +888,7 @@ footer {
 
 #twitter:hover {
   filter: opacity(80%);
-  background: url('../../home-page-section/images/socmed_sprites.png') -3px 34px;
+  background: url('../../home-page-section/assets/socmed_sprites.png') -3px 34px;
   background-size: 104px;
   display: inline-block;
   width: 30px; 
@@ -872,7 +898,7 @@ footer {
 
 #threads:hover {
   filter: opacity(80%);
-  background: url('../../home-page-section/images/socmed_sprites.png') 31px -1px;
+  background: url('../../home-page-section/assets/socmed_sprites.png') 31px -1px;
   background-size: 104px;
   display: inline-block;
   width: 30px; 
@@ -882,7 +908,7 @@ footer {
 
 #youtube:hover {
   filter: opacity(80%);
-  background: url('../../home-page-section/images/socmed_sprites.png') 66px 34px;
+  background: url('../../home-page-section/assets/socmed_sprites.png') 66px 34px;
   background-size: 104px;
   display: inline-block;
   width: 33px; 
