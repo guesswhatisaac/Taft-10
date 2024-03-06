@@ -3,91 +3,59 @@
 <html>
 
     <head>
-        <link rel="stylesheet" href="../base-index.css">
-        <link rel="stylesheet" href="est-index.css">
-        <link rel="stylesheet" href="add-review.css">
-        <link rel="stylesheet" href="view-review.css">
-        <title>All Est. View</title>
+        <link rel="stylesheet" href="../../base-index.css">
+        <link rel="stylesheet" href="../../base-index.css">
+        <link rel="stylesheet" href="../css/est-index.css">
+        <link rel="stylesheet" href="../css/add-review.css">
+        <link rel="stylesheet" href="../css/view-review.css">
+        <title>Taft Pick View</title>
     </head>
 
     <body>
-    <!-- Header -->
+
     <header class="header">
         <div class="header-left">
-            <img src="../global-assets/header/taft-10.png" alt="Taft Logo" class="header-taft-logo">
+            <img src="../../global-assets/header/taft-10.png" alt="Taft Logo" class="header-taft-logo">
             <nav class="header-nav">
-                <a href="../home-page-section/home-view-user.html" class="header-button">Home</a>
-                <a href="../home-page-section/home-view-user.html#about" class="header-button">About</a>
+                <a href="../../home-page-section/home-view-user.html" class="header-button">Home</a>
+                <a href="../../home-page-section/home-view-user.html#about" class="header-button">About</a>
                 <a href="#contact" class="header-button">Contact</a>
             </nav>
         </div>
+        
         <div class="header-right">
             <div class="search-bar">
-                <img src="../global-assets/header/search-icon.png" class="search-icon" alt="search icon"/>
+                <img src="../../global-assets/header/search-icon.png" class="search-icon" alt="search icon"/>
                 <input type="search" class="search-form" placeholder="Search Establishment"/>
             </div>
             <div class="profile-icon"></div>
-            <a href="../home-page-section/home-view.html" class="header-signout">LOG OUT</a>
+            <a href="../../home-page-section/home-view.html" class="header-signout">LOG OUT</a>
         </div>
     </header>
 
     <div class="bar-container container-template">
         <div class="bar-title">
-            <span class="white">SORT</span>
-            &nbsp;
-            <span class="yellow">BY</span>
-        </div>
-        
-        <div class="sort-options">
-            <div class="category-dropdown-container">
-                <div class="category-dropdown-title">
-                    Highest Rated
-                </div> 
-                <div class="category-options-container">
-                    <p class="category-option" onclick="changeText(this)">Most Popular</p>
-                    <p class="category-option" onclick="changeText(this)">Most Reviewed</p>
-                    <p class="category-option" onclick="changeText(this)">Highest Rated</p>
-                </div>
-
-            
-            </div>
-            
-
-            <div class="price-range-container">
-                <button class="price-button-outer-left">₱</button>
-                <button class="price-button-inner">₱₱</button>
-                <button class="price-button-inner">₱₱₱</button>
-                <button class="price-button-outer-right">₱₱₱₱</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="tags-container container-template">
-        <div class="bar-title">Tags:</div>
-        
-        <div class="tagInput">
-            <form id="tagForm">
-                <div class="input-wrap">
-                    <input type="text" placeholder="Add a tag..." id="tag-input" maxlength="25" autocomplete="off"/>
-                </div>
-            </form>
-
+            <span class="yellow">"</span>
+            <span class="white">TAFT 10</span>
+            <span class="yellow">" PICKS!</span>
         </div>
 
-        <div class="tags"></div>
+        <div class="view-all-container">
+            <a href="all-est-view.html" class="view-all-title">All Establishments</a>
+        </div>
 
-    </div>
-
+    </div> 
+    
     <div class="est-container">
 
         <div class="est-content">
-            <img src="assets/est/content-cover/24Chicken.png" class="est-cover">
+            <img src="../assets/est/content-cover/24Chicken.png" class="est-cover">
             
             <div class="est-title-container">
                 <div class="est-title">24 Chicken</div>
                 <div class="est-rating-container">
                     <span class="est-rating">4.9</span>
-                    <img src="assets/est/content-icons/rating-icon.png" alt="Rating Icon" class="est-rating-icon">
+                    <img src="../assets/est/content-icons/rating-icon.png" alt="Rating Icon" class="est-rating-icon">
                 </div>
             </div>
     
@@ -100,7 +68,7 @@
             </div>
             
             <div class="est-description-container">
-                <img src="assets/est/content-icons/review-icon.png" alt="Review Icon" class="est-review-icon">
+                <img src="../assets/est/content-icons/review-icon.png" alt="Review Icon" class="est-review-icon">
                 <div class="est-description">“If you're on the hunt for a chicken experience that transcends the ordinary, look no further than 24 Chicken”</div>
             </div>
 
@@ -111,13 +79,13 @@
         </div>
         
         <div class="est-content">
-            <img src="assets/est/content-cover/AteRicasBacsilog.png" class="est-cover">
+            <img src="../assets/est/content-cover/AteRicasBacsilog.png" class="est-cover">
             
             <div class="est-title-container">
                 <div class="est-title">Ate Rica's Bacsilog</div>
                 <div class="est-rating-container">
                     <span class="est-rating">4.9</span>
-                    <img src="assets/est/content-icons/rating-icon.png" alt="Rating Icon" class="est-rating-icon">
+                    <img src="../assets/est/content-icons/rating-icon.png" alt="Rating Icon" class="est-rating-icon">
                 </div>
             </div>
     
@@ -130,7 +98,7 @@
             </div>
             
             <div class="est-description-container">
-                <img src="assets/est/content-icons/review-icon.png" alt="Review Icon" class="est-review-icon">
+                <img src="../assets/est/content-icons/review-icon.png" alt="Review Icon" class="est-review-icon">
                 <div class="est-description">“Ate Rica's Bacsilog lives up to its "Sauce Sarap" promise! Delicious, affordable Filipino comfort food with generous portions and...”</div>
             </div>
 
@@ -141,13 +109,13 @@
         </div>
         
         <div class="est-content">
-            <img src="assets/est/content-cover/TomoCoffee.png" class="est-cover">
+            <img src="../assets/est/content-cover/TomoCoffee.png" class="est-cover">
             
             <div class="est-title-container">
                 <div class="est-title">Tomo Coffee</div>
                 <div class="est-rating-container">
                     <span class="est-rating">4.7</span>
-                    <img src="assets/est/content-icons/rating-icon.png" alt="Rating Icon" class="est-rating-icon">
+                    <img src="../assets/est/content-icons/rating-icon.png" alt="Rating Icon" class="est-rating-icon">
                 </div>
             </div>
     
@@ -159,7 +127,7 @@
             </div>
             
             <div class="est-description-container">
-                <img src="assets/est/content-icons/review-icon.png" alt="Review Icon" class="est-review-icon">
+                <img src="../assets/est/content-icons/review-icon.png" alt="Review Icon" class="est-review-icon">
                 <div class="est-description">"Tucked away in a vibrant student district, Tomo Coffee is a haven for caffeine-craving scholars. I love it so so much!"</div>
             </div>
 
@@ -170,13 +138,13 @@
         </div>
 
         <div class="est-content">
-            <img src="assets/est/content-cover/TinuhogNiBenny.png" class="est-cover">
+            <img src="../assets/est/content-cover/TinuhogNiBenny.png" class="est-cover">
             
             <div class="est-title-container">
                 <div class="est-title">Tinuhog ni Benny</div>
                 <div class="est-rating-container">
                     <span class="est-rating">5.0</span>
-                    <img src="assets/est/content-icons/rating-icon.png" alt="Rating Icon" class="est-rating-icon">
+                    <img src="../assets/est/content-icons/rating-icon.png" alt="Rating Icon" class="est-rating-icon">
                 </div>
             </div>
     
@@ -189,7 +157,7 @@
             </div>
             
             <div class="est-description-container">
-                <img src="assets/est/content-icons/review-icon.png" alt="Review Icon" class="est-review-icon">
+                <img src="../assets/est/content-icons/review-icon.png" alt="Review Icon" class="est-review-icon">
                 <div class="est-description">
                     “
                     Tinuhog ni Benny is a haven for budget-friendly, delicious Filipino comfort food. The highlight is undoubtedly their namesake "tinuhog"...
@@ -203,13 +171,13 @@
         </div>
 
         <div class="est-content">
-            <img src="assets/est/content-cover/HungrySeoul.png" class="est-cover">
+            <img src="../assets/est/content-cover/HungrySeoul.png" class="est-cover">
             
             <div class="est-title-container">
                 <div class="est-title">Hungry Seoul</div>
                 <div class="est-rating-container">
                     <span class="est-rating">4.9</span>
-                    <img src="assets/est/content-icons/rating-icon.png" alt="Rating Icon" class="est-rating-icon">
+                    <img src="../assets/est/content-icons/rating-icon.png" alt="Rating Icon" class="est-rating-icon">
                 </div>
             </div>
     
@@ -222,7 +190,7 @@
             </div>
             
             <div class="est-description-container">
-                <img src="assets/est/content-icons/review-icon.png" alt="Review Icon" class="est-review-icon">
+                <img src="../assets/est/content-icons/review-icon.png" alt="Review Icon" class="est-review-icon">
                 <div class="est-description">“
                     If you're craving a taste of Korea in Manila, Hungry Seoul is definitely worth a visit. This casual restaurant...
                     ”</div>
@@ -238,18 +206,18 @@
 
     <div id="reviewWindow" class="review-window-container">
         <div class="add-review-container"> 
-            <img src="../view-establishments-section/assets/est/content-main/24-Chicken.jpg" class="main-photo">
+            <img src="../assets/est/content-main/24-Chicken.jpg" class="main-photo">
 
             <div class="right-side">
                 <div class="close-button">
-                    <img src="../view-establishments-section/assets/est/content-icons/close.png" alt="Close" class="close-icon">
+                    <img src="../assets/est/content-icons/close.png" alt="Close" class="close-icon">
                 </div>
 
                 <div class="est-title-header">
                     <span id="title"> 24 Chicken </span>
                     <div class="rating-container">
                         <span id="rating"> 4.9 </span>
-                        <img src="../view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating">
+                        <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating">
                     </div>
                 </div>
 
@@ -314,18 +282,18 @@
 
     <div id="view-reviewWindow-24chicken" class="view-window-container-24chicken">
         <div class="view-review-container"> 
-            <img src="../view-establishments-section/assets/est/content-main/24-Chicken.jpg" alt="24 Chicken" class="main-photo"></img>
+            <img src="../assets/est/content-main/24-Chicken.jpg" alt="24 Chicken" class="main-photo"></img>
 
             <div class="view-right-side">
                 <div class="close-button">
-                    <img src="../view-establishments-section/assets/est/content-icons/close.png" alt="Close" class="close-icon">
+                    <img src="../assets/est/content-icons/close.png" alt="Close" class="close-icon">
                 </div>
 
                 <div class="view-title-header">
                     <span id="title"> 24 Chicken </span>
                     <div class="rating-container">
                         <span id="rating"> 4.9 </span>
-                        <img src="../view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating">
+                        <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating">
                     </div>
                 </div>
 
@@ -346,8 +314,8 @@
                 <div class="view-review-placeholder">
                     <div class="view-review">
                         <div class="user-info">
-                            <a href="../view-profile-section/view-user-alexis.html">
-                                <img src="../view-establishments-section/assets/est/user-profile/alexis-arcega.jfif" class="user-icon">
+                            <a href="../../view-profile-section/view-user-alexis.html">
+                                <img src="../assets/est/user-profile/alexis-arcega.jfif" class="user-icon">
                             </a>
                             <div class="user-text">
                                 <span class="username">Alexis Arcega</span>
@@ -355,14 +323,14 @@
                             </div>
     
                             <div class="upvote-container">
-                                <img src="../view-establishments-section/assets/est/content-icons/thumbs-up.png" class="upvote">
+                                <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
                                 <span> 32 </span>
                             </div>
     
                             <div class="user-info-sub">
                                 <div class="user-rating">
                                     <span class="rating-user"> 5.0 </span>
-                                    <img src="../view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
+                                    <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
                                 </div>
                                 <span class="dot1"> • </span>
                                 <span class="date"> January 20, 2024 </span>
@@ -376,8 +344,8 @@
 
                     <div class="view-review">
                         <div class="user-info">
-                            <a href="../view-profile-section/view-user-kathleen.html">
-                                <img src="../view-establishments-section/assets/est/user-profile/kathleen-cruz.png" class="user-icon">
+                            <a href="../../view-profile-section/view-user-kathleen.html">
+                                <img src="../assets/est/user-profile/kathleen-cruz.png" class="user-icon">
                             </a>
                             
                             <div class="user-text">
@@ -386,14 +354,14 @@
                             </div>
     
                             <div class="upvote-container">
-                                <img src="../view-establishments-section/assets/est/content-icons/thumbs-up.png" class="upvote">
+                                <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
                                 <span> 30 </span>
                             </div>
     
                             <div class="user-info-sub">
                                 <div class="user-rating">
                                     <span class="rating-user"> 4.0 </span>
-                                    <img src="../view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
+                                    <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
                                 </div>
                                 <span class="dot1"> • </span>
                                 <span class="date"> January 20, 2024 </span>
@@ -408,8 +376,8 @@
 
                     <div class="view-review">
                         <div class="user-info">
-                            <a href="../view-profile-section/view-user-nathan.html">
-                                <img src="../view-establishments-section/assets/est/user-profile/nathan-roman.jfif" class="user-icon">
+                            <a href="../../view-profile-section/view-user-nathan.html">
+                                <img src="../assets/est/user-profile/nathan-roman.jfif" class="user-icon">
                             </a>
                             <div class="user-text">
                                 <span class="username">Nathan Roman</span>
@@ -417,14 +385,14 @@
                             </div>
     
                             <div class="upvote-container">
-                                <img src="../view-establishments-section/assets/est/content-icons/thumbs-up.png" class="upvote">
+                                <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
                                 <span> 40 </span>
                             </div>
     
                             <div class="user-info-sub">
                                 <div class="user-rating">
                                     <span class="rating-user"> 4.0 </span>
-                                    <img src="../view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
+                                    <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
                                 </div>
                                 <span class="dot1"> • </span>
                                 <span class="date"> February 14, 2024 </span>
@@ -440,8 +408,8 @@
                     
                     <div class="view-review">
                         <div class="user-info">
-                            <a href="../view-profile-section/view-user-shania.html">
-                                <img src="../view-establishments-section/assets/est/user-profile/shane-cloma.jfif" class="user-icon">
+                            <a href="../../view-profile-section/view-user-shania.html">
+                                <img src="../assets/est/user-profile/shane-cloma.jfif" class="user-icon">
                             </a>
                             <div class="user-text">
                                 <span class="username">Shane Cloma</span>
@@ -449,14 +417,14 @@
                             </div>
     
                             <div class="upvote-container">
-                                <img src="../view-establishments-section/assets/est/content-icons/thumbs-up.png" class="upvote">
+                                <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
                                 <span> 15 </span>
                             </div>
     
                             <div class="user-info-sub">
                                 <div class="user-rating">
                                     <span class="rating-user"> 5.0 </span>
-                                    <img src="../view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
+                                    <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
                                 </div>
                                 <span class="dot1"> • </span>
                                 <span class="date"> February 15, 2024 </span>
@@ -475,18 +443,18 @@
 
     <div id="view-reviewWindow-ateRicas" class="view-window-container-ateRicas">
         <div class="view-review-container"> 
-            <img src="../view-establishments-section/assets/est/content-main/ate-ricas-bacsilog.jpeg" alt="Ate Rica's Bacsilog" class="main-photo">
+            <img src="../assets/est/content-main/ate-ricas-bacsilog.jpeg" alt="Ate Rica's Bacsilog" class="main-photo">
 
             <div class="view-right-side">
                 <div class="close-button">
-                    <img src="../view-establishments-section/assets/est/content-icons/close.png" alt="Close" class="close-icon">
+                    <img src="../assets/est/content-icons/close.png" alt="Close" class="close-icon">
                 </div>
 
                 <div class="view-title-header">
                     <span id="title"> Ate Rica's Bacsilog </span>
                     <div class="rating-container">
                         <span id="rating"> 4.9 </span>
-                        <img src="../view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating">
+                        <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating">
                     </div>
                 </div>
 
@@ -507,8 +475,8 @@
                 <div class="view-review-placeholder">
                     <div class="view-review">
                         <div class="user-info">
-                            <a href="../view-profile-section/view-user-alexis.html">
-                                <img src="../view-establishments-section/assets/est/user-profile/alexis-arcega.jfif" class="user-icon">
+                            <a href="../../view-profile-section/view-user-alexis.html">
+                                <img src="../assets/est/user-profile/alexis-arcega.jfif" class="user-icon">
                             </a>
                             <div class="user-text">
                                 <span class="username">Alexis Arcega</span>
@@ -516,14 +484,14 @@
                             </div>
     
                             <div class="upvote-container">
-                                <img src="../view-establishments-section/assets/est/content-icons/thumbs-up.png" class="upvote">
+                                <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
                                 <span> 3 </span>
                             </div>
     
                             <div class="user-info-sub">
                                 <div class="user-rating">
                                     <span class="rating-user"> 5.0 </span>
-                                    <img src="../view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
+                                    <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
                                 </div>
                                 <span class="dot1"> • </span>
                                 <span class="date"> January 20, 2024 </span>
@@ -538,8 +506,8 @@
 
                     <div class="view-review">
                         <div class="user-info">
-                            <a href="../view-profile-section/view-user-kathleen.html">
-                                <img src="../view-establishments-section/assets/est/user-profile/kathleen-cruz.png" class="user-icon">
+                            <a href="../../view-profile-section/view-user-kathleen.html">
+                                <img src="../assets/est/user-profile/kathleen-cruz.png" class="user-icon">
                             </a>
                             
                             <div class="user-text">
@@ -548,14 +516,14 @@
                             </div>
     
                             <div class="upvote-container">
-                                <img src="../view-establishments-section/assets/est/content-icons/thumbs-up.png" class="upvote">
+                                <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
                                 <span> 27 </span>
                             </div>
     
                             <div class="user-info-sub">
                                 <div class="user-rating">
                                     <span class="rating-user"> 5.0 </span>
-                                    <img src="../view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
+                                    <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
                                 </div>
                                 <span class="dot1"> • </span>
                                 <span class="date"> January 20, 2024 </span>
@@ -569,8 +537,8 @@
 
                     <div class="view-review">
                         <div class="user-info">
-                            <a href="../view-profile-section/view-user-nathan.html">
-                                <img src="../view-establishments-section/assets/est/user-profile/nathan-roman.jfif" class="user-icon">
+                            <a href="../../view-profile-section/view-user-nathan.html">
+                                <img src="../assets/est/user-profile/nathan-roman.jfif" class="user-icon">
                             </a>
                             <div class="user-text">
                                 <span class="username">Nathan Roman</span>
@@ -578,14 +546,14 @@
                             </div>
     
                             <div class="upvote-container">
-                                <img src="../view-establishments-section/assets/est/content-icons/thumbs-up.png" class="upvote">
+                                <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
                                 <span> 45 </span>
                             </div>
     
                             <div class="user-info-sub">
                                 <div class="user-rating">
                                     <span class="rating-user"> 4.0 </span>
-                                    <img src="../view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
+                                    <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
                                 </div>
                                 <span class="dot1"> • </span>
                                 <span class="date"> February 14, 2024 </span>
@@ -601,8 +569,8 @@
                     
                     <div class="view-review">
                         <div class="user-info">
-                            <a href="../view-profile-section/view-user-shania.html">
-                                <img src="../view-establishments-section/assets/est/user-profile/shane-cloma.jfif" class="user-icon">
+                            <a href="../../view-profile-section/view-user-shania.html">
+                                <img src="../assets/est/user-profile/shane-cloma.jfif" class="user-icon">
                             </a>
                             <div class="user-text">
                                 <span class="username">Shane Cloma</span>
@@ -610,14 +578,14 @@
                             </div>
     
                             <div class="upvote-container">
-                                <img src="../view-establishments-section/assets/est/content-icons/thumbs-up.png" class="upvote">
+                                <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
                                 <span> 15 </span>
                             </div>
     
                             <div class="user-info-sub">
                                 <div class="user-rating">
                                     <span class="rating-user"> 5.0 </span>
-                                    <img src="../view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
+                                    <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
                                 </div>
                                 <span class="dot1"> • </span>
                                 <span class="date"> February 15, 2024 </span>
@@ -636,18 +604,18 @@
 
     <div id="view-reviewWindow-tomo" class="view-window-container-tomo">
         <div class="view-review-container"> 
-            <img src="../view-establishments-section/assets/est/content-main/tomo-coffee.jpg" alt="Tomo Coffee" class="main-photo">
+            <img src="../assets/est/content-main/tomo-coffee.jpg" alt="Tomo Coffee" class="main-photo">
 
             <div class="view-right-side">
                 <div class="close-button">
-                    <img src="../view-establishments-section/assets/est/content-icons/close.png" alt="Close" class="close-icon">
+                    <img src="../assets/est/content-icons/close.png" alt="Close" class="close-icon">
                 </div>
 
                 <div class="view-title-header">
                     <span id="title"> Tomo Coffee </span>
                     <div class="rating-container">
                         <span id="rating"> 4.7 </span>
-                        <img src="../view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating">
+                        <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating">
                     </div>
                 </div>
 
@@ -668,8 +636,8 @@
                 <div class="view-review-placeholder">
                     <div class="view-review">
                         <div class="user-info">
-                            <a href="../view-profile-section/view-user-alexis.html">
-                                <img src="../view-establishments-section/assets/est/user-profile/alexis-arcega.jfif" class="user-icon">
+                            <a href="../../view-profile-section/view-user-alexis.html">
+                                <img src="../assets/est/user-profile/alexis-arcega.jfif" class="user-icon">
                             </a>
                             <div class="user-text">
                                 <span class="username">Alexis Arcega</span>
@@ -677,7 +645,7 @@
                             </div>
     
                             <div class="upvote-container">
-                                <img src="../view-establishments-section/assets/est/content-icons/thumbs-up.png" class="upvote">
+                                <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
                                 <span> 61 </span>
                             </div>
     
@@ -699,7 +667,7 @@
                     <div class="view-review">
                         <div class="user-info">
                             <a href="../view-profile-section/view-user-kathleen.html">
-                                <img src="../view-establishments-section/assets/est/user-profile/kathleen-cruz.png" class="user-icon">
+                                <img src="../assets/est/user-profile/kathleen-cruz.png" class="user-icon">
                             </a>
                             
                             <div class="user-text">
@@ -708,14 +676,14 @@
                             </div>
     
                             <div class="upvote-container">
-                                <img src="../view-establishments-section/assets/est/content-icons/thumbs-up.png" class="upvote">
+                                <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
                                 <span> 27 </span>
                             </div>
     
                             <div class="user-info-sub">
                                 <div class="user-rating">
                                     <span class="rating-user"> 5.0 </span>
-                                    <img src="../view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
+                                    <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
                                 </div>
                                 <span class="dot1"> • </span>
                                 <span class="date"> January 02, 2024 </span>
@@ -730,8 +698,8 @@
 
                     <div class="view-review">
                         <div class="user-info">
-                            <a href="../view-profile-section/view-user-nathan.html">
-                                <img src="../view-establishments-section/assets/est/user-profile/nathan-roman.jfif" class="user-icon">
+                            <a href="../../view-profile-section/view-user-nathan.html">
+                                <img src="../assets/est/user-profile/nathan-roman.jfif" class="user-icon">
                             </a>
                             <div class="user-text">
                                 <span class="username">Nathan Roman</span>
@@ -739,14 +707,14 @@
                             </div>
     
                             <div class="upvote-container">
-                                <img src="../view-establishments-section/assets/est/content-icons/thumbs-up.png" class="upvote">
+                                <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
                                 <span> 55 </span>
                             </div>
     
                             <div class="user-info-sub">
                                 <div class="user-rating">
                                     <span class="rating-user"> 5.0 </span>
-                                    <img src="../view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
+                                    <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
                                 </div>
                                 <span class="dot1"> • </span>
                                 <span class="date"> February 08, 2024 </span>
@@ -761,8 +729,8 @@
                     
                     <div class="view-review">
                         <div class="user-info">
-                            <a href="../view-profile-section/view-user-shania.html">
-                                <img src="../view-establishments-section/assets/est/user-profile/shane-cloma.jfif" class="user-icon">
+                            <a href="../../view-profile-section/view-user-shania.html">
+                                <img src="../assets/est/user-profile/shane-cloma.jfif" class="user-icon">
                             </a>
                             <div class="user-text">
                                 <span class="username">Shane Cloma</span>
@@ -770,14 +738,14 @@
                             </div>
     
                             <div class="upvote-container">
-                                <img src="../view-establishments-section/assets/est/content-icons/thumbs-up.png" class="upvote">
+                                <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
                                 <span> 30 </span>
                             </div>
     
                             <div class="user-info-sub">
                                 <div class="user-rating">
                                     <span class="rating-user"> 5.0 </span>
-                                    <img src="../view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
+                                    <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
                                 </div>
                                 <span class="dot1"> • </span>
                                 <span class="date"> February 15, 2024 </span>
@@ -796,18 +764,18 @@
 
     <div id="view-reviewWindow-tinuhog" class="view-window-container-tinuhog">
         <div class="view-review-container"> 
-            <img src="../view-establishments-section/assets/est/content-main/tinuhog-benny.jpg" alt="Tinuhog ni Benny" class="main-photo">
+            <img src="../assets/est/content-main/tinuhog-benny.jpg" alt="Tinuhog ni Benny" class="main-photo">
 
             <div class="view-right-side">
                 <div class="close-button">
-                    <img src="../view-establishments-section/assets/est/content-icons/close.png" alt="Close" class="close-icon">
+                    <img src="../assets/est/content-icons/close.png" alt="Close" class="close-icon">
                 </div>
 
                 <div class="view-title-header">
                     <span id="title"> Tinuhog ni Benny </span>
                     <div class="rating-container">
                         <span id="rating"> 5.0 </span>
-                        <img src="../view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating">
+                        <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating">
                     </div>
                 </div>
 
@@ -828,8 +796,8 @@
                 <div class="view-review-placeholder">
                     <div class="view-review">
                         <div class="user-info">
-                            <a href="../view-profile-section/view-user-alexis.html">
-                                <img src="../view-establishments-section/assets/est/user-profile/alexis-arcega.jfif" class="user-icon">
+                            <a href="../../view-profile-section/view-user-alexis.html">
+                                <img src="../assets/est/user-profile/alexis-arcega.jfif" class="user-icon">
                             </a>
                             <div class="user-text">
                                 <span class="username">Alexis Arcega</span>
@@ -837,14 +805,14 @@
                             </div>
     
                             <div class="upvote-container">
-                                <img src="../view-establishments-section/assets/est/content-icons/thumbs-up.png" class="upvote">
+                                <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
                                 <span> 61 </span>
                             </div>
     
                             <div class="user-info-sub">
                                 <div class="user-rating">
                                     <span class="rating-user"> 5.0 </span>
-                                    <img src="../view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
+                                    <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
                                 </div>
                                 <span class="dot1"> • </span>
                                 <span class="date"> January 20, 2024 </span>
@@ -859,8 +827,8 @@
 
                     <div class="view-review">
                         <div class="user-info">
-                            <a href="../view-profile-section/view-user-kathleen.html">
-                                <img src="../view-establishments-section/assets/est/user-profile/kathleen-cruz.png" class="user-icon">
+                            <a href="../../view-profile-section/view-user-kathleen.html">
+                                <img src="../assets/est/user-profile/kathleen-cruz.png" class="user-icon">
                             </a>
                             
                             <div class="user-text">
@@ -869,14 +837,14 @@
                             </div>
     
                             <div class="upvote-container">
-                                <img src="../view-establishments-section/assets/est/content-icons/thumbs-up.png" class="upvote">
+                                <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
                                 <span> 27 </span>
                             </div>
     
                             <div class="user-info-sub">
                                 <div class="user-rating">
                                     <span class="rating-user"> 5.0 </span>
-                                    <img src="../view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
+                                    <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
                                 </div>
                                 <span class="dot1"> • </span>
                                 <span class="date"> January 02, 2024 </span>
@@ -894,8 +862,8 @@
 
                     <div class="view-review">
                         <div class="user-info">
-                            <a href="../view-profile-section/view-user-nathan.html">
-                                <img src="../view-establishments-section/assets/est/user-profile/nathan-roman.jfif" class="user-icon">
+                            <a href="../../view-profile-section/view-user-nathan.html">
+                                <img src="../assets/est/user-profile/nathan-roman.jfif" class="user-icon">
                             </a>
                             <div class="user-text">
                                 <span class="username">Nathan Roman</span>
@@ -903,14 +871,14 @@
                             </div>
     
                             <div class="upvote-container">
-                                <img src="../view-establishments-section/assets/est/content-icons/thumbs-up.png" class="upvote">
+                                <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
                                 <span> 55 </span>
                             </div>
     
                             <div class="user-info-sub">
                                 <div class="user-rating">
                                     <span class="rating-user"> 5.0 </span>
-                                    <img src="../view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
+                                    <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
                                 </div>
                                 <span class="dot1"> • </span>
                                 <span class="date"> February 08, 2024 </span>
@@ -925,8 +893,8 @@
                     
                     <div class="view-review">
                         <div class="user-info">
-                            <a href="../view-profile-section/view-user-shania.html">
-                                <img src="../view-establishments-section/assets/est/user-profile/shane-cloma.jfif" class="user-icon">
+                            <a href="../../view-profile-section/view-user-shania.html">
+                                <img src="../assets/est/user-profile/shane-cloma.jfif" class="user-icon">
                             </a>
                             <div class="user-text">
                                 <span class="username">Shane Cloma</span>
@@ -934,14 +902,14 @@
                             </div>
     
                             <div class="upvote-container">
-                                <img src="../view-establishments-section/assets/est/content-icons/thumbs-up.png" class="upvote">
+                                <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
                                 <span> 30 </span>
                             </div>
     
                             <div class="user-info-sub">
                                 <div class="user-rating">
                                     <span class="rating-user"> 5.0 </span>
-                                    <img src="../view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
+                                    <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
                                 </div>
                                 <span class="dot1"> • </span>
                                 <span class="date"> February 15, 2024 </span>
@@ -960,18 +928,18 @@
 
     <div id="view-reviewWindow-hungry-seoul" class="view-window-container-hungry-seoul">
         <div class="view-review-container"> 
-            <img src="../view-establishments-section/assets/est/content-main/hungry-seoul.jpg" alt="Hungry Seoul" class="main-photo">
+            <img src="../assets/est/content-main/hungry-seoul.jpg" alt="Hungry Seoul" class="main-photo">
 
             <div class="view-right-side">
                 <div class="close-button">
-                    <img src="../view-establishments-section/assets/est/content-icons/close.png" alt="Close" class="close-icon">
+                    <img src="../assets/est/content-icons/close.png" alt="Close" class="close-icon">
                 </div>
 
                 <div class="view-title-header">
                     <span id="title"> Hungry Seoul </span>
                     <div class="rating-container">
                         <span id="rating"> 4.9 </span>
-                        <img src="../view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating">
+                        <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating">
                     </div>
                 </div>
 
@@ -992,8 +960,8 @@
                 <div class="view-review-placeholder">
                     <div class="view-review">
                         <div class="user-info">
-                            <a href="../view-profile-section/view-user-alexis.html">
-                                <img src="../view-establishments-section/assets/est/user-profile/alexis-arcega.jfif" class="user-icon">
+                            <a href="../../view-profile-section/view-user-alexis.html">
+                                <img src="../assets/est/user-profile/alexis-arcega.jfif" class="user-icon">
                             </a>
                             <div class="user-text">
                                 <span class="username">Alexis Arcega</span>
@@ -1001,14 +969,14 @@
                             </div>
     
                             <div class="upvote-container">
-                                <img src="../view-establishments-section/assets/est/content-icons/thumbs-up.png" class="upvote">
+                                <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
                                 <span> 61 </span>
                             </div>
     
                             <div class="user-info-sub">
                                 <div class="user-rating">
                                     <span class="rating-user"> 5.0 </span>
-                                    <img src="../view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
+                                    <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
                                 </div>
                                 <span class="dot1"> • </span>
                                 <span class="date"> January 20, 2024 </span>
@@ -1023,8 +991,8 @@
 
                     <div class="view-review">
                         <div class="user-info">
-                            <a href="../view-profile-section/view-user-kathleen.html">
-                                <img src="../view-establishments-section/assets/est/user-profile/kathleen-cruz.png" class="user-icon">
+                            <a href="../../view-profile-section/view-user-kathleen.html">
+                                <img src="../assets/est/user-profile/kathleen-cruz.png" class="user-icon">
                             </a>
                             
                             <div class="user-text">
@@ -1033,14 +1001,14 @@
                             </div>
     
                             <div class="upvote-container">
-                                <img src="../view-establishments-section/assets/est/content-icons/thumbs-up.png" class="upvote">
+                                <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
                                 <span> 27 </span>
                             </div>
     
                             <div class="user-info-sub">
                                 <div class="user-rating">
                                     <span class="rating-user"> 5.0 </span>
-                                    <img src="../view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
+                                    <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
                                 </div>
                                 <span class="dot1"> • </span>
                                 <span class="date"> January 02, 2024 </span>
@@ -1055,8 +1023,8 @@
 
                     <div class="view-review">
                         <div class="user-info">
-                            <a href="../view-profile-section/view-user-nathan.html">
-                                <img src="../view-establishments-section/assets/est/user-profile/nathan-roman.jfif" class="user-icon">
+                            <a href="../../view-profile-section/view-user-nathan.html">
+                                <img src="../assets/est/user-profile/nathan-roman.jfif" class="user-icon">
                             </a>
                             <div class="user-text">
                                 <span class="username">Nathan Roman</span>
@@ -1064,14 +1032,14 @@
                             </div>
     
                             <div class="upvote-container">
-                                <img src="../view-establishments-section/assets/est/content-icons/thumbs-up.png" class="upvote">
+                                <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
                                 <span> 55 </span>
                             </div>
     
                             <div class="user-info-sub">
                                 <div class="user-rating">
                                     <span class="rating-user"> 5.0 </span>
-                                    <img src="../view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
+                                    <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
                                 </div>
                                 <span class="dot1"> • </span>
                                 <span class="date"> February 08, 2024 </span>
@@ -1086,8 +1054,8 @@
                     
                     <div class="view-review">
                         <div class="user-info">
-                            <a href="../view-profile-section/view-user-shania.html">
-                                <img src="../view-establishments-section/assets/est/user-profile/shane-cloma.jfif" class="user-icon">
+                            <a href="../../view-profile-section/view-user-shania.html">
+                                <img src="../assets/est/user-profile/shane-cloma.jfif" class="user-icon">
                             </a>
                             <div class="user-text">
                                 <span class="username">Shane Cloma</span>
@@ -1095,14 +1063,14 @@
                             </div>
     
                             <div class="upvote-container">
-                                <img src="../view-establishments-section/assets/est/content-icons/thumbs-up.png" class="upvote">
+                                <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
                                 <span> 30 </span>
                             </div>
     
                             <div class="user-info-sub">
                                 <div class="user-rating">
                                     <span class="rating-user"> 5.0 </span>
-                                    <img src="../view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
+                                    <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
                                 </div>
                                 <span class="dot1"> • </span>
                                 <span class="date"> February 15, 2024 </span>
@@ -1121,34 +1089,7 @@
         </div>   
     </div>
 
-    <script src="est-index.js"></script>;
-    
-    <!-------------------- FOOTER -------------------->
-    <footer id="contact">
-        <div class="footer-follow">
-            <span class="footer-text"> Follow Us </span>
-            <ul id="socmed">
-                <a href="https://www.facebook.com/"><li id="facebook"></li></a>
-                <a href="https://www.instagram.com/"><li id="instagram"></li></a>
-                <a href="https://www.twitter.com/"><li id="twitter"></li></a>
-                <a href="https://www.threads.net/"><li id="threads"></li></a>
-                <a href="https://www.youtube.com/"><li id="youtube"></li></a>
-            </ul>
-        </div>
-        <div class="footer-divider"> &nbsp; </div>
-        <div class="footer-contact">
-            <div id="connect">
-                <span class="footer-text"> Connect with Us </span>
-            </div>
-            <div class="contact-container" id="footer-container1">
-                <span class="footer-bold"> taft10@email.com </span>
-                <span class="footer-labels"> Email Address </span>
-            </div><br>
-            <div class="contact-container">
-                <span class="footer-bold"> +63 912 345 6789 </span>
-                <span class="footer-labels"> Contact Number </span>
-            </div>
-        </div>
-    </footer>
+
+
 </body>
 </html>
