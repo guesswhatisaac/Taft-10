@@ -96,7 +96,6 @@ body {
 .star-rating-container {
     display: flex;
     margin-top: 10px;
-    flex-direction: row-reverse; 
 }
 
 .star-rating-container input[type="radio"] {
@@ -107,13 +106,14 @@ body {
     cursor: pointer;
     width: 42px;
     height: 42px;
-    background-image: url('../assets/est/content-icons/star.png'); 
+    background-image: url('../assets/est/content-icons/star.png');
     background-size: cover;
-    margin-left: 5px; 
+    margin-left: 5px;
+    transition: background-image 0.3s ease; 
 }
 
 .star-rating-container label:hover,
-input[type="radio"]:checked ~ label {
+input[type="radio"]:checked + label {
     background-image: url('../assets/est/content-icons/filled-star.png');
 }
 

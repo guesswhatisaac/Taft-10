@@ -196,7 +196,7 @@ body {
 }
 
 .bar-container {
-    margin-top: 64px;
+    margin-top: 80px;
     display: flex;
     background-color: rgba(40, 42, 55, 1);
     font-weight: 800;

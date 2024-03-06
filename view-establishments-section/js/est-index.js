@@ -51,6 +51,19 @@ const establishments = [
     },
   ];
 
+  const Review = function(username, rating, date, content, establishment) {
+            this.username = username;
+
+            /* TODO: LOGIC FOR USERNAME */
+            this.userStatus = "De La Salle University";
+
+            this.rating = rating;
+            this.date = date;
+            this.content = content;
+            this.establishment = establishment;
+  }
+
+const reviews = [];
 
 function changeText(option) {
     var selectedText = option.textContent;
@@ -99,6 +112,79 @@ document.addEventListener('DOMContentLoaded', function() {
             estContainer.innerHTML += estHTML;
         });
     }
+
+    /********************** ADD REVIEW **********************/ 
+    renderReviews();
+    
+    document.querySelector('.submit-button').addEventListener('click', function () {
+
+        /* TODO: LOGIC FOR USERNAME */
+        const username = "User"; 
+        const rating = document.querySelector('input[name="rating"]:checked').value;
+        
+        /* format the date to "month day, year" */ 
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const date = new Date().toLocaleDateString('en-US', options); 
+        
+        const content = document.getElementById('comment').value;
+        const establishment = "24 Chicken"; 
+    
+        const newReview = new Review(username, rating, date, content, establishment);
+        reviews.push(newReview);
+        console.log("array length: " + reviews.length);
+        renderReviews();
+    
+        document.getElementById('comment').value = '';
+        document.querySelector('input[name="rating"]:checked').checked = false;
+        document.getElementById('reviewWindow').style.display = 'none';
+        console.log("IM HERE");
+    });
+
+    function generateReviewHTML(review) {
+        console.log("(inside generate review html function)");
+        return `
+          <div class="view-review">
+            <div class="user-info">
+              <a href="../../view-profile-section/view-user-${review.username.toLowerCase()}.html">
+                <img src="../assets/est/user-profile/shane-cloma.jfif" class="user-icon">
+              </a>
+              <div class="user-text">
+                <span class="username">${review.username}</span>
+                <span class="user-status">${review.userStatus}</span>
+              </div>
+      
+              <div class="upvote-container">
+                <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
+                <span> (temp) </span>
+              </div>
+      
+              <div class="user-info-sub">
+                <div class="user-rating">
+                  <span class="rating-user"> ${review.rating + ".0"} </span>
+                  <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
+                </div>
+                <span class="dot1"> • </span>
+                <span class="date"> ${review.date} </span>
+              </div>
+            </div>
+      
+            <div class="post-review-content">
+              ${review.content}
+            </div>
+          </div>
+        `;
+      }
+
+    function renderReviews() {
+        const container = document.querySelector(".view-review-placeholder");
+        container.innerHTML = '';
+      
+        reviews.forEach(review => {
+          const reviewHTML = generateReviewHTML(review);
+          container.innerHTML += reviewHTML;
+        });
+    }
+    
 
      /********************** PRICE SELECTION **********************/ 
     const priceButtons = document.querySelectorAll('.price-button-inner, .price-button-outer-left, .price-button-outer-right');
