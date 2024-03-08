@@ -112,8 +112,8 @@ document.addEventListener('DOMContentLoaded', function() {
             estContainer.innerHTML += estHTML;
         });
     }
-
-    /********************** ADD REVIEW **********************/ 
+   
+    /********************** ADD & VIEW REVIEW **********************/ 
     renderReviews();
     
     document.querySelector('.submit-button').addEventListener('click', function () {
@@ -131,16 +131,22 @@ document.addEventListener('DOMContentLoaded', function() {
     
         const newReview = new Review(username, rating, date, content, establishment);
         reviews.push(newReview);
+
+        // for debugging
         console.log("array length: " + reviews.length);
+
         renderReviews();
     
         document.getElementById('comment').value = '';
         document.querySelector('input[name="rating"]:checked').checked = false;
         document.getElementById('reviewWindow').style.display = 'none';
+
+        // for debugging
         console.log("IM HERE");
     });
 
     function generateReviewHTML(review) {
+        // for debugging
         console.log("(inside generate review html function)");
         return `
           <div class="view-review">
@@ -184,7 +190,6 @@ document.addEventListener('DOMContentLoaded', function() {
           container.innerHTML += reviewHTML;
         });
     }
-    
 
      /********************** PRICE SELECTION **********************/ 
     const priceButtons = document.querySelectorAll('.price-button-inner, .price-button-outer-left, .price-button-outer-right');
