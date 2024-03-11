@@ -10,10 +10,34 @@ document.addEventListener('DOMContentLoaded', function() {
         let checkboxInput = $("#checkbox").is(":checked");
     
         // for checking
-        console.log(usernameInput);
-        console.log(passwordInput);
-        console.log(checkboxInput);
+        if(validateInputs(usernameInput, passwordInput)) {
+            console.log(usernameInput);
+            console.log(passwordInput);
+            console.log(checkboxInput);
+
+            console.log("validated");
+        } else {
+            e.preventDefault();  
+        }
+        
     });
+
+    // INPUT VALIDATION
+    function validateInputs(username, password) {
+        if(username && password) {
+            return true;
+        } 
+        
+        if(!username && password){
+            alert("Username Required!");
+        } else if(!password && username) {
+            alert("Password Required!");
+        } else {
+            alert("Username & Password Required!");
+        }
+
+        return false;
+    }
 
 
     // TOGGLE PASSWORD
