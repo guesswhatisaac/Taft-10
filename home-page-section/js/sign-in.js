@@ -1,3 +1,6 @@
+//const home = require("./home");
+//console.log(home);
+
 const User = function() {
     // TODO make a constructor
 }
