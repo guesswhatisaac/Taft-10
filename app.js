@@ -3,11 +3,6 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const app = express();
 
-const defaultHeader =   "<div class='header-buttons'>" +
-                            "<a href='sign-up-view.html'><button class=button id='sign-up'> Sign Up </button></a>" +
-                            "<a href='sign-in-view.html'><button class=button id='sign-in'> Sign In </button></a>" +
-                        "</div>";
-
 app.use(express.static("home-page-section"));
 app.engine("hbs", exphbs.engine({extname: 'hbs'}));
 app.set("view engine", "hbs");
