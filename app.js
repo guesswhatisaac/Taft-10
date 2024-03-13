@@ -1,6 +1,10 @@
+
 // main js file
 const express = require('express');
 const exphbs = require('express-handlebars');
+
+const port = 3001;
+
 const app = express();
 
 const defaultHeader =   "<div class='header-buttons'>" +
@@ -30,4 +34,4 @@ app.get('/sign-up', (req, res) => {
     //res.sendFile(__dirname + '/home-page-section/html/sign-up-view.html');
 });
 
-app.listen(3001);
+app.listen(port, () => console.log('Server listening on port ' + port));
