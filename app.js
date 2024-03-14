@@ -1,23 +1,35 @@
 // main js file
-const express = require('express');
-const exphbs = require('express-handlebars');
-const app = express();
+// discard ko muna to
+// const express = require('express');
+// const exphbs = require('express-handlebars');
+// const app = express();
+// app.use(express.static("home-page-section"));
+// app.engine("hbs", exphbs.engine({extname: 'hbs'}));
+// app.set("view engine", "hbs");
+// app.set("views", "./views");
+// exphbs.registerPartials
 
-const defaultHeader =   "<div class='header-buttons'>" +
-                            "<a href='sign-up-view.html'><button class=button id='sign-up'> Sign Up </button></a>" +
-                            "<a href='sign-in-view.html'><button class=button id='sign-in'> Sign In </button></a>" +
-                        "</div>";
+const PORT = 3000;
 
-app.use(express.static("home-page-section"));
-app.engine("hbs", exphbs.engine({extname: 'hbs'}));
-app.set("view engine", "hbs");
-app.set("views", "./views");
-exphbs.registerPartials
+const express     = require( 'express'),
+      hbs         = require( 'express-handlebars' ),
+      app         = express();
+
+app.engine('hbs', hbs.engine({ 
+    extname: 'hbs', 
+    defaultLayout: 'home', 
+    layoutsDir: __dirname + '/views/layouts/',
+    partialsDir: __dirname + '/views/partials/'
+}));
+
+app.set('view engine', 'hbs');
 
 // home 
 app.get('/home', (req, res) => {
     console.log("Request received for home");
-    console.log("test 1");
+    res.render('home', {
+        title: "Taft 10"
+    })
 });
 
 app.get('/sign-in', (req, res) => {
@@ -30,4 +42,7 @@ app.get('/sign-up', (req, res) => {
     //res.sendFile(__dirname + '/home-page-section/html/sign-up-view.html');
 });
 
-app.listen(3001);
+app.listen(PORT, function (err) {
+    if (err) console.log(err);
+    console.log("Server listening on PORT", PORT);
+});
