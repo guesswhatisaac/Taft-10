@@ -85,8 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
           const estHTML = generateEstablishmentHTML(establishment);
 
           const addReviewWindowId = `reviewWindow-${establishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
-          const addHTML = generateAddWindow(addReviewWindowId, establishment);
-          console.log(addReviewWindowId);
+          const addHTML = generateAddWindow(addReviewWindowId, establishment);  
 
           const viewReviewWindowId = `view-reviewWindow-${establishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
           const viewHTML = generateViewWindow(viewReviewWindowId, establishment);
@@ -225,7 +224,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     /********************** ADD & VIEW REVIEW **********************/ 
-    let establishmentName = '';
+    // let establishmentName = '';
 
     /* event listener for Add Review buttons */
     document.querySelectorAll('.add-review-btn').forEach(function(button) {
@@ -264,11 +263,15 @@ document.addEventListener('DOMContentLoaded', function() {
     
     /* executed when a user submits a new review */
     document.querySelector('.submit-button').addEventListener('click', function () {
+      
       const username = "User"; 
       const rating = document.querySelector('input[name="rating"]:checked').value;
       const options = { year: 'numeric', month: 'long', day: 'numeric' };
       const date = new Date().toLocaleDateString('en-US', options); 
       const content = document.getElementById('comment').value;
+
+      const establishmentName = this.closest('.review-window-container').querySelector('.est-title-header span#title').textContent.trim();
+      console.log("ESTABLISHMENT NAME: " + establishmentName);
 
       const newReview = new Review(username, rating, date, content, establishmentName);
       reviews.push(newReview);
