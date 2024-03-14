@@ -4,6 +4,7 @@ to add their website need nila tayo icontact ganon, para we don't have to add a
 add establishment feature, less gawain, unless need sa specs (???)
 **********************************************************************************/
 
+
 const establishments = [
     {
       name: '24 Chicken',
@@ -49,7 +50,7 @@ const establishments = [
       description: 'If you\'re craving a taste of Korea in Manila, Hungry Seoul is definitely worth a visit. This casual restaurant...',
       coverImage: 'HungrySeoul.png',
       reviewsButtonClass: 'est-view-review-hungry-seoul viewReviewBtn'
-    },
+    }
   ];
 
   const Review = function(username, rating, date, content, establishment) {
