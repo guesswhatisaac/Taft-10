@@ -6,8 +6,8 @@ const establishments = [
     tags: ['Filipino', 'Chicken'],
     description: 'If you\'re on the hunt for a chicken experience that transcends the ordinary, look no further than 24 Chicken.',
     coverImage: '24Chicken.png',
-    reviewsButtonClass: 'est-view-review-24chicken view-review-btn',
-    addReviewClass: 'add-review-24chicken add-review-btn'
+    reviewsButtonClass: 'est-view-review-24-chicken view-review-btn',
+    addReviewClass: 'add-review-24-chicken add-review-btn'
   },
   {
     name: "Ate Rica's Bacsilog",
@@ -16,8 +16,8 @@ const establishments = [
     tags: ['Filipino', 'Rice Meal'],
     description: 'Ate Rica\'s Bacsilog lives up to its "Sauce Sarap" promise! Delicious, affordable Filipino comfort food with generous portions and...',
     coverImage: 'AteRicasBacsilog.png',
-    reviewsButtonClass: 'est-view-review-ateRicas view-review-btn',
-    addReviewClass: 'add-review-ateRicas add-review-btn'
+    reviewsButtonClass: 'est-view-review-ate-ricas-bacsilog view-review-btn',
+    addReviewClass: 'add-review-ate-ricas-bacsilog add-review-btn'
   },
   {
     name: 'Tomo Coffee',
@@ -26,8 +26,8 @@ const establishments = [
     tags: ['Drinks'],
     description: 'Tucked away in a vibrant student district, Tomo Coffee is a haven for caffeine-craving scholars. I love it so much!',
     coverImage: 'TomoCoffee.png',
-    reviewsButtonClass: 'est-view-review-tomo view-review-btn',
-    addReviewClass: 'add-review-tomo add-review-btn'
+    reviewsButtonClass: 'est-view-review-tomo-coffee view-review-btn',
+    addReviewClass: 'add-review-tomo-coffee add-review-btn'
   },
   {
     name: 'Tinuhog ni Benny',
@@ -36,8 +36,8 @@ const establishments = [
     tags: ['Filipino', 'Rice Meal'],
     description: 'Tinuhog ni Benny is a haven for budget-friendly, delicious Filipino comfort food. The highlight is undoubtedly their namesake "tinuhog"...',
     coverImage: 'TinuhogNiBenny.png',
-    reviewsButtonClass: 'est-view-review-tinuhog view-review-btn',
-    addReviewClass: 'add-review-tinuhog add-review-btn'
+    reviewsButtonClass: 'est-view-review-tinuhog-ni-benny view-review-btn',
+    addReviewClass: 'add-review-tinuhog-ni-benny add-review-btn'
   },
   {
     name: 'Hungry Seoul',
@@ -74,14 +74,31 @@ document.addEventListener('DOMContentLoaded', function() {
 
      /*********** GENERATE ESTABLISHMENTS PLUS ITS OWN ADD AND VIEW REVIEW WINDOW ***********/ 
     renderEstablishments();
-    
-    function generateEstablishmentHTML(establishment) {
-      const addReviewWindowId = `reviewWindow-${establishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
-      console.log(addReviewWindowId);
 
-      const viewReviewWindowId = `view-reviewWindow-${establishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
-      console.log(viewReviewWindowId);
-  
+    /* responsible for creating htmls of establishments including their own Add Review and View Review windows */
+    function renderEstablishments() {
+      const estContainer = document.querySelector('.est-container');
+      const addContainer = document.querySelector('.add-container');
+      const viewContainer = document.querySelector('.view-container');
+
+      establishments.forEach(establishment => {
+          const estHTML = generateEstablishmentHTML(establishment);
+
+          const addReviewWindowId = `reviewWindow-${establishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
+          const addHTML = generateAddWindow(addReviewWindowId, establishment);
+          console.log(addReviewWindowId);
+
+          const viewReviewWindowId = `view-reviewWindow-${establishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
+          const viewHTML = generateViewWindow(viewReviewWindowId, establishment);
+
+          estContainer.innerHTML += estHTML;
+          addContainer.innerHTML += addHTML;
+          viewContainer.innerHTML += viewHTML;
+      });
+    }
+    
+    /* establishment container html */
+    function generateEstablishmentHTML(establishment) {
       return `
         <div class="est-content">
           <img src="../assets/est/content-cover/${establishment.coverImage}" class="est-cover">
@@ -107,7 +124,12 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="${establishment.reviewsButtonClass}">View Review</div>
           </div>
         </div>
-        
+      `;
+    }
+
+    /* add review window html */
+    function generateAddWindow(addReviewWindowId, establishment) {
+      return `
         <!-- Add Review Window -->
         <div id="${addReviewWindowId}" class="review-window-container" style="display: none;">
           <div class="add-review-container"> 
@@ -166,7 +188,12 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
           </div>
         </div>
-        
+      `;
+    }
+   
+    /* view window html */
+    function generateViewWindow(viewReviewWindowId, establishment) {
+      return `
         <!-- View Review Window -->
         <div id="${viewReviewWindowId}" class="view-window-container" style="display: none;">
           <div class="view-review-container"> 
@@ -197,53 +224,45 @@ document.addEventListener('DOMContentLoaded', function() {
       `;
     }
 
-    function renderEstablishments() {
-        const estContainer = document.querySelector('.est-container');
-        establishments.forEach(establishment => {
-            const estHTML = generateEstablishmentHTML(establishment);
-            estContainer.innerHTML += estHTML;
-        });
-    }
-   
     /********************** ADD & VIEW REVIEW **********************/ 
     let establishmentName = '';
 
-    // TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    /* event listener for Add Review buttons */
     document.querySelectorAll('.add-review-btn').forEach(function(button) {
       button.addEventListener('click', function () {
-        establishmentName = button.parentElement.querySelector('.est-title').textContent.trim();
-        const addReviewWindowId = `reviewWindow-${establishmentName.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
-        document.getElementById(addReviewWindowId).style.display = 'flex';
+          const establishmentName = button.closest('.est-content').querySelector('.est-title').textContent.trim();
+          const reviewWindowId = `reviewWindow-${establishmentName.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
+          console.log(reviewWindowId);
+          document.getElementById(reviewWindowId).style.display = 'flex';
       });
     });
 
-    // Event listener for View Review buttons
+    /* event listener for View Review buttons */
     document.querySelectorAll('.view-review-btn').forEach(function(button) {
       button.addEventListener('click', function () {
-        establishmentName = button.parentElement.querySelector('.est-title').textContent.trim();
+        const establishmentName = button.closest('.est-content').querySelector('.est-title').textContent.trim();
         const viewReviewWindowId = `view-reviewWindow-${establishmentName.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
         document.getElementById(viewReviewWindowId).style.display = 'flex';
       });
     });
 
-    // Event listener for closing Add Review window
-    document.querySelectorAll('.close-add-review').forEach(function(button) {
-      button.addEventListener('click', function () {
-        establishmentName = button.parentElement.parentElement.id.split('-')[1];
-        const addReviewWindowId = `reviewWindow-${establishmentName}`;
-        document.getElementById(addReviewWindowId).style.display = 'none';
+    /* closes Add Review window */
+    document.querySelectorAll('.close-button').forEach(function(button) {
+      button.addEventListener('click', function() {
+          const reviewWindow = button.closest('.review-window-container');
+          reviewWindow.style.display = 'none';
       });
     });
 
-    // Event listener for closing View Review window
-    document.querySelectorAll('.close-view-review').forEach(function(button) {
-      button.addEventListener('click', function () {
-        establishmentName = button.parentElement.parentElement.id.split('-')[1];
-        const viewReviewWindowId = `view-reviewWindow-${establishmentName}`;
-        document.getElementById(viewReviewWindowId).style.display = 'none';
+    /* closes View Review window */
+    document.querySelectorAll('.close-button').forEach(function(button) {
+      button.addEventListener('click', function() {
+          const reviewWindow = button.closest('.view-window-container');
+          reviewWindow.style.display = 'none';
       });
     });
     
+    /* executed when a user submits a new review */
     document.querySelector('.submit-button').addEventListener('click', function () {
       const username = "User"; 
       const rating = document.querySelector('input[name="rating"]:checked').value;
@@ -260,7 +279,8 @@ document.addEventListener('DOMContentLoaded', function() {
       document.querySelector('input[name="rating"]:checked').checked = false;
       document.getElementById('reviewWindow').style.display = 'none';
     });
-
+    
+    /* when new review has been added by a user, this function will be called */
     function renderReviews() {
         const container = document.querySelector(".view-review-placeholder");
         container.innerHTML = '';
@@ -271,7 +291,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-     /********************** PRICE SELECTION **********************/ 
+    /********************** PRICE SELECTION **********************/ 
     const priceButtons = document.querySelectorAll('.price-button-inner, .price-button-outer-left, .price-button-outer-right');
 
     priceButtons.forEach(button => {
@@ -335,79 +355,6 @@ document.addEventListener('DOMContentLoaded', function() {
             input.placeholder = "Add a tag...";
         }
     });
-
-    /********************** ADD REVIEWS **********************/ 
-    
-    // document.querySelectorAll('.est-add-review').forEach(function(button) {
-    //     button.addEventListener('click', function () {
-    //         document.getElementById('reviewWindow').style.display = 'flex';
-    //     });
-    // });
-    
-    // document.querySelector('.review-window-container .close-button').addEventListener('click', function () {
-    //     document.getElementById('reviewWindow').style.display = 'none';
-    // });
-
-    /********************** VIEW REVIEWS **********************/ 
-    
-    /* 24 Chicken */
-    // document.querySelectorAll('.est-view-review-24chicken').forEach(function(button) {
-    //     button.addEventListener('click', function () {
-    //         document.getElementById('view-reviewWindow-24chicken').style.display = 'flex';
-    //     });
-    // });
-    
-    // document.querySelector('.view-window-container-24chicken .close-button').addEventListener('click', function () {
-    //     document.getElementById('view-reviewWindow-24chicken').style.display = 'none';
-    // });
-    
-    // /* Ate Rica's Bacsilog */
-    // document.querySelectorAll('.est-view-review-ateRicas').forEach(function(button) {
-    //     button.addEventListener('click', function () {
-    //         document.getElementById('view-reviewWindow-ateRicas').style.display = 'flex';
-    //     });
-    // });
-    
-    // document.querySelector('.view-window-container-ateRicas .close-button').addEventListener('click', function () {
-    //     document.getElementById('view-reviewWindow-ateRicas').style.display = 'none';
-    // });
-    
-    // /* Tomo Coffee */
-    // document.querySelectorAll('.est-view-review-tomo').forEach(function(button) {
-    
-    //     button.addEventListener('click', function () {
-    //         document.getElementById('view-reviewWindow-tomo').style.display = 'flex';
-    //     });
-    // });
-    
-    // document.querySelector('.view-window-container-tomo .close-button').addEventListener('click', function () {
-    //     document.getElementById('view-reviewWindow-tomo').style.display = 'none';
-    // });
-    
-    // /* Tinuhog ni Benny */
-    // document.querySelectorAll('.est-view-review-tinuhog').forEach(function(button) {
-    
-    //     button.addEventListener('click', function () {
-    //         document.getElementById('view-reviewWindow-tinuhog').style.display = 'flex';
-    //     });
-    // });
-    
-    // document.querySelector('.view-window-container-tinuhog .close-button').addEventListener('click', function () {
-    //     document.getElementById('view-reviewWindow-tinuhog').style.display = 'none';
-    // });
-    
-    // /* Hungry Seoul */
-    // document.querySelectorAll('.est-view-review-hungry-seoul').forEach(function(button) {
-    
-    //     button.addEventListener('click', function () {
-    //         document.getElementById('view-reviewWindow-hungry-seoul').style.display = 'flex';
-    //     });
-    // });
-    
-    // document.querySelector('.view-window-container-hungry-seoul .close-button').addEventListener('click', function () {
-    //     document.getElementById('view-reviewWindow-hungry-seoul').style.display = 'none';
-    // });
-
   });
 
 
