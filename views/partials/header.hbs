@@ -5,5 +5,18 @@
         <a href="#contact" class="nav-link"><li> Contact </li></a>
     </menu>
     <div id="header-logo"> Taft 10 </div>
-    {{{profile}}}
+    {{#if user}}
+    <div class="header-buttons">
+        <a href="sign-up-view.html"><button class=button id="sign-up"> Sign Up </button></a>
+        <a href="sign-in-view.html"><button class=button id="sign-in"> Sign In </button></a>
+    </div>
+    {{#else}}
+    <div class="user-view">
+        <div class="header-username-container">
+            <a href={{profilePage}} id="header-username"><div id="my-profile"> My Profile </div></a>
+            <a href={{homePage}} id="log-out-link"><div id="log-out"> Log Out </div></a>
+        </div>
+        <img id="profile-pic" src={{imgURL}}></img>
+    </div>
+    {{/if}}
 </nav>

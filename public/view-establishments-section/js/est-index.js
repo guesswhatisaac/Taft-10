@@ -1,8 +1,4 @@
-/**********************************************************************************
-iniisip ko constant yung mga existing establishments sa website, bali if they want 
-to add their website need nila tayo icontact ganon, para we don't have to add a
-add establishment feature, less gawain, unless need sa specs (???)
-**********************************************************************************/
+
 
 
 const establishments = [
