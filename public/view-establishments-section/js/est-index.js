@@ -6,8 +6,8 @@ const establishments = [
     tags: ['Filipino', 'Chicken'],
     description: 'If you\'re on the hunt for a chicken experience that transcends the ordinary, look no further than 24 Chicken.',
     coverImage: '24Chicken.png',
-    reviewsButtonClass: 'est-view-review-24chicken viewReviewBtn',
-    addReviewClass: 'add-review-24chicken est-add-review'
+    reviewsButtonClass: 'est-view-review-24chicken view-review-btn',
+    addReviewClass: 'add-review-24chicken add-review-btn'
   },
   {
     name: "Ate Rica's Bacsilog",
@@ -16,8 +16,8 @@ const establishments = [
     tags: ['Filipino', 'Rice Meal'],
     description: 'Ate Rica\'s Bacsilog lives up to its "Sauce Sarap" promise! Delicious, affordable Filipino comfort food with generous portions and...',
     coverImage: 'AteRicasBacsilog.png',
-    reviewsButtonClass: 'est-view-review-ateRicas viewReviewBtn',
-    addReviewClass: 'add-review-ateRicas est-add-review'
+    reviewsButtonClass: 'est-view-review-ateRicas view-review-btn',
+    addReviewClass: 'add-review-ateRicas add-review-btn'
   },
   {
     name: 'Tomo Coffee',
@@ -26,8 +26,8 @@ const establishments = [
     tags: ['Drinks'],
     description: 'Tucked away in a vibrant student district, Tomo Coffee is a haven for caffeine-craving scholars. I love it so much!',
     coverImage: 'TomoCoffee.png',
-    reviewsButtonClass: 'est-view-review-tomo viewReviewBtn',
-    addReviewClass: 'add-review-tomo est-add-review'
+    reviewsButtonClass: 'est-view-review-tomo view-review-btn',
+    addReviewClass: 'add-review-tomo add-review-btn'
   },
   {
     name: 'Tinuhog ni Benny',
@@ -36,8 +36,8 @@ const establishments = [
     tags: ['Filipino', 'Rice Meal'],
     description: 'Tinuhog ni Benny is a haven for budget-friendly, delicious Filipino comfort food. The highlight is undoubtedly their namesake "tinuhog"...',
     coverImage: 'TinuhogNiBenny.png',
-    reviewsButtonClass: 'est-view-review-tinuhog viewReviewBtn',
-    addReviewClass: 'add-review-tinuhog est-add-review'
+    reviewsButtonClass: 'est-view-review-tinuhog view-review-btn',
+    addReviewClass: 'add-review-tinuhog add-review-btn'
   },
   {
     name: 'Hungry Seoul',
@@ -46,8 +46,8 @@ const establishments = [
     tags: ['Korean', 'Rice Meal'],
     description: 'If you\'re craving a taste of Korea in Manila, Hungry Seoul is definitely worth a visit. This casual restaurant...',
     coverImage: 'HungrySeoul.png',
-    reviewsButtonClass: 'est-view-review-hungry-seoul viewReviewBtn',
-    addReviewClass: 'add-review-hungry-seoul est-add-review'
+    reviewsButtonClass: 'est-view-review-hungry-seoul view-review-btn',
+    addReviewClass: 'add-review-hungry-seoul add-review-btn'
   },
 ];
 
@@ -207,13 +207,40 @@ document.addEventListener('DOMContentLoaded', function() {
    
     /********************** ADD & VIEW REVIEW **********************/ 
     let establishmentName = '';
-    renderReviews();
 
-    document.querySelectorAll('.est-add-review').forEach(function(button) {
+    // TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    document.querySelectorAll('.add-review-btn').forEach(function(button) {
       button.addEventListener('click', function () {
-          // Extract establishment name from button class
-          establishmentName = button.classList[0].replace('add-review-', '');
-          document.getElementById('reviewWindow').style.display = 'flex';
+        establishmentName = button.parentElement.querySelector('.est-title').textContent.trim();
+        const addReviewWindowId = `reviewWindow-${establishmentName.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
+        document.getElementById(addReviewWindowId).style.display = 'flex';
+      });
+    });
+
+    // Event listener for View Review buttons
+    document.querySelectorAll('.view-review-btn').forEach(function(button) {
+      button.addEventListener('click', function () {
+        establishmentName = button.parentElement.querySelector('.est-title').textContent.trim();
+        const viewReviewWindowId = `view-reviewWindow-${establishmentName.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
+        document.getElementById(viewReviewWindowId).style.display = 'flex';
+      });
+    });
+
+    // Event listener for closing Add Review window
+    document.querySelectorAll('.close-add-review').forEach(function(button) {
+      button.addEventListener('click', function () {
+        establishmentName = button.parentElement.parentElement.id.split('-')[1];
+        const addReviewWindowId = `reviewWindow-${establishmentName}`;
+        document.getElementById(addReviewWindowId).style.display = 'none';
+      });
+    });
+
+    // Event listener for closing View Review window
+    document.querySelectorAll('.close-view-review').forEach(function(button) {
+      button.addEventListener('click', function () {
+        establishmentName = button.parentElement.parentElement.id.split('-')[1];
+        const viewReviewWindowId = `view-reviewWindow-${establishmentName}`;
+        document.getElementById(viewReviewWindowId).style.display = 'none';
       });
     });
     

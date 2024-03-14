@@ -469,16 +469,16 @@ ul li {
     justify-content: space-around;
 }
 
-.est-add-review, 
-.viewReviewBtn {
+.add-review-btn, 
+.view-review-btn{
     font-weight: 600;
     font-size: 18px;
     color: rgba(40, 42, 55, 1);
     cursor: pointer;
 }
 
-.est-add-review:hover,
-.viewReviewBtn:hover {
+.add-review-btn:hover,
+.view-review-btn:hover {
     color: red;
 }
 
