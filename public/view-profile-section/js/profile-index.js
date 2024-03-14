@@ -121,5 +121,12 @@ const users = [
         numReviews: 0
     },
 
+    let currentUser = new User();
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+
+
+    })
 
   ];
