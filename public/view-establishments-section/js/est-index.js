@@ -83,12 +83,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
       establishments.forEach(establishment => {
           const estHTML = generateEstablishmentHTML(establishment);
+          const estId = `${establishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
+          console.log("EST ID: " +estId);
 
           const addReviewWindowId = `reviewWindow-${establishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
           const addHTML = generateAddWindow(addReviewWindowId, establishment);  
 
           const viewReviewWindowId = `view-reviewWindow-${establishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
-          const viewHTML = generateViewWindow(viewReviewWindowId, establishment);
+          const viewHTML = generateViewWindow(viewReviewWindowId, establishment, estId);
 
           estContainer.innerHTML += estHTML;
           addContainer.innerHTML += addHTML;
@@ -191,7 +193,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
    
     /* view window html */
-    function generateViewWindow(viewReviewWindowId, establishment) {
+    function generateViewWindow(viewReviewWindowId, establishment, estId) {
       return `
         <!-- View Review Window -->
         <div id="${viewReviewWindowId}" class="view-window-container" style="display: none;">
@@ -216,7 +218,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
                 ${establishment.tags.map(tag => `<div class="tag-container"><span class="tag">${tag}</span></div>`).join('')}
               </div>
-              <div class="view-review-placeholder"> </div>
+              <div class="view-review-placeholder-${estId}"> </div>
             </div>
           </div>   
         </div>
@@ -231,7 +233,6 @@ document.addEventListener('DOMContentLoaded', function() {
       button.addEventListener('click', function () {
           const establishmentName = button.closest('.est-content').querySelector('.est-title').textContent.trim();
           const reviewWindowId = `reviewWindow-${establishmentName.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
-          console.log(reviewWindowId);
           document.getElementById(reviewWindowId).style.display = 'flex';
       });
     });
@@ -263,35 +264,72 @@ document.addEventListener('DOMContentLoaded', function() {
     
     /* executed when a user submits a new review */
     document.querySelector('.submit-button').addEventListener('click', function () {
-      
-      const username = "User"; 
+      const username = "User";
       const rating = document.querySelector('input[name="rating"]:checked').value;
       const options = { year: 'numeric', month: 'long', day: 'numeric' };
-      const date = new Date().toLocaleDateString('en-US', options); 
+      const date = new Date().toLocaleDateString('en-US', options);
       const content = document.getElementById('comment').value;
-
-      const establishmentName = this.closest('.review-window-container').querySelector('.est-title-header span#title').textContent.trim();
+  
+      const establishmentName = this.closest('.review-window-container').querySelector('.est-title-header span#title').textContent.trim().replace(/\s+/g, '-').toLowerCase().replace(/'/g, '');
       console.log("ESTABLISHMENT NAME: " + establishmentName);
-
+  
       const newReview = new Review(username, rating, date, content, establishmentName);
       reviews.push(newReview);
-
-      renderReviews();
-
+  
+      renderReviews(establishmentName);
+  
       document.getElementById('comment').value = '';
       document.querySelector('input[name="rating"]:checked').checked = false;
-      document.getElementById('reviewWindow').style.display = 'none';
-    });
+      document.querySelector(`#reviewWindow-${establishmentName}`).style.display = 'none';
+   });
+  
     
     /* when new review has been added by a user, this function will be called */
-    function renderReviews() {
-        const container = document.querySelector(".view-review-placeholder");
-        container.innerHTML = '';
-      
-        reviews.forEach(review => {
+    function renderReviews(establishmentName) {
+      const container = document.querySelector(`.view-review-placeholder-${establishmentName.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`);
+      container.innerHTML = '';
+  
+      const establishmentReviews = reviews.filter(review => review.establishmentName === establishmentName);
+  
+      establishmentReviews.forEach(review => {
           const reviewHTML = generateReviewHTML(review);
           container.innerHTML += reviewHTML;
-        });
+      });
+    }
+
+    function generateReviewHTML(review) {
+      console.log("(inside generate review html function)");
+      return `
+          <div class="view-review">
+              <div class="user-info">
+                  <a href="../../view-profile-section/view-user-${review.username.toLowerCase()}.html">
+                      <img src="../assets/est/user-profile/shane-cloma.jfif" class="user-icon">
+                  </a>
+                  <div class="user-text">
+                      <span class="username">${review.username}</span>
+                      <span class="user-status">${review.userStatus}</span>
+                  </div>
+  
+                  <div class="upvote-container">
+                      <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
+                      <span> (temp) </span>
+                  </div>
+  
+                  <div class="user-info-sub">
+                      <div class="user-rating">
+                          <span class="rating-user"> ${review.rating + ".0"} </span>
+                          <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
+                      </div>
+                      <span class="dot1"> • </span>
+                      <span class="date"> ${review.date} </span>
+                  </div>
+              </div>
+  
+              <div class="post-review-content">
+                  ${review.content}
+              </div>
+          </div>
+      `;
     }
 
     /********************** PRICE SELECTION **********************/ 
