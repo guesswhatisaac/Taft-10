@@ -1,61 +1,65 @@
 const establishments = [
-    {
-      name: '24 Chicken',
-      rating: '4.9',
-      priceRange: ['₱₱', '₱₱'],
-      tags: ['Filipino', 'Chicken'],
-      description: 'If you\'re on the hunt for a chicken experience that transcends the ordinary, look no further than 24 Chicken.',
-      coverImage: '24Chicken.png',
-      reviewsButtonClass: 'est-view-review-24chicken viewReviewBtn'
-    },
-    {
-      name: "Ate Rica's Bacsilog",
-      rating: '4.9',
-      priceRange: ['₱', '₱₱₱'],
-      tags: ['Filipino', 'Rice Meal'],
-      description: 'Ate Rica\'s Bacsilog lives up to its "Sauce Sarap" promise! Delicious, affordable Filipino comfort food with generous portions and...',
-      coverImage: 'AteRicasBacsilog.png',
-      reviewsButtonClass: 'est-view-review-ateRicas viewReviewBtn'
-    },
-    {
-      name: 'Tomo Coffee',
-      rating: '4.7',
-      priceRange: ['₱₱', '₱₱'],
-      tags: ['Drinks'],
-      description: 'Tucked away in a vibrant student district, Tomo Coffee is a haven for caffeine-craving scholars. I love it so much!',
-      coverImage: 'TomoCoffee.png',
-      reviewsButtonClass: 'est-view-review-tomo viewReviewBtn'
-    },
-    {
-      name: 'Tinuhog ni Benny',
-      rating: '5.0',
-      priceRange: ['₱', '₱₱₱'],
-      tags: ['Filipino', 'Rice Meal'],
-      description: 'Tinuhog ni Benny is a haven for budget-friendly, delicious Filipino comfort food. The highlight is undoubtedly their namesake "tinuhog"...',
-      coverImage: 'TinuhogNiBenny.png',
-      reviewsButtonClass: 'est-view-review-tinuhog viewReviewBtn'
-    },
-    {
-      name: 'Hungry Seoul',
-      rating: '4.9',
-      priceRange: ['₱₱', '₱₱'],
-      tags: ['Korean', 'Rice Meal'],
-      description: 'If you\'re craving a taste of Korea in Manila, Hungry Seoul is definitely worth a visit. This casual restaurant...',
-      coverImage: 'HungrySeoul.png',
-      reviewsButtonClass: 'est-view-review-hungry-seoul viewReviewBtn'
-    },
-  ];
+  {
+    name: '24 Chicken',
+    rating: '4.9',
+    priceRange: ['₱₱', '₱₱'],
+    tags: ['Filipino', 'Chicken'],
+    description: 'If you\'re on the hunt for a chicken experience that transcends the ordinary, look no further than 24 Chicken.',
+    coverImage: '24Chicken.png',
+    reviewsButtonClass: 'est-view-review-24chicken viewReviewBtn',
+    addReviewClass: 'add-review-24chicken est-add-review'
+  },
+  {
+    name: "Ate Rica's Bacsilog",
+    rating: '4.9',
+    priceRange: ['₱', '₱₱₱'],
+    tags: ['Filipino', 'Rice Meal'],
+    description: 'Ate Rica\'s Bacsilog lives up to its "Sauce Sarap" promise! Delicious, affordable Filipino comfort food with generous portions and...',
+    coverImage: 'AteRicasBacsilog.png',
+    reviewsButtonClass: 'est-view-review-ateRicas viewReviewBtn',
+    addReviewClass: 'add-review-ateRicas est-add-review'
+  },
+  {
+    name: 'Tomo Coffee',
+    rating: '4.7',
+    priceRange: ['₱₱', '₱₱'],
+    tags: ['Drinks'],
+    description: 'Tucked away in a vibrant student district, Tomo Coffee is a haven for caffeine-craving scholars. I love it so much!',
+    coverImage: 'TomoCoffee.png',
+    reviewsButtonClass: 'est-view-review-tomo viewReviewBtn',
+    addReviewClass: 'add-review-tomo est-add-review'
+  },
+  {
+    name: 'Tinuhog ni Benny',
+    rating: '5.0',
+    priceRange: ['₱', '₱₱₱'],
+    tags: ['Filipino', 'Rice Meal'],
+    description: 'Tinuhog ni Benny is a haven for budget-friendly, delicious Filipino comfort food. The highlight is undoubtedly their namesake "tinuhog"...',
+    coverImage: 'TinuhogNiBenny.png',
+    reviewsButtonClass: 'est-view-review-tinuhog viewReviewBtn',
+    addReviewClass: 'add-review-tinuhog est-add-review'
+  },
+  {
+    name: 'Hungry Seoul',
+    rating: '4.9',
+    priceRange: ['₱₱', '₱₱'],
+    tags: ['Korean', 'Rice Meal'],
+    description: 'If you\'re craving a taste of Korea in Manila, Hungry Seoul is definitely worth a visit. This casual restaurant...',
+    coverImage: 'HungrySeoul.png',
+    reviewsButtonClass: 'est-view-review-hungry-seoul viewReviewBtn',
+    addReviewClass: 'add-review-hungry-seoul est-add-review'
+  },
+];
 
-  const Review = function(username, rating, date, content, establishment) {
+  const Review = function(username, rating, date, content, establishmentName) {
             this.username = username;
 
             /* TODO: LOGIC FOR USERNAME */
             this.userStatus = "De La Salle University";
-
             this.rating = rating;
             this.date = date;
             this.content = content;
-            this.establishment = establishment;
+            this.establishmentName = establishmentName;
   }
 
 const reviews = [];
@@ -68,78 +72,9 @@ function changeText(option) {
 
 document.addEventListener('DOMContentLoaded', function() {
 
-     /********************** GENERATE ESTABLISHMENTS **********************/ 
+     /*********** GENERATE ESTABLISHMENTS PLUS ITS OWN ADD AND VIEW REVIEW WINDOW ***********/ 
     renderEstablishments();
     
-    function generateEstablishmentHTML(establishment) {
-        return `
-          <div class="est-content">
-            <img src="../assets/est/content-cover/${establishment.coverImage}" class="est-cover">
-            <div class="est-title-container">
-              <div class="est-title">${establishment.name}</div>
-              <div class="est-rating-container">
-                <span class="est-rating">${establishment.rating}</span>
-                <img src="../assets/est/content-icons/rating-icon.png" alt="Rating Icon" class="est-rating-icon">
-              </div>
-            </div>
-            <div class="est-subtitle-container">
-              <div class="est-price bold">${establishment.priceRange[0]}</div>
-              <div class="est-price">${establishment.priceRange[1]}</div>
-              &nbsp; • &nbsp;
-              ${establishment.tags.map(tag => `<span class="food-tag">${tag}</span>`).join('')}
-            </div>
-            <div class="est-description-container">
-              <img src="../assets/est/content-icons/review-icon.png" alt="Review Icon" class="est-review-icon">
-              <div class="est-description">${establishment.description}</div>
-            </div>
-            <div class="est-review-section">
-              <div class="${establishment.addReviewClass}">Add Review</div>
-              <div class="${establishment.reviewsButtonClass}">View Review</div>
-            </div>
-          </div>
-        `;
-      }
-
-    function renderEstablishments() {
-        const estContainer = document.querySelector('.est-container');
-        establishments.forEach(establishment => {
-            const estHTML = generateEstablishmentHTML(establishment);
-            estContainer.innerHTML += estHTML;
-        });
-    }
-   
-    /********************** ADD & VIEW REVIEW **********************/ 
-    renderReviews();
-    
-    document.querySelector('.submit-button').addEventListener('click', function () {
-
-        /* TODO: LOGIC FOR USERNAME */
-        const username = "User"; 
-        const rating = document.querySelector('input[name="rating"]:checked').value;
-        
-        /* format the date to "month day, year" */ 
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        const date = new Date().toLocaleDateString('en-US', options); 
-        
-        const content = document.getElementById('comment').value;
-        const establishment = "24 Chicken"; 
-    
-        const newReview = new Review(username, rating, date, content, establishment);
-        reviews.push(newReview);
-
-        // for debugging
-        console.log("array length: " + reviews.length);
-
-        renderReviews();
-    
-        document.getElementById('comment').value = '';
-        document.querySelector('input[name="rating"]:checked').checked = false;
-        document.getElementById('reviewWindow').style.display = 'none';
-
-        // for debugging
-        console.log("IM HERE");
-    });
-
     function generateEstablishmentHTML(establishment) {
       const addReviewWindowId = `reviewWindow-${establishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
       console.log(addReviewWindowId);
@@ -174,9 +109,9 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
         
         <!-- Add Review Window -->
-        <div id="${addReviewWindowId}" class="review-window-container">
+        <div id="${addReviewWindowId}" class="review-window-container" style="display: none;">
           <div class="add-review-container"> 
-            <img src="../assets/est/content-main/${establishment.coverImage}" class="main-photo">
+            <img src="../assets/est/content-cover/${establishment.coverImage}" class="main-photo">
             <div class="right-side">
               <div class="close-button">
                 <img src="../assets/est/content-icons/close.png" alt="Close" class="close-icon">
@@ -233,9 +168,9 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
         
         <!-- View Review Window -->
-        <div id="${viewReviewWindowId}" class="view-window-container">
+        <div id="${viewReviewWindowId}" class="view-window-container" style="display: none;">
           <div class="view-review-container"> 
-            <img src="../assets/est/content-main/${establishment.coverImage}" alt="${establishment.name}" class="main-photo">
+            <img src="../assets/est/content-cover/${establishment.coverImage}" alt="${establishment.name}" class="main-photo">
             <div class="view-right-side">
               <div class="close-button">
                 <img src="../assets/est/content-icons/close.png" alt="Close" class="close-icon">
@@ -260,8 +195,44 @@ document.addEventListener('DOMContentLoaded', function() {
           </div>   
         </div>
       `;
-  }
-  
+    }
+
+    function renderEstablishments() {
+        const estContainer = document.querySelector('.est-container');
+        establishments.forEach(establishment => {
+            const estHTML = generateEstablishmentHTML(establishment);
+            estContainer.innerHTML += estHTML;
+        });
+    }
+   
+    /********************** ADD & VIEW REVIEW **********************/ 
+    let establishmentName = '';
+    renderReviews();
+
+    document.querySelectorAll('.est-add-review').forEach(function(button) {
+      button.addEventListener('click', function () {
+          // Extract establishment name from button class
+          establishmentName = button.classList[0].replace('add-review-', '');
+          document.getElementById('reviewWindow').style.display = 'flex';
+      });
+    });
+    
+    document.querySelector('.submit-button').addEventListener('click', function () {
+      const username = "User"; 
+      const rating = document.querySelector('input[name="rating"]:checked').value;
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      const date = new Date().toLocaleDateString('en-US', options); 
+      const content = document.getElementById('comment').value;
+
+      const newReview = new Review(username, rating, date, content, establishmentName);
+      reviews.push(newReview);
+
+      renderReviews();
+
+      document.getElementById('comment').value = '';
+      document.querySelector('input[name="rating"]:checked').checked = false;
+      document.getElementById('reviewWindow').style.display = 'none';
+    });
 
     function renderReviews() {
         const container = document.querySelector(".view-review-placeholder");
@@ -340,24 +311,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
     /********************** ADD REVIEWS **********************/ 
     
-    document.querySelectorAll('.est-add-review').forEach(function(button) {
-        button.addEventListener('click', function () {
-            document.getElementById('reviewWindow').style.display = 'flex';
-        });
-    });
+    // document.querySelectorAll('.est-add-review').forEach(function(button) {
+    //     button.addEventListener('click', function () {
+    //         document.getElementById('reviewWindow').style.display = 'flex';
+    //     });
+    // });
     
-    document.querySelector('.review-window-container .close-button').addEventListener('click', function () {
-        document.getElementById('reviewWindow').style.display = 'none';
-    });
+    // document.querySelector('.review-window-container .close-button').addEventListener('click', function () {
+    //     document.getElementById('reviewWindow').style.display = 'none';
+    // });
 
     /********************** VIEW REVIEWS **********************/ 
     
     /* 24 Chicken */
-    document.querySelectorAll('.est-view-review-24chicken').forEach(function(button) {
-        button.addEventListener('click', function () {
-            document.getElementById('view-reviewWindow-24chicken').style.display = 'flex';
-        });
-    });
+    // document.querySelectorAll('.est-view-review-24chicken').forEach(function(button) {
+    //     button.addEventListener('click', function () {
+    //         document.getElementById('view-reviewWindow-24chicken').style.display = 'flex';
+    //     });
+    // });
     
     // document.querySelector('.view-window-container-24chicken .close-button').addEventListener('click', function () {
     //     document.getElementById('view-reviewWindow-24chicken').style.display = 'none';

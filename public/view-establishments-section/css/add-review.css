@@ -39,7 +39,7 @@ body {
     }
 }
 
-.review-window-container {
+.review-window-container* {
     display: none;
     position: fixed;
     top: 50%;
