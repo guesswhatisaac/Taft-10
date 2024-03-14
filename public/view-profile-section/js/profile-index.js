@@ -1,5 +1,5 @@
 
-const profiles = [
+const users = [
     {
         username: '@kweenyasmin',
         email: 'asistido_yasmin@gmail.com',
