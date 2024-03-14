@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRUD Operations</title>
+  <link rel="stylesheet" href="../css/crud-index.css">
+</head>
+<body>
+
+  <div class="crud-container">
+    <h1>CRUD Operations</h1>
+    <div class="button-group">
+      <button class="crud-button" id="create-button">Create</button>
+      <button class="crud-button" id="read-button">Read</button>
+      <button class="crud-button" id="update-button">Update</button>
+      <button class="crud-button" id="delete-button">Delete</button>
+    </div>
+  </div>
+
+<!--
+     /********************** CREATE **********************/ 
+-->
+
+  <div class="modal" id="create-modal">
+    <div class="modal-content">
+      <h2>Create Operation</h2>
+      <p>This operation allows you to add a new item to the system.</p>
+      <button class="close-button">Close</button>
+    </div>
+  </div>
+
+
+<!--
+     /********************** READ **********************/ 
+-->
+
+  <div class="modal" id="read-modal">
+    <div class="modal-content">
+      <h2>Read Operation</h2>
+      <p>This operation allows you to view existing items in the system.</p>
+      <button class="close-button">Close</button>
+    </div>
+  </div>
+
+<!--
+     /********************** UPDATE **********************/ 
+-->
+
+  <div class="modal" id="update-modal">
+    <div class="modal-content">
+      <h2>Update Operation</h2>
+      <p>This operation allows you to modify existing items in the system.</p>
+      <button class="close-button">Close</button>
+    </div>
+  </div>
+
+<!--
+     /********************** DELETE **********************/ 
+-->
+
+  <div class="modal" id="delete-modal">
+    <div class="modal-content">
+      <h2>Delete Operation</h2>
+      <p>This operation allows you to remove items from the system.</p>
+      <button class="close-button">Close</button>
+    </div>
+  </div>
+
+  <script src="../js/crud-index.js"></script>
+</body>
+</html>

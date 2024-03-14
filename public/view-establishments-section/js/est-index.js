@@ -1,55 +1,50 @@
 const establishments = [
-  {
-    name: '24 Chicken',
-    rating: '4.9',
-    priceRange: ['₱₱', '₱₱'],
-    tags: ['Filipino', 'Chicken'],
-    description: 'If you\'re on the hunt for a chicken experience that transcends the ordinary, look no further than 24 Chicken.',
-    coverImage: '24Chicken.png',
-    reviewsButtonClass: 'est-view-review-24chicken viewReviewBtn',
-    addReviewClass: 'add-review-24chicken est-add-review'
-  },
-  {
-    name: "Ate Rica's Bacsilog",
-    rating: '4.9',
-    priceRange: ['₱', '₱₱₱'],
-    tags: ['Filipino', 'Rice Meal'],
-    description: 'Ate Rica\'s Bacsilog lives up to its "Sauce Sarap" promise! Delicious, affordable Filipino comfort food with generous portions and...',
-    coverImage: 'AteRicasBacsilog.png',
-    reviewsButtonClass: 'est-view-review-ateRicas viewReviewBtn',
-    addReviewClass: 'add-review-ateRicas est-add-review'
-  },
-  {
-    name: 'Tomo Coffee',
-    rating: '4.7',
-    priceRange: ['₱₱', '₱₱'],
-    tags: ['Drinks'],
-    description: 'Tucked away in a vibrant student district, Tomo Coffee is a haven for caffeine-craving scholars. I love it so much!',
-    coverImage: 'TomoCoffee.png',
-    reviewsButtonClass: 'est-view-review-tomo viewReviewBtn',
-    addReviewClass: 'add-review-tomo est-add-review'
-  },
-  {
-    name: 'Tinuhog ni Benny',
-    rating: '5.0',
-    priceRange: ['₱', '₱₱₱'],
-    tags: ['Filipino', 'Rice Meal'],
-    description: 'Tinuhog ni Benny is a haven for budget-friendly, delicious Filipino comfort food. The highlight is undoubtedly their namesake "tinuhog"...',
-    coverImage: 'TinuhogNiBenny.png',
-    reviewsButtonClass: 'est-view-review-tinuhog viewReviewBtn',
-    addReviewClass: 'add-review-tinuhog est-add-review'
-  },
-  {
-    name: 'Hungry Seoul',
-    rating: '4.9',
-    priceRange: ['₱₱', '₱₱'],
-    tags: ['Korean', 'Rice Meal'],
-    description: 'If you\'re craving a taste of Korea in Manila, Hungry Seoul is definitely worth a visit. This casual restaurant...',
-    coverImage: 'HungrySeoul.png',
-    reviewsButtonClass: 'est-view-review-hungry-seoul viewReviewBtn',
-    addReviewClass: 'add-review-hungry-seoul est-add-review'
-  },
-];
+    {
+      name: '24 Chicken',
+      rating: '4.9',
+      priceRange: ['₱₱', '₱₱'],
+      tags: ['Filipino', 'Chicken'],
+      description: 'If you\'re on the hunt for a chicken experience that transcends the ordinary, look no further than 24 Chicken.',
+      coverImage: '24Chicken.png',
+      reviewsButtonClass: 'est-view-review-24chicken viewReviewBtn'
+    },
+    {
+      name: "Ate Rica's Bacsilog",
+      rating: '4.9',
+      priceRange: ['₱', '₱₱₱'],
+      tags: ['Filipino', 'Rice Meal'],
+      description: 'Ate Rica\'s Bacsilog lives up to its "Sauce Sarap" promise! Delicious, affordable Filipino comfort food with generous portions and...',
+      coverImage: 'AteRicasBacsilog.png',
+      reviewsButtonClass: 'est-view-review-ateRicas viewReviewBtn'
+    },
+    {
+      name: 'Tomo Coffee',
+      rating: '4.7',
+      priceRange: ['₱₱', '₱₱'],
+      tags: ['Drinks'],
+      description: 'Tucked away in a vibrant student district, Tomo Coffee is a haven for caffeine-craving scholars. I love it so much!',
+      coverImage: 'TomoCoffee.png',
+      reviewsButtonClass: 'est-view-review-tomo viewReviewBtn'
+    },
+    {
+      name: 'Tinuhog ni Benny',
+      rating: '5.0',
+      priceRange: ['₱', '₱₱₱'],
+      tags: ['Filipino', 'Rice Meal'],
+      description: 'Tinuhog ni Benny is a haven for budget-friendly, delicious Filipino comfort food. The highlight is undoubtedly their namesake "tinuhog"...',
+      coverImage: 'TinuhogNiBenny.png',
+      reviewsButtonClass: 'est-view-review-tinuhog viewReviewBtn'
+    },
+    {
+      name: 'Hungry Seoul',
+      rating: '4.9',
+      priceRange: ['₱₱', '₱₱'],
+      tags: ['Korean', 'Rice Meal'],
+      description: 'If you\'re craving a taste of Korea in Manila, Hungry Seoul is definitely worth a visit. This casual restaurant...',
+      coverImage: 'HungrySeoul.png',
+      reviewsButtonClass: 'est-view-review-hungry-seoul viewReviewBtn'
+    },
+  ];
 
   const Review = function(username, rating, date, content, establishment) {
             this.username = username;
