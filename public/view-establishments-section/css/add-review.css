@@ -66,6 +66,11 @@ body {
     box-shadow: 0 4px 10px 5px rgba(0, 0, 0, 0.25);
 }
 
+.title {
+    font-size: 45px;
+    font-weight: 900;
+}
+
 .add-review {
     display: flex;
     flex-direction: column;

@@ -86,8 +86,9 @@ const establishments = [
             const estId = `${establishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
 
             const addReviewWindowId = `reviewWindow-${establishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
+            const estabName = `${establishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
             console.log("ADD WINDOW ID: " + addReviewWindowId);
-            const addHTML = generateAddWindow(addReviewWindowId, establishment);  
+            const addHTML = generateAddWindow(addReviewWindowId, establishment, estabName);  
 
             const viewReviewWindowId = `view-reviewWindow-${establishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
             console.log("VIEW WINDOW ID: " + viewReviewWindowId);
@@ -130,7 +131,11 @@ const establishments = [
       }
 
       /* add review window html */
-      function generateAddWindow(addReviewWindowId, establishment) {
+      function generateAddWindow(addReviewWindowId, establishment, estabName) {
+
+        // will generate unique IDs for star radio buttons based on establishment name
+        const starIds = Array.from({ length: 5 }, (_, i) => `star-${estabName}-${i + 1}`);
+
         return `
           <!-- Add Review Window -->
           <div id="${addReviewWindowId}" class="review-window-container" style="display: none;">
@@ -141,7 +146,7 @@ const establishments = [
                   <img src="../assets/est/content-icons/close.png" alt="Close" class="close-icon">
                 </div>
                 <div class="est-title-header">
-                  <span id="title">${establishment.name}</span>
+                  <span class="title">${establishment.name}</span>
                   <div class="rating-container">
                     <span id="rating">${establishment.rating}</span>
                     <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating">
@@ -158,16 +163,10 @@ const establishments = [
                 <div class="add-review">
                   <span id="select-rating">SELECT YOUR RATING</span>
                   <div class="star-rating-container">
-                    <input type="radio" id="star5" name="rating" value="1">
-                    <label for="star5"></label>
-                    <input type="radio" id="star4" name="rating" value="2">
-                    <label for="star4"></label>
-                    <input type="radio" id="star3" name="rating" value="3">
-                    <label for="star3"></label>
-                    <input type="radio" id="star2" name="rating" value="4">
-                    <label for="star2"></label>
-                    <input type="radio" id="star1" name="rating" value="5">
-                    <label for="star1"></label>
+                      ${starIds.map((id, index) => `
+                          <input type="radio" id="${id}" name="rating" value="${index + 1}">
+                          <label for="${id}"></label>
+                      `).join('')}
                   </div>
                   <div class="review-content">
                     <div class="comment-options">
@@ -179,12 +178,12 @@ const establishments = [
                       <label for="list" class="sprite-button" id="list-button"></label>
                     </div>
                     <hr>
-                    <textarea id="comment" name="comment" rows="25" cols="50" placeholder="Write a review..."></textarea>
+                    <textarea class="comment-content" id="comment" name="comment" rows="25" cols="50" placeholder="Write a review..."></textarea>
                   </div>
                   <div class="bottom">
                     <label for="upload" class="custom-upload"> Add a Photo or Video </label>
                     <input type="file" accept="image/*, video/*" id="upload" name="upload" style="display:none;">
-                    <button class="submit-button">Submit</button>
+                    <button class="submit-button" id="submit-${estabName}">Submit</button>
                   </div>
                 </div>
               </div>
@@ -205,7 +204,7 @@ const establishments = [
                   <img src="../assets/est/content-icons/close.png" alt="Close" class="close-icon">
                 </div>
                 <div class="view-title-header">
-                  <span id="title">${establishment.name}</span>
+                  <span class="title">${establishment.name}</span>
                   <div class="rating-container">
                     <span id="rating">${establishment.rating}</span>
                     <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating">
@@ -250,7 +249,7 @@ const establishments = [
       /* closes Add Review window */
       document.querySelectorAll('.close-button').forEach(function(button) {
         button.addEventListener('click', function() {
-          const establishmentName = button.closest('.review-window-container').querySelector('#title').textContent.trim();
+          const establishmentName = button.closest('.review-window-container').querySelector('.title').textContent.trim();
           const reviewWindow = `reviewWindow-${establishmentName.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
           console.log("ADD Window: " + reviewWindow);
           document.getElementById(reviewWindow).style.display = 'none';
@@ -260,7 +259,7 @@ const establishments = [
       /* closes View Review window */
       document.querySelectorAll('.close-button').forEach(function(button) {
         button.addEventListener('click', function() {
-          const establishmentName = button.closest('.view-window-container').querySelector('#title').textContent.trim();
+          const establishmentName = button.closest('.view-window-container').querySelector('.title').textContent.trim();
           const reviewWindow = `view-reviewWindow-${establishmentName.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
           console.log("VIEW Window: " + reviewWindow);
           document.getElementById(reviewWindow).style.display = 'none';
@@ -268,26 +267,30 @@ const establishments = [
       });
       
       /* executed when a user submits a new review */
-      document.querySelector('.submit-button').addEventListener('click', function () {
-        const username = "User";
-        const rating = document.querySelector('input[name="rating"]:checked').value;
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        const date = new Date().toLocaleDateString('en-US', options);
-        const content = document.getElementById('comment').value;
+      document.querySelectorAll('.submit-button').forEach(function(button) {
+        button.addEventListener('click', function () {
+            console.log("SUBMIT BUTTON CLICKED")
+
+            const username = "User";
+            const rating = document.querySelector('input[name="rating"]:checked').value;
+            
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const date = new Date().toLocaleDateString('en-US', options);
+
+            const content = this.closest('.review-window-container').querySelector('.comment-content').value;
+
+            const establishmentName = this.closest('.review-window-container').querySelector('.est-title-header span.title').textContent.trim().replace(/\s+/g, '-').toLowerCase().replace(/'/g, '');
+            console.log("ESTABLISHMENT NAME: " + establishmentName);
     
-        const establishmentName = this.closest('.review-window-container').querySelector('.est-title-header span#title').textContent.trim().replace(/\s+/g, '-').toLowerCase().replace(/'/g, '');
-        console.log("ESTABLISHMENT NAME: " + establishmentName);
+            const newReview = new Review(username, rating, date, content, establishmentName);
+            reviews.push(newReview);
     
-        const newReview = new Review(username, rating, date, content, establishmentName);
-        reviews.push(newReview);
+            renderReviews(establishmentName);
     
-        renderReviews(establishmentName);
-    
-        document.getElementById('comment').value = '';
-        document.querySelector('input[name="rating"]:checked').checked = false;
-        document.querySelector(`#reviewWindow-${establishmentName}`).style.display = 'none';
-    });
-    
+            this.closest('.review-window-container').querySelector('.comment-content').value = '';
+            document.querySelector(`#reviewWindow-${establishmentName}`).style.display = 'none';
+        });
+      });
       
       /* when new review has been added by a user, this function will be called */
       function renderReviews(establishmentName) {
