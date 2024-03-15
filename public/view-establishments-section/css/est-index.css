@@ -222,8 +222,10 @@ body {
 
 .view-all-container {
   display: flex;
+  position: absolute;
   justify-content: flex-end;
-  margin-left: 18em;
+  top: 115px;
+  right: 25px;
 }
 
 .view-all-title {
