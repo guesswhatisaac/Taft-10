@@ -49,11 +49,9 @@
             <div class = "scroll-object">
                 <div class = "reviews-container">
                     <div class = "review">
-                        {{#each reviews}}
+                        
                         {{>review}}
-                        {{/each}}
 
-                        {{#if showReply}}
                         <form action="/reply" method="post" class="reply">
                             <label for="description"> Reply to this Review: </label>
                             <textarea id="description" placeholder="Your reply here..." name="description"></textarea>
@@ -67,7 +65,7 @@
                                 <p> {{reply}} </p>
                             </div>
                         </div>
-                        {{/if}}
+                        
                     </div>
                     
                 </div>
