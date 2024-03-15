@@ -1032,7 +1032,6 @@ justify-content: flex-start;
   width: 225px;
   background-color: var(--color-white);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
-  margin-right: 10px;
   border-radius: 300px;
   display: flex;
   align-items: center;
@@ -1219,9 +1218,60 @@ justify-content: flex-start;
   margin-right: 12px;
 }
 
-
 .tag {
   font-weight: 500;
   color: #868686;
   font-size: 15px;
+}
+
+.user-view {
+  margin-left: 10px;
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+}
+
+#my-profile {
+  width: 100px;
+}
+
+#header-username {
+  font-size: large;
+  letter-spacing: -0.1px;
+  background-color: yellow;
+  text-align: right;
+  color: #B10F2E; 
+  text-decoration: none;
+  position: relative;
+  right: 10px;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: #e8bcc4; 
+  text-decoration-thickness: 0px;
+}
+
+#header-username:hover {
+  color: #FFC32B;
+}
+
+#profile-pic {
+  width: 40px;
+  border-radius: 50%;
+}
+
+#log-out {
+  line-height: 10px;
+  font-size: 13px;
+  position: relative;
+  right: 10px;
+  text-align: right;
+  color: #ca6578; 
+}
+
+#log-out-link { 
+  text-decoration: none;
+}
+
+#log-out:hover {
+  color: #FFC32B;
 }

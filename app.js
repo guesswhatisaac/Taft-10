@@ -378,9 +378,7 @@ app.get('/all-establishments', (req, res) => {
         needHeader2: true,
         needFooter: true,
         searchIcon: '/global-assets/header/search-icon.png',
-        taft10Logo: '/global-assets/header/taft-10.png',
-        ateRica: '/home-page-section/assets/ate-rica.png',
-        chefBab: '/home-page-section/assets/chef-bab.png',
+        taft10Logo: '/global-assets/header/taft-10.png'
     });
     // isIncorrectPass = false;
 });

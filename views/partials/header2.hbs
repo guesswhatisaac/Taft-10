@@ -13,10 +13,13 @@
             <input type="search" class="search-form" placeholder="Search Establishment"/>
         </div>
         {{#if userExists}}
-            <div class="profile-icon">
-                <a href='/profile' class="header-signout">{{currUsername}}</a>
+            <div class="user-view">
+                <div class="header-username-container">
+                    <a href='/profile' id="header-username"><div id="my-profile"> {{currUsername}} </div></a>
+                    <a href='/log-out' id="log-out-link"><div id="log-out"> Log Out </div></a>
+                </div>
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
             </div>
-            <a href='/log-out' class="header-signout">Log Out</a>
         {{else}}
             <a href="/sign-up"><button class=button id="sign-up"> Sign Up </button></a>
             <a href="/sign-in"><button class=button id="sign-in"> Sign In </button></a>
