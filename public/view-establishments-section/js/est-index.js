@@ -84,12 +84,13 @@ const establishments = [
         establishments.forEach(establishment => {
             const estHTML = generateEstablishmentHTML(establishment);
             const estId = `${establishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
-            console.log("EST ID: " +estId);
 
             const addReviewWindowId = `reviewWindow-${establishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
+            console.log("ADD WINDOW ID: " + addReviewWindowId);
             const addHTML = generateAddWindow(addReviewWindowId, establishment);  
 
             const viewReviewWindowId = `view-reviewWindow-${establishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
+            console.log("VIEW WINDOW ID: " + viewReviewWindowId);
             const viewHTML = generateViewWindow(viewReviewWindowId, establishment, estId);
 
             estContainer.innerHTML += estHTML;
@@ -249,16 +250,20 @@ const establishments = [
       /* closes Add Review window */
       document.querySelectorAll('.close-button').forEach(function(button) {
         button.addEventListener('click', function() {
-            const reviewWindow = button.closest('.review-window-container');
-            reviewWindow.style.display = 'none';
+          const establishmentName = button.closest('.review-window-container').querySelector('#title').textContent.trim();
+          const reviewWindow = `reviewWindow-${establishmentName.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
+          console.log("ADD Window: " + reviewWindow);
+          document.getElementById(reviewWindow).style.display = 'none';
         });
       });
 
       /* closes View Review window */
       document.querySelectorAll('.close-button').forEach(function(button) {
         button.addEventListener('click', function() {
-            const reviewWindow = button.closest('.view-window-container');
-            reviewWindow.style.display = 'none';
+          const establishmentName = button.closest('.view-window-container').querySelector('#title').textContent.trim();
+          const reviewWindow = `view-reviewWindow-${establishmentName.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
+          console.log("VIEW Window: " + reviewWindow);
+          document.getElementById(reviewWindow).style.display = 'none';
         });
       });
       
