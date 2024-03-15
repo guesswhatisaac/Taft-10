@@ -125,14 +125,15 @@ const users = [
 
 document.addEventListener("DOMContentLoaded", function() {
 
-    console.log(document.querySelector("#save-button"));
+    console.log(document.querySelector("button#save-button.save"));
 
-    const saveButton = document.querySelector("#save-button");
-    saveButton.addEventListener("click", function(e) {
+    // const saveButton = 
+    document.querySelector(".buttons").addEventListener("click", function(e) {
         // Your button click event handler code here
+        
         console.log("Save button clicked!");
-        e.preventDefault(); 
-        window.location.href = "view-user-yasmin.html";
+        // window.location.href = "view-user-yasmin.html";
+        //e.preventDefault(); 
     });
     
         
