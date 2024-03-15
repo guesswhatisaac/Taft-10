@@ -8,7 +8,7 @@
                 </div>
                 
                 <div class = "user-name">
-                    {{{myName}}}
+                    {{{myName}}} <br>
                     {{#if isOwner}}
                     <p> (Establishment Owner) </p>
                     <button type="submit"> Add Establishment </button>
@@ -51,20 +51,24 @@
                     <div class = "review">
                         
                         {{>review}}
+                        {{#if isOwner}}
+                            <form action="/reply" method="post" class="reply">
+                                <label for="description"> Reply to this Review: </label>
+                                <textarea id="description" placeholder="Your reply here..." name="description"></textarea>
+                                <input type="submit" value="Post Reply" class="reply-button">
+                            </form>
+                            
+                        {{/if}}
 
-                        <form action="/reply" method="post" class="reply">
-                            <label for="description"> Reply to this Review: </label>
-                            <textarea id="description" placeholder="Your reply here..." name="description"></textarea>
-                            <input type="submit" value="Post Reply" class="reply-button">
-                        </form>
-                        
-                        
-                        <div class="review-replies-container">
-                            <div id="reply-display">
-                                <p class="username-display"> {{username}} <span class="replied">replied: </span></p>
-                                <p> {{ownerReply}} </p>
+                            {{#if displayReplies}}
+                            <div class="review-replies-container">
+                                <div id="reply-display">
+                                    <p class="username-display"> {{username}} <span class="replied">replied: </span></p>
+                                    <p> {{ownerReply}} </p>
+                                </div>
                             </div>
-                        </div>
+                            {{/if}}
+                        
                         
                     </div>
                     
