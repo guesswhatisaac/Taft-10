@@ -354,10 +354,12 @@ app.get('/profile', (req, res) => {
         myName: '<h1>' + userObj.firstname + " " + userObj.lastname + '</h1>',
         numReviews: userObj.numReviews + ' reviews',
         userDescription: userObj.bio,
+        isOwner: userObj.isOwner,
+        userExists: hasUser,
+        currUsername: currentUserName,
         needHeader: false,
         needHeader2: true,
         needFooter: true,
-        isOwner: userObj.isOwner,
         searchIcon: '/global-assets/header/search-icon.png',
         taft10Logo: '/global-assets/header/taft-10.png'
     });
