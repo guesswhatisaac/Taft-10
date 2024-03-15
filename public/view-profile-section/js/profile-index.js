@@ -119,14 +119,24 @@ const users = [
         profilePicture: "../../global-assets/header/josh-pogi.jpg",
         isOwner: true,
         numReviews: 0
-    },
+    }];
 
-    let currentUser = new User();
+    //let currentUser = new User();
 
-    document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function() {
 
+    console.log(document.querySelector("#save-button"));
 
-
-    })
-
-  ];
+    const saveButton = document.querySelector("#save-button");
+    saveButton.addEventListener("click", function(e) {
+        // Your button click event handler code here
+        console.log("Save button clicked!");
+        e.preventDefault(); 
+        window.location.href = "view-user-yasmin.html";
+    });
+    
+        
+    console.log("test");
+    
+    
+});
