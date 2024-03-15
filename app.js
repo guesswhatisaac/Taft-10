@@ -375,7 +375,7 @@ app.get('/edit', (req, res) => {
         css: '/home-page-section/css/sign-up-in-index.css',
         css2: '/base-index.css',
         js: '/home-page-section/js/sign-up.js',
-        userExists: false,
+        userExists: hasUser,
         needHeader: false,
         needHeader2: false,
         needFooter: false,
