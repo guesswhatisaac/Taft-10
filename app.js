@@ -298,6 +298,37 @@ app.post('/sign-up', (req, res) => {
     // console.log(username, email, lname, fname, description, number, password, file, checkbox);
 
 });
+
+// recover-account
+app.get('/forgot-pw', (req, res) => {
+    console.log("Request received for /forgot-pw");
+    res.render('forgot-pw', {
+        title: 'Recover Account',
+        css: '/home-page-section/css/sign-up-in-index.css',
+        js: '',
+        userExists: false,
+        needHeader: false,
+        needFooter: false,
+    });
+});
+
+app.post('/forgot-pw', (req, res) => {
+    console.log("POST Request received for /forgot-pw");
+    console.log(req.body);
+    res.redirect("/success-msg");
+});
+
+app.get('/success-msg', (req, res) => {
+    console.log("Request received for /success-msg");
+    res.render('forgot-pw-response', {
+        title: 'Recover Account Success',
+        css: '/home-page-section/css/sign-up-in-index.css',
+        js: '/home-page-section/js/sign-up.js',
+        userExists: false,
+        needHeader: false,
+        needFooter: false,
+    });
+});
   
 // port
 app.listen(PORT, function (err) {
