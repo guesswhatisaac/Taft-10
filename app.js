@@ -150,8 +150,6 @@ let users = [
 // insert variables here
 
 
-
-
 app.engine('hbs', hbs.engine({
     extname: 'hbs',
     defaultLayout: 'home',
