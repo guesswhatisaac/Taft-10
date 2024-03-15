@@ -8,9 +8,11 @@ const express = require('express'),
 const layoutsDir = __dirname + '/views/layouts/';
 const partialsDir = __dirname + '/views/partials/'; 
 
+
 /************************************************************************************
  *                                      USERS
 ************************************************************************************/
+
 
 let currentUserName = " "; 
 let currentUserPFP = " ";
@@ -179,7 +181,7 @@ app.get('/', (req, res) => {
         userExists: hasUser,
         currUsername: currentUserName,
         needHeader: true,
-        needHeader2: true,
+        needHeader2: false,
         needFooter: true,
         searchIcon: '/global-assets/header/search-icon.png',
         taft10Logo: '/global-assets/header/taft-10.png',
@@ -212,6 +214,7 @@ app.get('/sign-in', (req, res) => {
         js: '/home-page-section/js/sign-in.js',
         userExists: false,
         needHeader: false,
+        needHeader2: false,
         needFooter: false,
         passwordIncorrect: isIncorrectPass
     });
@@ -265,6 +268,7 @@ app.get('/sign-up', (req, res) => {
         js: '/home-page-section/js/sign-up.js',
         userExists: false,
         needHeader: false,
+        needHeader2: false,
         needFooter: false,
     });
 });
@@ -311,6 +315,7 @@ app.get('/forgot-pw', (req, res) => {
         js: '',
         userExists: false,
         needHeader: false,
+        needHeader2: false,
         needFooter: false,
     });
 });
@@ -327,9 +332,9 @@ app.get('/success-msg', (req, res) => {
         title: 'Recover Account Success',
         css: '/home-page-section/css/sign-up-in-index.css',
         js: '/home-page-section/js/sign-up.js',
-        userExists: false,
         needHeader: false,
-        needFooter: false,
+        needHeader2: false,
+        needFooter: false
     });
 });
   
