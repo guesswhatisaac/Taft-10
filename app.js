@@ -482,6 +482,11 @@ app.get('/taft-picks', (req, res) => {
     });
 });
 
+// add establishment
+app.get("/addEst", (req, res) => {
+    res.sendFile('/view-establishments-section/html/all-est-view.html');
+});
+
 // port
 app.listen(PORT, function (err) {
     if (err) console.log(err);
