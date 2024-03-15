@@ -66,7 +66,7 @@ body {
     justify-content: center;
 }
 
-.save-button {
+#save-button {
     font-family: 'Staatliches';
     margin-right: 10px;
     background: #c41637;
@@ -78,7 +78,7 @@ body {
     width: 140px;
 }
 
-.cancel-button {
+#cancel-button {
     font-family: 'Staatliches';
     margin-left: 10px;
     background: #c41637;
