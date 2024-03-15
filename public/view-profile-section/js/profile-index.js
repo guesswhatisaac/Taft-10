@@ -125,19 +125,21 @@ const users = [
 
 document.addEventListener("DOMContentLoaded", function() {
 
-    console.log(document.querySelector("button#save-button.save"));
+    //console.log(document.querySelector("button#save-button.save"));
+    console.log("test");
 
     // const saveButton = 
-    document.querySelector(".buttons").addEventListener("click", function(e) {
+    document.querySelector(".save-button").addEventListener("click", function(e) {
+        let usernameInput = document.querySelector("input#username").value;
+        let bioInput = document.querySelector("textarea#description").value;
         // Your button click event handler code here
         
         console.log("Save button clicked!");
+        console.log(usernameInput);
+        console.log(bioInput);
         // window.location.href = "view-user-yasmin.html";
-        //e.preventDefault(); 
+        e.preventDefault(); 
     });
-    
-        
-    console.log("test");
     
     
 });
