@@ -456,6 +456,7 @@ ul li {
 .est-description-container {
     margin-top: 1rem;
     display: flex;
+    height: 75px;
 }
 
 .est-description {
