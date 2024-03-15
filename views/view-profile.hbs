@@ -11,6 +11,7 @@
                     {{{myName}}}
                     {{#if isOwner}}
                     <p> (Establishment Owner) </p>
+                    <button type="submit"> Add Establishment </button>
                     {{else}}
                     <p> (Non-owner User)  </p>
                     {{/if}}
@@ -47,7 +48,28 @@
         <div class = "scrollbar-container">
             <div class = "scroll-object">
                 <div class = "reviews-container">
-                    {{>review}}
+                    <div class = "review">
+                        {{#each reviews}}
+                        {{>review}}
+                        {{/each}}
+
+                        {{#if showReply}}
+                        <form action="/reply" method="post" class="reply">
+                            <label for="description"> Reply to this Review: </label>
+                            <textarea id="description" placeholder="Your reply here..." name="description"></textarea>
+                            <input type="submit" value="Post Reply" class="reply-button">
+                        </form>
+                        
+                        
+                        <div class="review-replies-container">
+                            <div id="reply-display">
+                                <p class="username-display"> {{username}} <span class="replied">replied: </span></p>
+                                <p> {{reply}} </p>
+                            </div>
+                        </div>
+                        {{/if}}
+                    </div>
+                    
                 </div>
             </div>
         </div>

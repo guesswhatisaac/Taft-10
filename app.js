@@ -341,10 +341,17 @@ app.get('/success-msg', (req, res) => {
 
     });
 });
-  
+
+let reply = "";
+let replies = [];
+let showReply = false;
+
 // profile
 app.get('/profile', (req, res) => {
     console.log("Request received for /profile");
+    if(!replies) {
+        showReply = true;
+    }
     res.render('view-profile', {
         title: 'View Account Success',
         css: '/view-profile-section/css/profile-index.css',
@@ -361,7 +368,10 @@ app.get('/profile', (req, res) => {
         needHeader2: true,
         needFooter: true,
         searchIcon: '/global-assets/header/search-icon.png',
-        taft10Logo: '/global-assets/header/taft-10.png'
+        taft10Logo: '/global-assets/header/taft-10.png',
+        showReply: showReply,
+        username: currentUserName,
+        reply: reply
     });
     console.log(userObj.firstname + " " + userObj.lastname);
     console.log()
@@ -387,8 +397,19 @@ app.get('/reply', (req, res) => {
 });
 
 app.post('/reply', (req, res) => {
-    
+    console.log("POST Request received for /post");
+    reply = req.body.description;
+    console.log(reply);
+    if(!reply) {
+        res.redirect('/profile');
+        let replyObj = { 
+            username: currentUserName,
+            reply: reply
+        }
+        replies.push(reply);
+    }
 });
+
 
 // edit profile post
 app.post('/edit', (req, res) => {
