@@ -306,6 +306,17 @@ const establishments = [
           }
       });
     
+      /* generates view review button class name */
+      function generateReviewsButtonClass(establishmentName) {
+        const name = establishmentName.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '');
+        return `est-view-review-${name} view-review-btn`;
+      }
+      
+      /* generates add review button class name */
+      function generateAddReviewClass(establishmentName) {
+          const name = establishmentName.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '');
+          return `add-review-${name} add-review-btn`;
+      }
 
       function resetStarRatingInputs() {
         document.querySelectorAll('input[name="rating"]').forEach(function(input) {
