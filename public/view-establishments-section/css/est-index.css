@@ -435,7 +435,6 @@ ul li {
 }
 
 .food-tag {
-
     font-family: 'Kanit';
     font-style: normal;
     font-weight: 400;
@@ -452,8 +451,6 @@ ul li {
     padding-left: 5px;
     padding-right: 5px;
     margin-right: 7px;
-
-    
 }
 
 .est-description-container {
@@ -1277,3 +1274,4 @@ justify-content: flex-start;
 #log-out:hover {
   color: #FFC32B;
 }
+

@@ -365,6 +365,7 @@ app.get('/profile', (req, res) => {
 
 // view all establishments
 app.get('/all-establishments', (req, res) => {
+    console.log("Request received for /all-establishments");
     res.render('all-establishments', {
         title: 'All Establishments',
         css: '/view-establishments-section/css/est-index.css',
@@ -380,11 +381,11 @@ app.get('/all-establishments', (req, res) => {
         searchIcon: '/global-assets/header/search-icon.png',
         taft10Logo: '/global-assets/header/taft-10.png'
     });
-    // isIncorrectPass = false;
 });
 
 // view taft picks
 app.get('/taft-picks', (req, res) => {
+    console.log("Request received for /taft-picks");
     res.render('taft-picks', {
         title: 'Taft Picks',
         css: '/view-establishments-section/css/est-index.css',
@@ -400,7 +401,6 @@ app.get('/taft-picks', (req, res) => {
         searchIcon: '/global-assets/header/search-icon.png',
         taft10Logo: '/global-assets/header/taft-10.png'
     });
-    // isIncorrectPass = false;
 });
 
 // port
