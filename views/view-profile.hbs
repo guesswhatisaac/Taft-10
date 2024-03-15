@@ -8,13 +8,12 @@
                 </div>
                 
                 <div class = "user-name">
-                    <h1> {{name}} </h1>
+                    {{{myName}}}
                     {{#if isOwner}}
-                    <p> (Non-owner User) </p>
-                    {{else}}
                     <p> (Establishment Owner) </p>
+                    {{else}}
+                    <p> (Non-owner User)  </p>
                     {{/if}}
-
                 </div>
 
                 <div class = "user">

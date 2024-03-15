@@ -1,4 +1,4 @@
-const PORT = 1200; // TODO: Change to 3000 before submitting
+const PORT = 3005; // TODO: Change to 3000 before submitting
 
 const express = require('express'),
       hbs = require('express-handlebars'),
@@ -185,7 +185,6 @@ app.get('/', (req, res) => {
         taft10Logo: '/global-assets/header/taft-10.png',
         ateRica: '/home-page-section/assets/ate-rica.png',
         chefBab: '/home-page-section/assets/chef-bab.png',
-        // imgURL: currentUserPFP
     });
     isIncorrectPass = false;
 });
@@ -281,13 +280,14 @@ app.post('/sign-up', (req, res) => {
     const newUser = { 
         username: '@' + req.body.username,
         email: req.body.email,
-        lname: req.body.lname,
-        fname: req.body.fname,
+        lastname: req.body.lname,
+        firstname: req.body.fname,
         bio: req.body.description,
         phoneNum: req.body.number,
         password: req.body.password,
-        imgFile: req.body.file,
-        isOwner: req.body.checkbox
+        profilePicture: req.body.file,
+        isOwner: req.body.checkbox,
+        numReviews: 0
     }
 
     users.push(newUser);
@@ -349,17 +349,16 @@ app.get('/profile', (req, res) => {
         css: '/view-profile-section/css/profile-index.css',
         css2: 'base-index.css',
         currentUserPic: '/global-assets/header/icon.jpg',
-        name: userObj.fname,
-        //+ '' + userObj.lname,
+        myName: '<h1>' + userObj.firstname + " " + userObj.lastname + '</h1>',
         numReviews: userObj.numReviews + ' reviews',
         userDescription: userObj.bio,
         needHeader: false,
         needHeader2: true,
         needFooter: true,
         isOwner: userObj.isOwner,
-
-
     });
+    console.log(userObj.firstname + " " + userObj.lastname);
+    console.log()
 });
 
 
