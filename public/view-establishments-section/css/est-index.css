@@ -358,19 +358,24 @@ ul li {
     border-radius: 35px;
     display: flex;
     flex-direction: column;
-    padding: 3vh;
+    padding-left: 3vh;
+    padding-right: 3vh;
+    padding-bottom: 3vh;
     box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.25);
     width: calc(33.33% - 10vh); /* sets 3 max per row */
     max-height: 80%;
+    position: relative;
 }
 
 .est-cover {
-    width: 130%;
-    height: auto; 
-    align-self: center;
-    bottom: 3vh;
-    position: relative;
+  position: relative; 
+  height: 340px; 
+  width: 130%; 
+  object-fit: cover; 
+  align-self: center;
+  bottom: 3vh;
 }
+
 
 .est-title-container {
     display: flex;
