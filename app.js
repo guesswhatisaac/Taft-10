@@ -348,7 +348,7 @@ app.get('/profile', (req, res) => {
     res.render('view-profile', {
         title: 'View Account Success',
         css: '/view-profile-section/css/profile-index.css',
-        css2: 'base-index.css',
+        css2: '/base-index.css',
         currentUserPic: '/global-assets/header/icon.jpg',
         myName: '<h1>' + userObj.firstname + " " + userObj.lastname + '</h1>',
         numReviews: userObj.numReviews + ' reviews',
@@ -361,6 +361,58 @@ app.get('/profile', (req, res) => {
     console.log(userObj.firstname + " " + userObj.lastname);
     console.log()
 });
+
+// edit profile get
+app.get('/edit', (req, res) => {
+    console.log("Request received for /edit");
+    res.render('edit-profile', {
+        title: 'Edit Profile',
+        css: '/home-page-section/css/sign-up-in-index.css',
+        css2: '/base-index.css',
+        js: '/home-page-section/js/sign-up.js',
+        userExists: false,
+        needHeader: false,
+        needHeader2: false,
+        needFooter: false,
+    });
+});
+
+
+// edit profile post
+app.post('/edit', (req, res) => {
+    console.log("Post Request received for /edit");
+    console.log(userObj);
+
+    const newUser = { 
+        username: '@' + req.body.username,
+        email: req.body.email,
+        lastname: req.body.lname,
+        firstname: req.body.fname,
+        bio: req.body.description,
+        phoneNum: req.body.number,
+        password: req.body.password,
+        profilePicture: req.body.file,
+        isOwner: req.body.checkbox,
+        numReviews: 0
+    }
+
+    users.push(newUser);
+    userObj = newUser;
+    currentUserName = '@' + req.body.username;
+    username = '@' + req.body.username;
+
+    hasUser = true; 
+    currentUserPFP = req.body.file;
+
+    res.redirect('/profile');
+    
+    console.log("Success edit");
+
+    // const { username, email, lname, fname, description, number, password, file, checkbox } = req.body;
+    // console.log(username, email, lname, fname, description, number, password, file, checkbox);
+
+});
+
 
 
 // view all establishments
