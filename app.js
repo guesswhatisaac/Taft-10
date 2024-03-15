@@ -178,6 +178,7 @@ app.get('/', (req, res) => {
         css: '/home-page-section/css/home-index.css',
         userExists: hasUser,
         currUsername: currentUserName,
+        addcss: false,
         needHeader: true,
         needHeader2: false,
         needFooter: true,
@@ -339,7 +340,25 @@ app.get('/success-msg', (req, res) => {
 // profile
 
 
+// view all establishments
+app.get('/all-establishments', (req, res) => {
+    res.render('all-establishments', {
+        title: 'All Establishments',
+        css: '/view-establishments-section/css/est-index.css',
+        js: '/view-establishments-section/js/est-index.js',
+        userExists: hasUser,
+        currUsername: currentUserName,
+        needHeader: false,
+        needHeader2: true,
+        needFooter: true,
+        searchIcon: '/global-assets/header/search-icon.png',
+        taft10Logo: '/global-assets/header/taft-10.png',
+        ateRica: '/home-page-section/assets/ate-rica.png',
+        chefBab: '/home-page-section/assets/chef-bab.png',
 
+    });
+    // isIncorrectPass = false;
+});
 
 // port
 app.listen(PORT, function (err) {

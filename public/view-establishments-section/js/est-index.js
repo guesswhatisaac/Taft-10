@@ -104,12 +104,12 @@ const establishments = [
       function generateEstablishmentHTML(establishment) {
         return `
           <div class="est-content">
-            <img src="../assets/est/content-cover/${establishment.coverImage}" class="est-cover">
+            <img src="/view-establishments-section/assets/est/content-cover/${establishment.coverImage}" class="est-cover">
             <div class="est-title-container">
               <div class="est-title">${establishment.name}</div>
               <div class="est-rating-container">
                 <span class="est-rating">${establishment.rating}</span>
-                <img src="../assets/est/content-icons/rating-icon.png" alt="Rating Icon" class="est-rating-icon">
+                <img src="/view-establishments-section/assets/est/content-icons/rating-icon.png" alt="Rating Icon" class="est-rating-icon">
               </div>
             </div>
             <div class="est-subtitle-container">
@@ -119,7 +119,7 @@ const establishments = [
               ${establishment.tags.map(tag => `<span class="food-tag">${tag}</span>`).join('')}
             </div>
             <div class="est-description-container">
-              <img src="../assets/est/content-icons/review-icon.png" alt="Review Icon" class="est-review-icon">
+              <img src="/view-establishments-section/assets/est/content-icons/review-icon.png" alt="Review Icon" class="est-review-icon">
               <div class="est-description">${establishment.description}</div>
             </div>
             <div class="est-review-section">
@@ -140,16 +140,16 @@ const establishments = [
           <!-- Add Review Window -->
           <div id="${addReviewWindowId}" class="review-window-container" style="display: none;">
             <div class="add-review-container"> 
-              <img src="../assets/est/content-cover/${establishment.coverImage}" class="main-photo">
+              <img src="/view-establishments-section/assets/est/content-cover/${establishment.coverImage}" class="main-photo">
               <div class="right-side">
                 <div class="close-button">
-                  <img src="../assets/est/content-icons/close.png" alt="Close" class="close-icon">
+                  <img src="/view-establishments-section/assets/est/content-icons/close.png" alt="Close" class="close-icon">
                 </div>
                 <div class="est-title-header">
                   <span class="title">${establishment.name}</span>
                   <div class="rating-container">
                     <span id="rating">${establishment.rating}</span>
-                    <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating">
+                    <img src="/view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating">
                   </div>
                 </div>
                 <div class="sub-header">
@@ -198,16 +198,16 @@ const establishments = [
           <!-- View Review Window -->
           <div id="${viewReviewWindowId}" class="view-window-container" style="display: none;">
             <div class="view-review-container"> 
-              <img src="../assets/est/content-cover/${establishment.coverImage}" alt="${establishment.name}" class="main-photo">
+              <img src="/view-establishments-section/assets/est/content-cover/${establishment.coverImage}" alt="${establishment.name}" class="main-photo">
               <div class="view-right-side">
                 <div class="close-button">
-                  <img src="../assets/est/content-icons/close.png" alt="Close" class="close-icon">
+                  <img src="/view-establishments-section/assets/est/content-icons/close.png" alt="Close" class="close-icon">
                 </div>
                 <div class="view-title-header">
                   <span class="title">${establishment.name}</span>
                   <div class="rating-container">
                     <span id="rating">${establishment.rating}</span>
-                    <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating">
+                    <img src="/view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating">
                   </div>
                 </div>
                 <div class="view-sub-header">
