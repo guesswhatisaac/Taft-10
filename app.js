@@ -179,7 +179,10 @@ app.get('/', (req, res) => {
         userExists: hasUser,
         currUsername: currentUserName,
         needHeader: true,
+        needHeader2: true,
         needFooter: true,
+        searchIcon: '/global-assets/header/search-icon.png',
+        taft10Logo: '/global-assets/header/taft-10.png',
         ateRica: '/home-page-section/assets/ate-rica.png',
         chefBab: '/home-page-section/assets/chef-bab.png',
         // imgURL: currentUserPFP
@@ -330,6 +333,11 @@ app.get('/success-msg', (req, res) => {
     });
 });
   
+// profile
+
+
+
+
 // port
 app.listen(PORT, function (err) {
     if (err) console.log(err);

@@ -142,8 +142,8 @@ document.addEventListener("DOMContentLoaded", function() {
             console.log("User data updated!");
             console.log(users[currentUserIndex]);
 
-            document.getElementById('user-handle').innerHTML = usernameInput;
-            document.getElementById('description').innerHTML = bioInput;
+            // document.getElementById('user-handle').innerHTML = usernameInput;
+            // document.getElementById('description').innerHTML = bioInput;
         } else {
             console.error("User not found!");
             e.preventDefault();
