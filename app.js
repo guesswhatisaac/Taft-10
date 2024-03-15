@@ -29,7 +29,7 @@ let users = [
         bio: 'To be or not to be.',
         phoneNum: '09143227896',
         password: '2kuyukoT',
-        profilePicture: "../../global-assets/header/icon.jpg",
+        profilePicture: "/global-assets/header/icon.jpg",
         isOwner: false,
         numReviews: 0
     },
@@ -41,7 +41,7 @@ let users = [
         bio: 'No pain, no gain!',
         phoneNum: '09808065541',
         password: 'iLovemyWIF3Y',
-        profilePicture: "../../global-assets/header/icon.jpg",
+        profilePicture: "/global-assets/header/icon.jpg",
         isOwner: false,
         numReviews: 0
     },
@@ -53,7 +53,7 @@ let users = [
         bio: 'Love is like a rosary, full of mystery.',
         phoneNum: '09066684661',
         password: 'valoGodz123',
-        profilePicture: "../../global-assets/header/isaac-pic.jpg",
+        profilePicture: "/global-assets/header/isaac-pic.jpg",
         isOwner: false,
         numReviews: 0
     },
@@ -65,7 +65,7 @@ let users = [
         bio: 'Time is gold.',
         phoneNum: '09702432277',
         password: 'BULDAK22enjoyer',
-        profilePicture: "../../global-assets/header/kathleen-pic.png",
+        profilePicture: "/global-assets/header/kathleen-pic.png",
         isOwner: false,
         numReviews: 0
     },
@@ -77,7 +77,7 @@ let users = [
         bio: 'Teamwork makes the dream work.',
         phoneNum: '09317573077',
         password: 'yashFOREVERloversS143',
-        profilePicture: "../../global-assets/header/alexis-pic.jpeg",
+        profilePicture: "/global-assets/header/alexis-pic.jpeg",
         isOwner: false,
         numReviews: 0
     },
@@ -89,7 +89,7 @@ let users = [
         bio: 'Shark is life!',
         phoneNum: '09339464368',
         password: 'BABYsharkdududu',
-        profilePicture: "../../global-assets/header/yash.jpg",
+        profilePicture: "/global-assets/header/yash.jpg",
         isOwner: true,
         numReviews: 0
     },
@@ -101,7 +101,7 @@ let users = [
         bio: 'Slip in to the diamond life.',
         phoneNum: '09145134782',
         password: 'iLoveMYSHANIA22',
-        profilePicture: "../../global-assets/header/hannah-pic.jpg",
+        profilePicture: "/global-assets/header/hannah-pic.jpg",
         isOwner: true,
         numReviews: 0
     },
@@ -113,7 +113,7 @@ let users = [
         bio: 'Stay delulu until it becomes truelulu.',
         phoneNum: '09798243924',
         password: 'JaLeeforevah',
-        profilePicture: "../../global-assets/header/jal-pic.jpg",
+        profilePicture: "/global-assets/header/jal-pic.jpg",
         isOwner: true,
         numReviews: 0
     },
@@ -125,7 +125,7 @@ let users = [
         bio: 'Be yourself.',
         phoneNum: '09091632635',
         password: 'alexisLangSapatNaILY',
-        profilePicture: "../../global-assets/header/mark-pic.jpg",
+        profilePicture: "/global-assets/header/mark-pic.jpg",
         isOwner: true,
         numReviews: 0
     },
@@ -137,7 +137,7 @@ let users = [
         bio: 'Patience is a virtue.',
         phoneNum: '09573670854',
         password: '404KANGKONGChips',
-        profilePicture: "../../global-assets/header/josh-pogi.jpg",
+        profilePicture: "/global-assets/header/josh-pogi.jpg",
         isOwner: true,
         numReviews: 0
     },
