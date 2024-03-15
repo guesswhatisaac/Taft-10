@@ -382,6 +382,13 @@ app.get('/edit', (req, res) => {
     });
 });
 
+app.get('/reply', (req, res) => {
+    console.log("Request received for /reply");
+});
+
+app.post('/reply', (req, res) => {
+
+});
 
 // edit profile post
 app.post('/edit', (req, res) => {
