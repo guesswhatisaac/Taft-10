@@ -192,7 +192,7 @@
 .close-button:hover {
     width: 30px; 
     height: 30px;
-    content: url('../CCAPDEV-MCO/view-establishments-section/assets/est/content-icons/close-filled.png'); 
+    content: url('./view-establishments-section/assets/est/content-icons/close-filled.png'); 
     transform: scale(1.2);
 }
 

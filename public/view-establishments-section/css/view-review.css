@@ -43,11 +43,8 @@ body {
   }
 }
 
-.view-window-container-24chicken,
-.view-window-container-ateRicas,
-.view-window-container-tomo,
-.view-window-container-tinuhog,
-.view-window-container-hungry-seoul {
+.view-window-container-*,
+#view-reviewWindow-* {
     display: none;
     position: fixed;
     top: 50%;
