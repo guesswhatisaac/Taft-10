@@ -265,6 +265,7 @@ app.get('/sign-up', (req, res) => {
     res.render('sign-up', {
         title: 'Sign Up',
         css: '/home-page-section/css/sign-up-in-index.css',
+        css2: '/base-index.css',
         js: '/home-page-section/js/sign-up.js',
         userExists: false,
         needHeader: false,
