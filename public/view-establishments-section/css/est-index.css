@@ -576,6 +576,7 @@ ul li {
   color: var(--color-gray-300);
   font-family: var(--font-istok-web);
 }
+
 .taft-text {
   width: 439px;
   flex-direction: row;
