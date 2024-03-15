@@ -372,9 +372,9 @@ app.get('/edit', (req, res) => {
     console.log("Request received for /edit");
     res.render('edit-profile', {
         title: 'Edit Profile',
-        css: '/home-page-section/css/sign-up-in-index.css',
-        css2: '/base-index.css',
+        css: '/view-profile-section/css/edit-profile-index.css',
         js: '/home-page-section/js/sign-up.js',
+        currentUserPic: userObj.profilePicture,
         userExists: hasUser,
         needHeader: false,
         needHeader2: false,
@@ -386,39 +386,34 @@ app.get('/edit', (req, res) => {
 // edit profile post
 app.post('/edit', (req, res) => {
     console.log("Post Request received for /edit");
-    console.log(userObj);
 
-    const newUser = { 
-        username: '@' + req.body.username,
-        email: req.body.email,
-        lastname: req.body.lname,
-        firstname: req.body.fname,
-        bio: req.body.description,
-        phoneNum: req.body.number,
-        password: req.body.password,
-        profilePicture: req.body.file,
-        isOwner: req.body.checkbox,
-        numReviews: 0
+    let usernameInput = req.body.username;
+    let bioInput = req.body.bio;
+    let accountExists = false;
+    let userIndex = -1;
+
+    console.log(usernameInput); 
+    console.log(bioInput);
+
+    // check if account exists and if password is correct
+    for(let i = 0; i < users.length; i++) {
+        if(('@' + usernameInput) === users[i].username) {
+            if(!usernameInput && bioInput) {
+                users[i].bio = bioInput;
+            } else if (!bioInput && usernameInput) {
+                users[i].username = usernameInput;
+            } else if (usernameInput && bioInput) {
+                users[i].username = usernameInput;
+                users[i].bio = bioInput;
+            } 
+            console.log("Edit successful");
+            res.redirect('/profile');
+        } else {
+            console.log("Edit unsuccessful");
+            res.redirect('/profile');
+        }
     }
-
-    users.push(newUser);
-    userObj = newUser;
-    currentUserName = '@' + req.body.username;
-    username = '@' + req.body.username;
-
-    hasUser = true; 
-    currentUserPFP = req.body.file;
-
-    res.redirect('/profile');
-    
-    console.log("Success edit");
-
-    // const { username, email, lname, fname, description, number, password, file, checkbox } = req.body;
-    // console.log(username, email, lname, fname, description, number, password, file, checkbox);
-
 });
-
-
 
 // view all establishments
 app.get('/all-establishments', (req, res) => {
