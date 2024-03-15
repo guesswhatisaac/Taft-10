@@ -2,12 +2,20 @@
 <html>
     <head>
         <title> {{title}} </title>
-        <link rel="stylesheet" href="../../public/home-page-section/css/home-index.css">
+        <link rel="stylesheet" href={{css}}>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src={{js}}></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"/>
     </head>
-    <body id="home">
-        <header> {{>header}} </header>
+    <body>
+        {{#if needHeader}}
+            <header> {{>header}} </header>
+        {{/if}}
+
         {{{body}}}
-        {{>content}}
-        <footer id="contact"> {{>footer}} </footer>
+        
+        {{#if needFooter}}
+            <footer id="contact"> {{>footer}} </footer>
+        {{/if}}
     </body>
 </html>
