@@ -2,12 +2,11 @@
 <html>
     <head>
         <title> Sign Up </title>
-        <script src="../js/sign-up.js"></script>;
         <link rel="stylesheet" href="../css/sign-up-in-index.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"/>
-        <script src="sign-up.js"></script>
+        <script src="../js/sign-up.js"></script>
     </head>
-    <body class="sign-up-page">
+    <body>
         <!-------------------- BLUE DIVIDER -------------------->
         <div class="blue-div-sign-up">&nbsp;</div>
         <!--------------------- SIGN UP ------------------------>
@@ -55,7 +54,7 @@
                         <input type="password" name="confirmPassword" id="confirm-password" />
                         <i class="bi bi-eye-slash" id="toggleConfirmPassword"></i>
                         
-                        <label for="file"> Upload Profile Picure </label><br>
+                        <label for="file"> Upload Profile Picture </label><span class="asterisk">*</span>
                         <input type="file" id="file" name="file" accept="image/png, image/jpeg"><br>
 
                         <div>
@@ -66,7 +65,7 @@
                     </div>
                     <!------------------- BUTTON --------------------->
                     <div class="submit-button">
-                        <a href="home-view-user.html" class="button" id="sign-up-submit-button"><span id="button-text">Sign Up</span></a>
+                        <input type="submit" class="button" name="sign-up-submit" id="button-text" value="Sign Up">  
                     </div>
                 </form>
             </div>

@@ -1,13 +1,10 @@
-//const home = require("./home");
-//console.log(home);
-
-const User = function() {
-    // TODO make a constructor
-}
+// var arr = require('./sign-up.js');
+// console.log(arr.users);
+//import { users } from './sign-up.js';
 
 document.addEventListener('DOMContentLoaded', function() {
     // FORM INPUTS
-    document.querySelector("#sign-in-submit-button").addEventListener("click", function(e){
+    document.querySelector(".submit-button").addEventListener("click", function(e){
         let usernameInput =  document.querySelector("input#username").value;
         let passwordInput = document.querySelector("input#password").value;
         let checkboxInput = $("#checkbox").is(":checked");
@@ -18,9 +15,9 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log(passwordInput);
             console.log(checkboxInput);
 
-            console.log("validated");
+            console.log("-- INPUTS ARE VALIDATED --");
         } else {
-            e.preventDefault();  
+           e.preventDefault();  
         }
         
     });
@@ -42,6 +39,10 @@ document.addEventListener('DOMContentLoaded', function() {
         return false;
     }
 
+    // CHECK IF USERNAME AND PASSWORD MATCHES
+    function checkIfAccountExists(username, password) {
+
+    }
 
     // TOGGLE PASSWORD
     const togglePassword = document.querySelector("#togglePassword");
@@ -53,10 +54,10 @@ document.addEventListener('DOMContentLoaded', function() {
         this.classList.toggle("bi-eye");
     });
 
-    const form = document.querySelector("form");
-    form.addEventListener('submit', function (e) {
-        e.preventDefault();
-    });
+    // const form = document.querySelector("form");
+    // form.addEventListener('submit', function (e) {
+    //    e.preventDefault();
+    // });
 
     
 });
