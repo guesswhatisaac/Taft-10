@@ -4,40 +4,35 @@
     <head>
         <link rel="stylesheet" href="../../base-index.css">
         <link rel="stylesheet" href="../css/edit-profile-index.css">
+        <script src="../js/profile-index.js"></script>
         <title> Edit User Profile </title>
     </head>
 
     <body>
-        <div class = "edit-profile-container">
-            <div class = "profile">
-                <div class = "profile-container">
-                    <img src = "../../global-assets/header/icon.jpg" alt = "Doggo Logo" class = "user-image">
+        <form action="" name="profile-form" id="profile-form">
+            <div class = "edit-profile-container">
+                <div class = "profile">
+                    <div class = "profile-container">
+                        <img src = "../../global-assets/header/icon.jpg" alt = "Doggo Logo" class = "user-image">
+                    </div>
                 </div>
-            </div>
-            
-            <div class = "to-be-edit-container">
-                <label for="username"> Username </label><br>
+                
+                <div class = "to-be-edit-container">
+                    <label for="username"> Username </label><br>
                     <input type="text" id="username" name="username"><br>
                 
-                <h3> More About Me </h3>
-                
-                <label for="location"> Location </label><br>
-                    <input type="text" id="location" name="location"><br>
-                
-                <label for="liked-stores"> Liked Stores </label><br>
-                    <input type="text" id="liked-stores" name="liked-stores"><br>
+                    <label for="description"> Description </label><br>
+                    <textarea id="description" name="description"></textarea><br>
 
-                <label for="description"> Description </label><br>
-                    <input type="text" id="description" name="description"><br>
+                    <div class = "buttons">
+                        <div class="save-button"><button  type="submit" class = "save" id="save-button"> SAVE CHANGES </button></div> 
+                        <div class="cancel-button"><a href = "view-user-yasmin.html"><button class = "cancel" id="cancel-button"> CANCEL </button></a></div>
+                    </div>    
 
-                <div class = "buttons">
-                    <a href = "view-user-yasmin.html"><button class = "save-button"> SAVE CHANGES </button></a>
-                    <a href = "view-user-yasmin.html"><button class = "cancel-button"> CANCEL </button></a>
                 </div>
-
             </div>
+        </form>
 
-        </div>
     </body>
 
 </html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 
 <html>
     <head>
@@ -11,55 +11,55 @@
         <title> All Est. View </title>
     </head>
 
-    <body>
-    <!-------------------- HEADER -------------------->
-    <header class="header">
-        <div class="header-left">
-            <img src="../../global-assets/header/taft-10.png" alt="Taft Logo" class="header-taft-logo">
-            <nav class="header-nav">
-                <a href="../../home-page-section/html/home-view-user.html" class="header-button"> Home </a>
-                <a href="../../home-page-section/html/home-view-user.html#about" class="header-button"> About </a>
-                <a href="#contact" class="header-button">Contact</a>
-            </nav>
-        </div>
-        <div class="header-right">
-            <div class="search-bar">
-                <img src="../../global-assets/header/search-icon.png" class="search-icon" alt="search icon"/>
-                <input type="search" class="search-form" placeholder="Search Establishment"/>
+        <body>
+        <!-------------------- HEADER -------------------->
+        <header class="header">
+            <div class="header-left">
+                <img src="../../global-assets/header/taft-10.png" alt="Taft Logo" class="header-taft-logo">
+                <nav class="header-nav">
+                    <a href="../../home-page-section/html/home-view-user.html" class="header-button"> Home </a>
+                    <a href="../../home-page-section/html/home-view-user.html#about" class="header-button"> About </a>
+                    <a href="#contact" class="header-button">Contact</a>
+                </nav>
             </div>
-            <div class="profile-icon"></div>
-            <a href="../../home-page-section/html/home-view.html" class="header-signout">LOG OUT</a>
-        </div>
-    </header>
-
-    <!-------------------- BAR CONTAINER -------------------->
-    <div class="bar-container container-template">
-        <div class="bar-title">
-            <span class="white">SORT</span>
-            &nbsp;
-            <span class="yellow">BY</span>
-        </div>
-        
-        <div class="sort-options">
-            <div class="category-dropdown-container">
-                <div class="category-dropdown-title">
-                    Highest Rated
-                </div> 
-                <div class="category-options-container">
-                    <p class="category-option" onclick="changeText(this)">Most Popular</p>
-                    <p class="category-option" onclick="changeText(this)">Most Reviewed</p>
-                    <p class="category-option" onclick="changeText(this)">Highest Rated</p>
+            <div class="header-right">
+                <div class="search-bar">
+                    <img src="../../global-assets/header/search-icon.png" class="search-icon" alt="search icon"/>
+                    <input type="search" class="search-form" placeholder="Search Establishment"/>
                 </div>
+                <div class="profile-icon"></div>
+                <a href="../../home-page-section/html/home-view.html" class="header-signout">LOG OUT</a>
+            </div>
+        </header>
+
+        <!-------------------- BAR CONTAINER -------------------->
+        <div class="bar-container container-template">
+            <div class="bar-title">
+                <span class="white">SORT</span>
+                &nbsp;
+                <span class="yellow">BY</span>
             </div>
             
-            <div class="price-range-container">
-                <button class="price-button-outer-left">₱</button>
-                <button class="price-button-inner">₱₱</button>
-                <button class="price-button-inner">₱₱₱</button>
-                <button class="price-button-outer-right">₱₱₱₱</button>
+            <div class="sort-options">
+                <div class="category-dropdown-container">
+                    <div class="category-dropdown-title">
+                        Highest Rated
+                    </div> 
+                    <div class="category-options-container">
+                        <p class="category-option" onclick="changeText(this)">Most Popular</p>
+                        <p class="category-option" onclick="changeText(this)">Most Reviewed</p>
+                        <p class="category-option" onclick="changeText(this)">Highest Rated</p>
+                    </div>
+                </div>
+                
+                <div class="price-range-container">
+                    <button class="price-button-outer-left">₱</button>
+                    <button class="price-button-inner">₱₱</button>
+                    <button class="price-button-inner">₱₱₱</button>
+                    <button class="price-button-outer-right">₱₱₱₱</button>
+                </div>
             </div>
         </div>
-    </div>
 
 
     <!-------------------- TAGS -------------------->
@@ -224,678 +224,44 @@
 
       
 
-    <!-------------------- ESTABLISHMENTS CONTENT -------------------->
-    <div class="est-container"> </div>
+        <!-------------------- ESTABLISHMENTS CONTENT -------------------->
+        <div class="est-container"> </div>
 
 
-    <!-------------------- ADD ESTABLISHMENT REVIEW -------------------->
-    <div id="reviewWindow" class="review-window-container">
-        <div class="add-review-container"> 
-            <img src="../assets/est/content-main/24-Chicken.jpg" class="main-photo">
+        <!------------------- ADD ESTABLISHMENT REVIEW ------------------->
+        <div class="add-container"> </div>
 
-            <div class="right-side">
-                <div class="close-button">
-                    <img src="../assets/est/content-icons/close.png" alt="Close" class="close-icon">
+
+        <!----------------- VIEW ESTABLISHMENT'S REVIEWS ----------------->
+        <div class="view-container"> </div>
+    
+        
+        <!-------------------- FOOTER -------------------->
+        <footer id="contact">
+            <div class="footer-follow">
+                <span class="footer-text"> Follow Us </span>
+                <ul id="socmed">
+                    <a href="https://www.facebook.com/"><li id="facebook"></li></a>
+                    <a href="https://www.instagram.com/"><li id="instagram"></li></a>
+                    <a href="https://www.twitter.com/"><li id="twitter"></li></a>
+                    <a href="https://www.threads.net/"><li id="threads"></li></a>
+                    <a href="https://www.youtube.com/"><li id="youtube"></li></a>
+                </ul>
+            </div>
+            <div class="footer-divider"> &nbsp; </div>
+            <div class="footer-contact">
+                <div id="connect">
+                    <span class="footer-text"> Connect with Us </span>
                 </div>
-
-                <div class="est-title-header">
-                    <span id="title"> 24 Chicken </span>
-                    <div class="rating-container">
-                        <span id="rating"> 4.9 </span>
-                        <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating">
-                    </div>
-                </div>
-
-                <div class="sub-header">
-                    <div class="price-holder">
-                        <span class="price bold">₱₱</span>
-                        <span class="price bold-light">₱₱</span>
-                        <span id="dot"> • </span>
-                    </div>
-                    <div class="tag-container">
-                        <span class="tag"> Filipino </span>
-                    </div>
-                    <div class="tag-container">
-                        <span class="tag"> Rice Meal </span>
-                    </div>
-                </div>
-
-                <div class="add-review">
-                    <span id="select-rating">SELECT YOUR RATING</span>
-                    <div class="star-rating-container">
-                        <input type="radio" id="star5" name="rating" value="1">
-                        <label for="star5"></label>
-                
-                        <input type="radio" id="star4" name="rating" value="2">
-                        <label for="star4"></label>
-                
-                        <input type="radio" id="star3" name="rating" value="3">
-                        <label for="star3"></label>
-                
-                        <input type="radio" id="star2" name="rating" value="4">
-                        <label for="star2"></label>
-                
-                        <input type="radio" id="star1" name="rating" value="5">
-                        <label for="star1"></label>
-                    </div>
-
-                    <div class="review-content">
-                        <div class="comment-options">
-                            <input type="checkbox" id="bold" />
-                            <label for="bold" class="sprite-button" id="bold-button"></label>
-
-                            <input type="checkbox" id="italic" />
-                            <label for="italic" class="sprite-button" id="italic-button"></label>
-
-                            <input type="checkbox" id="list" />
-                            <label for="list" class="sprite-button" id="list-button"></label>
-                        </div>
-                        <hr>
-                        <textarea id="comment" name="comment" rows="25" cols="50" placeholder="Write a review..."></textarea>
-                    </div>
-                    
-                    <div class="bottom">
-                        <label for="upload" class="custom-upload"> Add a Photo or Video </label>
-                        <input type="file" accept="image/*, video/*" id="upload" name="upload" style="display:none;">
-                        <button class="submit-button">Submit</button>
-                    </div>
+                <div class="contact-container" id="footer-container1">
+                    <span class="footer-bold"> taft10@email.com </span>
+                    <span class="footer-labels"> Email Address </span>
+                </div><br>
+                <div class="contact-container">
+                    <span class="footer-bold"> +63 912 345 6789 </span>
+                    <span class="footer-labels"> Contact Number </span>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-------------------- VIEW ESTABLISHMENT'S REVIEWS -------------------->
-    <div id="view-reviewWindow-24chicken" class="view-window-container-24chicken">
-        <div class="view-review-container"> 
-            <img src="../assets/est/content-main/24-Chicken.jpg" alt="24 Chicken" class="main-photo"></img>
-
-            <div class="view-right-side">
-                <div class="close-button">
-                    <img src="../assets/est/content-icons/close.png" alt="Close" class="close-icon">
-                </div>
-
-                <div class="view-title-header">
-                    <span id="title"> 24 Chicken </span>
-                    <div class="rating-container">
-                        <span id="rating"> 4.9 </span>
-                        <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating">
-                    </div>
-                </div>
-
-                <div class="view-sub-header">
-                    <div class="price-holder">
-                        <span class="price bold">₱₱</span>
-                        <span class="price bold-light">₱₱</span>
-                        <span id="dot"> • </span>
-                    </div>
-                    <div class="tag-container">
-                        <span class="tag"> Filipino </span>
-                    </div>
-                    <div class="tag-container">
-                        <span class="tag"> Rice Meal </span>
-                    </div>
-                </div>
-
-                <div class="view-review-placeholder"> </div>
-            </div>
-        </div>   
-    </div>
-
-    <!-- <div id="view-reviewWindow-ateRicas" class="view-window-container-ateRicas">
-        <div class="view-review-container"> 
-            <img src="../assets/est/content-main/ate-ricas-bacsilog.jpg" alt="Ate Rica's Bacsilog" class="main-photo">
-
-            <div class="view-right-side">
-                <div class="close-button">
-                    <img src="../assets/est/content-icons/close.png" alt="Close" class="close-icon">
-                </div>
-
-                <div class="view-title-header">
-                    <span id="title"> Ate Rica's Bacsilog </span>
-                    <div class="rating-container">
-                        <span id="rating"> 4.9 </span>
-                        <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating">
-                    </div>
-                </div>
-
-                <div class="view-sub-header">
-                    <div class="price-holder">
-                        <span class="price bold">₱</span>
-                        <span class="price bold-light">₱₱₱</span>
-                        <span id="dot"> • </span>
-                    </div>
-                    <div class="tag-container">
-                        <span class="tag"> Filipino </span>
-                    </div>
-                    <div class="tag-container">
-                        <span class="tag"> Rice Meal </span>
-                    </div>
-                </div>
-
-                <div class="view-review-placeholder">
-                    
-                </div>
-            </div>
-        </div>   
-    </div>
-
-    <div id="view-reviewWindow-tomo" class="view-window-container-tomo">
-        <div class="view-review-container"> 
-            <img src="../assets/est/content-main/tomo-coffee.jpg" alt="Tomo Coffee" class="main-photo">
-
-            <div class="view-right-side">
-                <div class="close-button">
-                    <img src="../assets/est/content-icons/close.png" alt="Close" class="close-icon">
-                </div>
-
-                <div class="view-title-header">
-                    <span id="title"> Tomo Coffee </span>
-                    <div class="rating-container">
-                        <span id="rating"> 4.7 </span>
-                        <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating">
-                    </div>
-                </div>
-
-                <div class="view-sub-header">
-                    <div class="price-holder">
-                        <span class="price bold">₱₱</span>
-                        <span class="price bold-light">₱₱</span>
-                        <span id="dot"> • </span>
-                    </div>
-                    <div class="tag-container">
-                        <span class="tag"> Filipino </span>
-                    </div>
-                    <div class="tag-container">
-                        <span class="tag"> Rice Meal </span>
-                    </div>
-                </div>
-
-                <div class="view-review-placeholder">
-                    <div class="view-review">
-                        <div class="user-info">
-                            <a href="../../view-profile-section/view-user-alexis.html">
-                                <img src="../assets/est/user-profile/alexis-arcega.jfif" class="user-icon">
-                            </a>
-                            <div class="user-text">
-                                <span class="username">Alexis Arcega</span>
-                                <span class="user-status">De la Salle University Student</span>
-                            </div>
-    
-                            <div class="upvote-container">
-                                <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
-                                <span> 61 </span>
-                            </div>
-    
-                            <div class="user-info-sub">
-                                <div class="user-rating">
-                                    <span class="rating-user"> 5.0 </span>
-                                    <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
-                                </div>
-                                <span class="dot1"> • </span>
-                                <span class="date"> January 20, 2024 </span>
-                            </div>
-                        </div>
-    
-                        <div class="post-review-content">
-                            Tomo Coffee hits the spot! The aromatic coffee and cozy ambiance make it a perfect spot to unwind. Quick service and friendly staff complete the delightful experience.
-                        </div>
-                    </div>
-
-                    <div class="view-review">
-                        <div class="user-info">
-                            <a href="../../view-profile-section/view-user-kathleen.html">
-                                <img src="../assets/est/user-profile/kathleen-cruz.png" class="user-icon">
-                            </a>
-                            
-                            <div class="user-text">
-                                <span class="username">Kathleen Cruz</span>
-                                <span class="user-status">De la Salle University Student</span>
-                            </div>
-    
-                            <div class="upvote-container">
-                                <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
-                                <span> 27 </span>
-                            </div>
-    
-                            <div class="user-info-sub">
-                                <div class="user-rating">
-                                    <span class="rating-user"> 5.0 </span>
-                                    <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
-                                </div>
-                                <span class="dot1"> • </span>
-                                <span class="date"> January 02, 2024 </span>
-                            </div>
-                        </div>
-    
-                        <div class="post-review-content">
-                            Tomo Coffee, where each sip tells a story. The expertly brewed coffee, paired with a warm and inviting atmosphere, creates a haven for coffee lovers. 
-                            Quick service and a friendly staff make it a gem in the city.
-                        </div>
-                    </div>
-
-                    <div class="view-review">
-                        <div class="user-info">
-                            <a href="../../view-profile-section/view-user-nathan.html">
-                                <img src="../assets/est/user-profile/nathan-roman.jfif" class="user-icon">
-                            </a>
-                            <div class="user-text">
-                                <span class="username">Nathan Roman</span>
-                                <span class="user-status">De la Salle University Student</span>
-                            </div>
-    
-                            <div class="upvote-container">
-                                <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
-                                <span> 55 </span>
-                            </div>
-    
-                            <div class="user-info-sub">
-                                <div class="user-rating">
-                                    <span class="rating-user"> 5.0 </span>
-                                    <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
-                                </div>
-                                <span class="dot1"> • </span>
-                                <span class="date"> February 08, 2024 </span>
-                            </div>
-                        </div>
-    
-                        <div class="post-review-content">
-                            Coffee perfection found at Tomo Coffee! The meticulously crafted brews showcase a dedication to quality. The cozy ambiance and friendly baristas 
-                            elevate the overall experience. A top pick for a caffeine fix!
-                        </div>
-                    </div>
-                    
-                    <div class="view-review">
-                        <div class="user-info">
-                            <a href="../../view-profile-section/view-user-shania.html">
-                                <img src="../assets/est/user-profile/shane-cloma.jfif" class="user-icon">
-                            </a>
-                            <div class="user-text">
-                                <span class="username">Shane Cloma</span>
-                                <span class="user-status">De la Salle University Student</span>
-                            </div>
-    
-                            <div class="upvote-container">
-                                <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
-                                <span> 30 </span>
-                            </div>
-    
-                            <div class="user-info-sub">
-                                <div class="user-rating">
-                                    <span class="rating-user"> 5.0 </span>
-                                    <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
-                                </div>
-                                <span class="dot1"> • </span>
-                                <span class="date"> February 15, 2024 </span>
-                            </div>
-                        </div>
-    
-                        <div class="post-review-content">
-                            Tomo Coffee, a haven for coffee connoisseurs! The carefully selected beans and skilled baristas ensure a premium coffee experience. 
-                            The inviting atmosphere and attentive service make it a go-to spot for relaxation and great coffee.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>   
-    </div>
-
-    <div id="view-reviewWindow-tinuhog" class="view-window-container-tinuhog">
-        <div class="view-review-container"> 
-            <img src="../assets/est/content-main/tinuhog-ni-benny.jpg" alt="Tinuhog ni Benny" class="main-photo">
-
-            <div class="view-right-side">
-                <div class="close-button">
-                    <img src="../assets/est/content-icons/close.png" alt="Close" class="close-icon">
-                </div>
-
-                <div class="view-title-header">
-                    <span id="title"> Tinuhog ni Benny </span>
-                    <div class="rating-container">
-                        <span id="rating"> 5.0 </span>
-                        <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating">
-                    </div>
-                </div>
-
-                <div class="view-sub-header">
-                    <div class="price-holder">
-                        <span class="price bold">₱</span>
-                        <span class="price bold-light">₱₱₱</span>
-                        <span id="dot"> • </span>
-                    </div>
-                    <div class="tag-container">
-                        <span class="tag"> Filipino </span>
-                    </div>
-                    <div class="tag-container">
-                        <span class="tag"> Rice Meal </span>
-                    </div>
-                </div>
-
-                <div class="view-review-placeholder">
-                    <div class="view-review">
-                        <div class="user-info">
-                            <a href="../../view-profile-section/view-user-alexis.html">
-                                <img src="../assets/est/user-profile/alexis-arcega.jfif" class="user-icon">
-                            </a>
-                            <div class="user-text">
-                                <span class="username">Alexis Arcega</span>
-                                <span class="user-status">De la Salle University Student</span>
-                            </div>
-    
-                            <div class="upvote-container">
-                                <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
-                                <span> 61 </span>
-                            </div>
-    
-                            <div class="user-info-sub">
-                                <div class="user-rating">
-                                    <span class="rating-user"> 5.0 </span>
-                                    <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
-                                </div>
-                                <span class="dot1"> • </span>
-                                <span class="date"> January 20, 2024 </span>
-                            </div>
-                        </div>
-    
-                        <div class="post-review-content">
-                            Tinuhog ni Benny is a hidden gem for affordable Filipino inihaw (grilled) delights! Benny's mastery in offering mouthwatering skewered treats at 
-                            budget-friendly prices is impressive. A must-try for those craving delicious, budget-friendly Filipino street food.
-                        </div>
-                    </div>
-
-                    <div class="view-review">
-                        <div class="user-info">
-                            <a href="../../view-profile-section/view-user-kathleen.html">
-                                <img src="../assets/est/user-profile/kathleen-cruz.png" class="user-icon">
-                            </a>
-                            
-                            <div class="user-text">
-                                <span class="username">Kathleen Cruz</span>
-                                <span class="user-status">De la Salle University Student</span>
-                            </div>
-    
-                            <div class="upvote-container">
-                                <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
-                                <span> 27 </span>
-                            </div>
-    
-                            <div class="user-info-sub">
-                                <div class="user-rating">
-                                    <span class="rating-user"> 5.0 </span>
-                                    <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
-                                </div>
-                                <span class="dot1"> • </span>
-                                <span class="date"> January 02, 2024 </span>
-                            </div>
-                        </div>
-    
-                        <div class="post-review-content">
-                            Tinuhog ni Benny is a haven for those seeking delectable Filipino inihaw (grilled) goodness without breaking the bank. Benny's commitment to 
-                            delivering flavorful and affordable skewered delights is commendable. The smoky aroma of the grills draws you in, and the taste of the well-marinated 
-                            meats keeps you coming back for more. From isaw (chicken or pork intestines) to betamax (skewered chicken or pork blood), the menu offers a variety of 
-                            choices, all cooked to perfection. Whether you're a local looking for an affordable treat or a food adventurer exploring Filipino street food, Tinuhog ni 
-                            Benny won't disappoint.
-                        </div>
-                    </div>
-
-                    <div class="view-review">
-                        <div class="user-info">
-                            <a href="../../view-profile-section/view-user-nathan.html">
-                                <img src="../assets/est/user-profile/nathan-roman.jfif" class="user-icon">
-                            </a>
-                            <div class="user-text">
-                                <span class="username">Nathan Roman</span>
-                                <span class="user-status">De la Salle University Student</span>
-                            </div>
-    
-                            <div class="upvote-container">
-                                <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
-                                <span> 55 </span>
-                            </div>
-    
-                            <div class="user-info-sub">
-                                <div class="user-rating">
-                                    <span class="rating-user"> 5.0 </span>
-                                    <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
-                                </div>
-                                <span class="dot1"> • </span>
-                                <span class="date"> February 08, 2024 </span>
-                            </div>
-                        </div>
-    
-                        <div class="post-review-content">
-                            Tinuhog ni Benny is a steal for grilled goodness! Benny's inihaw treats are not just easy on the wallet but also bursting with authentic Filipino 
-                            flavors. Don't miss out on this hidden gem!
-                        </div>
-                    </div>
-                    
-                    <div class="view-review">
-                        <div class="user-info">
-                            <a href="../../view-profile-section/view-user-shania.html">
-                                <img src="../assets/est/user-profile/shane-cloma.jfif" class="user-icon">
-                            </a>
-                            <div class="user-text">
-                                <span class="username">Shane Cloma</span>
-                                <span class="user-status">De la Salle University Student</span>
-                            </div>
-    
-                            <div class="upvote-container">
-                                <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
-                                <span> 30 </span>
-                            </div>
-    
-                            <div class="user-info-sub">
-                                <div class="user-rating">
-                                    <span class="rating-user"> 5.0 </span>
-                                    <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
-                                </div>
-                                <span class="dot1"> • </span>
-                                <span class="date"> February 15, 2024 </span>
-                            </div>
-                        </div>
-    
-                        <div class="post-review-content">
-                            Tinuhog ni Benny – the epitome of tasty yet economical inihaw treats! Benny's skewers are a testament to his culinary prowess, 
-                            providing a satisfying and affordable experience for all.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>   
-    </div>
-
-    <div id="view-reviewWindow-hungry-seoul" class="view-window-container-hungry-seoul">
-        <div class="view-review-container"> 
-            <img src="../assets/est/content-main/hungry-seoul.jpg" alt="Hungry Seoul" class="main-photo">
-
-            <div class="view-right-side">
-                <div class="close-button">
-                    <img src="../assets/est/content-icons/close.png" alt="Close" class="close-icon">
-                </div>
-
-                <div class="view-title-header">
-                    <span id="title"> Hungry Seoul </span>
-                    <div class="rating-container">
-                        <span id="rating"> 4.9 </span>
-                        <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating">
-                    </div>
-                </div>
-
-                <div class="view-sub-header">
-                    <div class="price-holder">
-                        <span class="price bold">₱</span>
-                        <span class="price bold-light">₱₱₱</span>
-                        <span id="dot"> • </span>
-                    </div>
-                    <div class="tag-container">
-                        <span class="tag"> Filipino </span>
-                    </div>
-                    <div class="tag-container">
-                        <span class="tag"> Rice Meal </span>
-                    </div>
-                </div>
-
-                <div class="view-review-placeholder">
-                    <div class="view-review">
-                        <div class="user-info">
-                            <a href="../../view-profile-section/view-user-alexis.html">
-                                <img src="../assets/est/user-profile/alexis-arcega.jfif" class="user-icon">
-                            </a>
-                            <div class="user-text">
-                                <span class="username">Alexis Arcega</span>
-                                <span class="user-status">De la Salle University Student</span>
-                            </div>
-    
-                            <div class="upvote-container">
-                                <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
-                                <span> 61 </span>
-                            </div>
-    
-                            <div class="user-info-sub">
-                                <div class="user-rating">
-                                    <span class="rating-user"> 5.0 </span>
-                                    <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
-                                </div>
-                                <span class="dot1"> • </span>
-                                <span class="date"> January 20, 2024 </span>
-                            </div>
-                        </div>
-    
-                        <div class="post-review-content">
-                            Hungry Seoul near DLSU is a game-changer for affordable Korean food! From Bibimbap to Kimbap, the menu offers a variety of authentic dishes 
-                            without breaking the bank. Quick service and a cozy atmosphere make it a go-to spot for students and Korean food enthusiasts alike.
-                        </div>
-                    </div>
-
-                    <div class="view-review">
-                        <div class="user-info">
-                            <a href="../../view-profile-section/view-user-kathleen.html">
-                                <img src="../assets/est/user-profile/kathleen-cruz.png" class="user-icon">
-                            </a>
-                            
-                            <div class="user-text">
-                                <span class="username">Kathleen Cruz</span>
-                                <span class="user-status">De la Salle University Student</span>
-                            </div>
-    
-                            <div class="upvote-container">
-                                <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
-                                <span> 27 </span>
-                            </div>
-    
-                            <div class="user-info-sub">
-                                <div class="user-rating">
-                                    <span class="rating-user"> 5.0 </span>
-                                    <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
-                                </div>
-                                <span class="dot1"> • </span>
-                                <span class="date"> January 02, 2024 </span>
-                            </div>
-                        </div>
-    
-                        <div class="post-review-content">
-                            DLSU students rejoice – Hungry Seoul is your affordable Korean escape! Tasty Bibimbap and Kimbap await, providing a satisfying and budget-friendly 
-                            culinary journey right around the corner.
-                        </div>
-                    </div>
-
-                    <div class="view-review">
-                        <div class="user-info">
-                            <a href="../../view-profile-section/view-user-nathan.html">
-                                <img src="../assets/est/user-profile/nathan-roman.jfif" class="user-icon">
-                            </a>
-                            <div class="user-text">
-                                <span class="username">Nathan Roman</span>
-                                <span class="user-status">De la Salle University Student</span>
-                            </div>
-    
-                            <div class="upvote-container">
-                                <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
-                                <span> 55 </span>
-                            </div>
-    
-                            <div class="user-info-sub">
-                                <div class="user-rating">
-                                    <span class="rating-user"> 5.0 </span>
-                                    <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
-                                </div>
-                                <span class="dot1"> • </span>
-                                <span class="date"> February 08, 2024 </span>
-                            </div>
-                        </div>
-    
-                        <div class="post-review-content">
-                            Korean cravings? Hungry Seoul has you covered! Affordable and flavorful, their Bibimbap is a hit. Perfect spot near DLSU for students seeking tasty 
-                            Korean bites on a budget.
-                        </div>
-                    </div>
-                    
-                    <div class="view-review">
-                        <div class="user-info">
-                            <a href="../../view-profile-section/view-user-shania.html">
-                                <img src="../assets/est/user-profile/shane-cloma.jfif" class="user-icon">
-                            </a>
-                            <div class="user-text">
-                                <span class="username">Shane Cloma</span>
-                                <span class="user-status">De la Salle University Student</span>
-                            </div>
-    
-                            <div class="upvote-container">
-                                <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
-                                <span> 30 </span>
-                            </div>
-    
-                            <div class="user-info-sub">
-                                <div class="user-rating">
-                                    <span class="rating-user"> 5.0 </span>
-                                    <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
-                                </div>
-                                <span class="dot1"> • </span>
-                                <span class="date"> February 15, 2024 </span>
-                            </div>
-                        </div>
-    
-                        <div class="post-review-content">
-                            Hungry Seoul, strategically located near DLSU, brings the vibrant flavors of Korean cuisine to a budget-friendly realm. The menu is a delightful 
-                            mix of traditional and fusion dishes, providing students and locals with an authentic taste of Korea without the hefty price tag. The Bibimbap is a standout, 
-                            featuring a colorful medley of fresh vegetables and perfectly seasoned meat. The Kimbap, a Korean-style sushi roll, is both satisfying and affordable. 
-                            The welcoming ambiance and swift service make Hungry Seoul a convenient and enjoyable spot for a quick Korean food fix.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>   
-    </div> -->
-
-    
-    <!-------------------- FOOTER -------------------->
-    <footer id="contact">
-        <div class="footer-follow">
-            <span class="footer-text"> Follow Us </span>
-            <ul id="socmed">
-                <a href="https://www.facebook.com/"><li id="facebook"></li></a>
-                <a href="https://www.instagram.com/"><li id="instagram"></li></a>
-                <a href="https://www.twitter.com/"><li id="twitter"></li></a>
-                <a href="https://www.threads.net/"><li id="threads"></li></a>
-                <a href="https://www.youtube.com/"><li id="youtube"></li></a>
-            </ul>
-        </div>
-        <div class="footer-divider"> &nbsp; </div>
-        <div class="footer-contact">
-            <div id="connect">
-                <span class="footer-text"> Connect with Us </span>
-            </div>
-            <div class="contact-container" id="footer-container1">
-                <span class="footer-bold"> taft10@email.com </span>
-                <span class="footer-labels"> Email Address </span>
-            </div><br>
-            <div class="contact-container">
-                <span class="footer-bold"> +63 912 345 6789 </span>
-                <span class="footer-labels"> Contact Number </span>
-            </div>
-        </div>
-    </footer>
-
-    <script src="../js/est-index.js"></script>
-
-</body>
-</html>
+        </footer>
+    </body>
+    </html>

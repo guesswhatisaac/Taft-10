@@ -8,8 +8,8 @@ body {
 .edit-profile-container {
     display: flex;
     justify-content: center;
-    margin-top: 100px;
-    margin-bottom: 100px;
+    margin-top: 250px;
+    margin-bottom: 2px;
     margin-left: 300px;
     margin-right: 300px;
     height: 100%;
@@ -46,7 +46,7 @@ body {
     contain: content;
 }
 
-#username, #location, #liked-stores, #description {
+#username, #description {
     box-sizing: border-box;
     width: 100%;
     height: 30px;
@@ -66,7 +66,7 @@ body {
     justify-content: center;
 }
 
-.save-button {
+#save-button {
     font-family: 'Staatliches';
     margin-right: 10px;
     background: #c41637;
@@ -78,7 +78,7 @@ body {
     width: 140px;
 }
 
-.cancel-button {
+#cancel-button {
     font-family: 'Staatliches';
     margin-left: 10px;
     background: #c41637;

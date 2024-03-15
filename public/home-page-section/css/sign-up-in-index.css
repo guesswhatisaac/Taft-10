@@ -24,10 +24,6 @@
     background: #5d5c5c;
 }
 
-.sign-in-page, .sign-up-page, .recover-account-page {
-    animation: transitionIn 0.3s;
-}
-
 .recover-success-container {
     animation: transitionIn 0.75s;
 }
@@ -49,6 +45,7 @@
 body {
     display: flex;
     height: 100%;
+    animation: transitionIn 0.3s;
 }
 
 .blue-div-sign-up {
@@ -105,6 +102,16 @@ body {
     text-align: center;
 }
 
+button {
+    font-family: 'Staatliches';
+    font-size: 1em;
+    border-radius: 50px;
+    height: 29px;
+    width: 140px;
+    text-decoration: none;
+    text-align: center;
+}
+
 #back-button {
     font-family: 'Staatliches';
     background: none;
@@ -145,7 +152,7 @@ body {
     position: absolute;
     width: 400px;
     top: 220px;
-    height: 720px;
+    height: 740px;
     background-color: #FFFFFF;
     border-radius: 50px;
     display: flex;
@@ -157,7 +164,7 @@ body {
 .sign-in-container {
     position: absolute;
     top: 220px;
-    height: 320px;
+    height: 340px;
     width: 400px;
     background-color: #FFFFFF;
     border-radius: 50px;
@@ -287,14 +294,17 @@ body {
 
 .submit-button {
     position: relative;
-    top: 70px;
+    top: 50px;
     display: flex;
     justify-content: center;
 }
 
 #button-text {
     position: relative;
-    top: 5px;
+    top: 0px;
+    font-size: 17px;
+    background-color: #B10F2E;
+    color: #FFFFFF;
     z-index: 99;
 }
 

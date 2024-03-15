@@ -6,6 +6,7 @@
     <head>
         <link rel="stylesheet" href="../../base-index.css">
         <link rel="stylesheet" href="../css/profile-index.css">
+        <script src="../js/profile-index.js"></script>
         <title> View User Profile </title>
     </head>
 
@@ -37,7 +38,7 @@
                 <div class = "user-container">
                     <div class = "user-profile">
                         <div class = "icon-container">
-                            <img src = "../global-assets/header/icon.jpg" alt = "Doggo Logo" class = "user-image">
+                            <img src = "../../global-assets/header/icon.jpg" alt = "Doggo Logo" class = "user-image">
                         </div>
                         
                         <div class = "user-name">
@@ -45,13 +46,13 @@
                             <p> (Non-owner User) </p>
                         </div>
 
-                        <div class = "user-handle">
-                            <h2> @kweenyasmin </h2>
+                        <div class = "user">
+                            <h2 id="user-handle"> @kweenyasmin </h2>
                             <p> 106 reviews </p>
                         </div>
 
-                        <div class = "user-quote">
-                            <p> To be or not to be. </p>
+                        <div class = "description">
+                            <p id="user-description"> To be or not to be. </p>
                         </div>
 
                         <a href="edit-profile-view.html">
@@ -62,100 +63,11 @@
                     </div>
 
                 </div>
-
-                <div class = "buttons-container">
-                    <span> <h3> Profile Overview </h3> </span>
-                    <span> <h3> Reviews </h3> </span>
-                </div>
             </div>
 
             
 
             <div class = "user-more-info-container">
-                <div class = "revdis-label">
-                    <h1> Review Distribution </h1>
-                </div>
-
-                <div class = "revdis-container">
-                    <div class = "ratings-container">
-                        <h2> Ratings </h2>
-
-                        <div class = "rating-list">
-                            <div class = "rate">
-                                <div class = "number-rating">
-                                    5
-                                    <div class = "five-bar"></div>
-                                </div>
-                                
-                            </div>
-
-                            <div class = "rate">
-                                <div class = "number-rating">
-                                    4
-                                    <div class = "four-bar"></div>
-                                </div>
-                    
-                            </div>
-
-                            <div class = "rate">
-                                <div class = "number-rating">
-                                    3
-                                    <div class = "three-bar"></div>
-                                </div>
-                                
-                            </div>
-
-                            <div class = "rate">
-                                <div class = "number-rating">
-                                    2
-                                    <div class = "two-bar"></div>
-                                </div>
-                                
-                            </div>
-
-                            <div class = "rate">
-                                <div class = "number-rating">
-                                    1
-                                    <div class = "one-bar"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class = "top-categories-container">
-                        <h2> Top Categories </h2>
-                        <ul class = "categories">
-                            <li> Restaurants (54) </li>
-                            <li> Food (20) </li>
-                            <li> Fast Foods (12) </li>
-                            <li> Coffee & Tea (11) </li>
-                            <li> Burgers (9) </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class = "moreabtme-label">
-                    <h1> More About Me </h1>
-                </div>
-
-                <div class = "moreabtme-container">
-                    <div class = "location-container">
-                        <h3> Location </h3>
-                        <p> Quezon City, Metro Manila </p>
-                    </div>
-                        
-                    <div class = "liked-stores-container">
-                        <h3> Liked Stores </h3>
-                        <ul class = "stores-list">
-                            <li> Ate Rica's Bacsilog </li>
-                            <li> 24 Chicken </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class = "line-divider">
-                    <!--insert a shape here that will separate more info and reviews-->
-                </div>
                 
                 <div class = "review-label">
                     <h1> Reviews </h1>
