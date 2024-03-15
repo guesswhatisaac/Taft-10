@@ -1,4 +1,6 @@
-const PORT = 3005; // TODO: Change to 3000 before submitting
+// Github link: https://github.com/guesswhatisaac/CCAPDEV-MCO
+
+const PORT = 3000; // TODO: Change to 3000 before submitting
 
 const express = require('express'),
       hbs = require('express-handlebars'),
@@ -484,7 +486,11 @@ app.get('/taft-picks', (req, res) => {
 
 // add establishment
 app.get("/addEst", (req, res) => {
-    res.sendFile('/view-establishments-section/html/all-est-view.html');
+    res.sendFile(__dirname + '/public/view-establishments-section/html/all-est-view.html');
+});
+
+app.get("/addEst", (req, res) => {
+    res.sendFile(__dirname + '/public/view-establishments-section/css/crud-index.css');
 });
 
 // port
