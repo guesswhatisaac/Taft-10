@@ -13,7 +13,7 @@ const partialsDir = __dirname + '/views/partials/';
  *                                      USERS
 ************************************************************************************/
 
-
+let userObj = "";
 let currentUserName = " "; 
 let currentUserPFP = " ";
 let hasUser = false; // checks if a user is currently logged in
@@ -248,6 +248,7 @@ app.post('/sign-in', (req, res) => {
         isIncorrectPass = false;
         currentUserName = '@' + usernameInput;
         currentUserPFP = users[userIndex].profilePicture;
+        userObj = users[userIndex];
         res.redirect('/home');
     } else {
         console.log("account does not exist");
@@ -290,6 +291,7 @@ app.post('/sign-up', (req, res) => {
     }
 
     users.push(newUser);
+    userObj = newUser;
     currentUserName = '@' + req.body.username;
     username = '@' + req.body.username;
 
@@ -333,11 +335,32 @@ app.get('/success-msg', (req, res) => {
         js: '/home-page-section/js/sign-up.js',
         needHeader: false,
         needHeader2: false,
-        needFooter: false
+        needFooter: false,
+        isOwner: userObj.isOwner
+
     });
 });
   
 // profile
+app.get('/profile', (req, res) => {
+    console.log("Request received for /profile");
+    res.render('view-profile', {
+        title: 'View Account Success',
+        css: '/view-profile-section/css/profile-index.css',
+        css2: 'base-index.css',
+        currentUserPic: '/global-assets/header/icon.jpg',
+        name: userObj.fname,
+        //+ '' + userObj.lname,
+        numReviews: userObj.numReviews + ' reviews',
+        userDescription: userObj.bio,
+        needHeader: false,
+        needHeader2: true,
+        needFooter: true,
+        isOwner: userObj.isOwner,
+
+
+    });
+});
 
 
 
