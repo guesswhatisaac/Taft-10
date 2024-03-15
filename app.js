@@ -349,6 +349,7 @@ app.get('/profile', (req, res) => {
         title: 'View Account Success',
         css: '/view-profile-section/css/profile-index.css',
         css2: '/base-index.css',
+        css3: '/view-establishments-section/css/est-index.css',
         currentUserPic: '/global-assets/header/icon.jpg',
         myName: '<h1>' + userObj.firstname + " " + userObj.lastname + '</h1>',
         numReviews: userObj.numReviews + ' reviews',
@@ -357,6 +358,8 @@ app.get('/profile', (req, res) => {
         needHeader2: true,
         needFooter: true,
         isOwner: userObj.isOwner,
+        searchIcon: '/global-assets/header/search-icon.png',
+        taft10Logo: '/global-assets/header/taft-10.png'
     });
     console.log(userObj.firstname + " " + userObj.lastname);
     console.log()
