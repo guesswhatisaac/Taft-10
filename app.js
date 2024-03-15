@@ -1,4 +1,4 @@
-const PORT = 1200; // TODO: Change to 3000 before submitting
+const PORT = 3005; // TODO: Change to 3000 before submitting
 
 const express = require('express'),
       hbs = require('express-handlebars'),
@@ -13,7 +13,7 @@ const partialsDir = __dirname + '/views/partials/';
  *                                      USERS
 ************************************************************************************/
 
-
+let userObj = "";
 let currentUserName = " "; 
 let currentUserPFP = " ";
 let hasUser = false; // checks if a user is currently logged in
@@ -186,7 +186,6 @@ app.get('/', (req, res) => {
         taft10Logo: '/global-assets/header/taft-10.png',
         ateRica: '/home-page-section/assets/ate-rica.png',
         chefBab: '/home-page-section/assets/chef-bab.png',
-        // imgURL: currentUserPFP
     });
     isIncorrectPass = false;
 });
@@ -249,6 +248,7 @@ app.post('/sign-in', (req, res) => {
         isIncorrectPass = false;
         currentUserName = '@' + usernameInput;
         currentUserPFP = users[userIndex].profilePicture;
+        userObj = users[userIndex];
         res.redirect('/home');
     } else {
         console.log("account does not exist");
@@ -264,6 +264,7 @@ app.get('/sign-up', (req, res) => {
     res.render('sign-up', {
         title: 'Sign Up',
         css: '/home-page-section/css/sign-up-in-index.css',
+        css2: '/base-index.css',
         js: '/home-page-section/js/sign-up.js',
         userExists: false,
         needHeader: false,
@@ -280,16 +281,18 @@ app.post('/sign-up', (req, res) => {
     const newUser = { 
         username: '@' + req.body.username,
         email: req.body.email,
-        lname: req.body.lname,
-        fname: req.body.fname,
+        lastname: req.body.lname,
+        firstname: req.body.fname,
         bio: req.body.description,
         phoneNum: req.body.number,
         password: req.body.password,
-        imgFile: req.body.file,
-        isOwner: req.body.checkbox
+        profilePicture: req.body.file,
+        isOwner: req.body.checkbox,
+        numReviews: 0
     }
 
     users.push(newUser);
+    userObj = newUser;
     currentUserName = '@' + req.body.username;
     username = '@' + req.body.username;
 
@@ -333,11 +336,31 @@ app.get('/success-msg', (req, res) => {
         js: '/home-page-section/js/sign-up.js',
         needHeader: false,
         needHeader2: false,
-        needFooter: false
+        needFooter: false,
+        isOwner: userObj.isOwner
+
     });
 });
   
 // profile
+app.get('/profile', (req, res) => {
+    console.log("Request received for /profile");
+    res.render('view-profile', {
+        title: 'View Account Success',
+        css: '/view-profile-section/css/profile-index.css',
+        css2: 'base-index.css',
+        currentUserPic: '/global-assets/header/icon.jpg',
+        myName: '<h1>' + userObj.firstname + " " + userObj.lastname + '</h1>',
+        numReviews: userObj.numReviews + ' reviews',
+        userDescription: userObj.bio,
+        needHeader: false,
+        needHeader2: true,
+        needFooter: true,
+        isOwner: userObj.isOwner,
+    });
+    console.log(userObj.firstname + " " + userObj.lastname);
+    console.log()
+});
 
 
 // view all establishments
