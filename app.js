@@ -371,7 +371,7 @@ app.get('/profile', (req, res) => {
         taft10Logo: '/global-assets/header/taft-10.png',
         showReply: showReply,
         username: currentUserName,
-        reply: reply
+        ownerReply: reply
     });
     console.log(userObj.firstname + " " + userObj.lastname);
     console.log()
@@ -400,14 +400,10 @@ app.post('/reply', (req, res) => {
     console.log("POST Request received for /post");
     reply = req.body.description;
     console.log(reply);
-    if(!reply) {
-        res.redirect('/profile');
-        let replyObj = { 
-            username: currentUserName,
-            reply: reply
-        }
-        replies.push(reply);
-    }
+        
+    
+    replies.push(reply);
+    res.redirect('/profile');
 });
 
 
