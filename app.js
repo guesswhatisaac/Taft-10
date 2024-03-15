@@ -368,6 +368,9 @@ app.get('/all-establishments', (req, res) => {
     res.render('all-establishments', {
         title: 'All Establishments',
         css: '/view-establishments-section/css/est-index.css',
+        css2: '/base-index.css',
+        css3: '/view-establishments-section/css/add-review.css',
+        css4: '/view-establishments-section/css/view-review.css',
         js: '/view-establishments-section/js/est-index.js',
         userExists: hasUser,
         currUsername: currentUserName,
@@ -378,7 +381,6 @@ app.get('/all-establishments', (req, res) => {
         taft10Logo: '/global-assets/header/taft-10.png',
         ateRica: '/home-page-section/assets/ate-rica.png',
         chefBab: '/home-page-section/assets/chef-bab.png',
-
     });
     // isIncorrectPass = false;
 });

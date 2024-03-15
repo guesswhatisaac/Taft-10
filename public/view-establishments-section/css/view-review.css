@@ -43,8 +43,8 @@ body {
   }
 }
 
-.view-window-container-*,
-#view-reviewWindow-* {
+[class*="view-window-container"],
+[id*="view-reviewWindow"] {
     display: none;
     position: fixed;
     top: 50%;
@@ -63,7 +63,7 @@ body {
     background-color: white;
     width: 70%;
     max-height: 75%;
-    overflow-y: auto; 
+    overflow-y: scroll; 
     position: absolute;
     top: 50%;
     left: 50%;
@@ -71,7 +71,6 @@ body {
     border-radius: 20px;
     box-shadow: 0 4px 10px 5px rgba(0, 0, 0, 0.25);
 }
-
 
 .view-right-side {
     width: 60%; 
@@ -97,7 +96,6 @@ body {
     margin-left: 40px;
 }
 
-
 #dot {
     margin-left: 15px;
     margin-right: 17px;
@@ -115,13 +113,14 @@ body {
     margin-right: 12px;
 }
 
-.view-review-placeholder {
+.view-review-placeholder* {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    width: 78%;
-    height: auto;
+    width: 70%;
+    height: 75%;
     margin-top: 50px;
     margin-left: 15px;
     padding: 20px;
@@ -133,14 +132,16 @@ body {
     flex-direction: column;
     justify-content: center;
     border: solid #f5f5f5;
-    width: 100%;
+    width: 80%;
     height: auto;
     padding: 20px;
     border-radius: 50px;
     transition: background-color 0.3s;
     padding-bottom: 30px;
     position: relative; 
+    margin-left: 45px;
     margin-bottom: 30px;
+    margin-top: 30px;
 }
 
 .view-review:hover {

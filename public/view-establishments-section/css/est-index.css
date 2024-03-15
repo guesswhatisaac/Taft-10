@@ -1,6 +1,6 @@
 /* Import Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200;400;700&display=swap');
-@import url(https://fonts.googleapis.com/css?family=Staatliches|Kanit);
+
 
 :root {
   transition: all 0.3s ease;
@@ -918,6 +918,7 @@ footer {
   border: none;
 }
 
+
 /* [COLORS] */
 .yellow {
   color: rgba(255, 195, 43, 1);
@@ -1042,33 +1043,43 @@ justify-content: flex-start;
   align-items: center;
 }
 
-#sign-in-submit-button {
-  position: relative;
-  bottom: 40px;
-}
-
-#sign-up-submit-button {
-  position: relative;
-  bottom: 25px;
-}
-
-#sign-up-submit-button, #sign-in-submit-button {
-  width: 90px;
+#sign-up {
+  font-family: 'Staatliches';
+  font-size: 1em;
   border: 3px solid #B10F2E;
+  border-radius: 50px;
+  width: 75px;
+  height: 29px;
   background: #B10F2E;
   color: #FFFFFF;
+  cursor: pointer;
 }
 
-#recover-button {
-  position: relative;
-  bottom: 10px;
-  width: 130px;
+#sign-in {
+  font-family: 'Staatliches';
+  font-size: 1em;
+  background: #FFFFFF;
+  color: #B10F2E;
+  border: 3px solid #B10F2E;
+  border-radius: 50px;
+  width: 75px;
+  height: 29px;
+  cursor: pointer;
+  margin-left: 5px;
+  margin-right: 20px;
 }
 
-#sign-up-submit-button:hover, #sign-in-submit-button:hover {
+#sign-up:hover {
   background: #c41637;
   color: #FFFFFF;
   border: 3px solid #c41637;
+  transition: .5s ease;
+}
+
+#sign-in:hover {
+  background: #ede5e5;
+  color: #B10F2E;
+  border: 3px solid #B10F2E;
   transition: .5s ease;
 }
 

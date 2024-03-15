@@ -286,11 +286,18 @@ const establishments = [
             reviews.push(newReview);
     
             renderReviews(establishmentName);
-    
+
+            resetStarRatingInputs();
             this.closest('.review-window-container').querySelector('.comment-content').value = '';
             document.querySelector(`#reviewWindow-${establishmentName}`).style.display = 'none';
         });
       });
+
+      function resetStarRatingInputs() {
+        document.querySelectorAll('input[name="rating"]').forEach(function(input) {
+            input.checked = false;
+        });
+      }
       
       /* when new review has been added by a user, this function will be called */
       function renderReviews(establishmentName) {
@@ -311,7 +318,7 @@ const establishments = [
             <div class="view-review">
                 <div class="user-info">
                     <a href="../../view-profile-section/view-user-${review.username.toLowerCase()}.html">
-                        <img src="../assets/est/user-profile/shane-cloma.jfif" class="user-icon">
+                        <img src="/view-establishments-section/assets/est/user-profile/shane-cloma.jfif" class="user-icon">
                     </a>
                     <div class="user-text">
                         <span class="username">${review.username}</span>
@@ -319,14 +326,14 @@ const establishments = [
                     </div>
     
                     <div class="upvote-container">
-                        <img src="../assets/est/content-icons/thumbs-up.png" class="upvote">
+                        <img src="/view-establishments-section/assets/est/content-icons/thumbs-up.png" class="upvote">
                         <span> (temp) </span>
                     </div>
     
                     <div class="user-info-sub">
                         <div class="user-rating">
                             <span class="rating-user"> ${review.rating + ".0"} </span>
-                            <img src="../assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
+                            <img src="/view-establishments-section/assets/est/content-icons/rating-icon.png" alt="rating" class="star-rating1">
                         </div>
                         <span class="dot1"> • </span>
                         <span class="date"> ${review.date} </span>
