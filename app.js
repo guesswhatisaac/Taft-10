@@ -1,5 +1,3 @@
-// Github link: https://github.com/guesswhatisaac/CCAPDEV-MCO
-
 const PORT = 3000; // TODO: Change to 3000 before submitting
 
 const express = require('express'),
@@ -343,38 +341,22 @@ app.get('/success-msg', (req, res) => {
 
     });
 });
-
-let reply = "";
-let replies = [];
-let showReply = false;
-
+  
 // profile
 app.get('/profile', (req, res) => {
     console.log("Request received for /profile");
-    if(!replies) {
-        showReply = true;
-    }
-
     res.render('view-profile', {
         title: 'View Account Success',
         css: '/view-profile-section/css/profile-index.css',
         css2: '/base-index.css',
-        css3: '/view-establishments-section/css/est-index.css',
         currentUserPic: '/global-assets/header/icon.jpg',
         myName: '<h1>' + userObj.firstname + " " + userObj.lastname + '</h1>',
         numReviews: userObj.numReviews + ' reviews',
         userDescription: userObj.bio,
-        isOwner: userObj.isOwner,
-        userExists: hasUser,
-        currUsername: currentUserName,
         needHeader: false,
         needHeader2: true,
         needFooter: true,
-        searchIcon: '/global-assets/header/search-icon.png',
-        taft10Logo: '/global-assets/header/taft-10.png',
-        displayReplies: showReply,
-        username: currentUserName,
-        ownerReply: reply,
+        isOwner: userObj.isOwner,
     });
     console.log(userObj.firstname + " " + userObj.lastname);
     console.log()
@@ -385,63 +367,49 @@ app.get('/edit', (req, res) => {
     console.log("Request received for /edit");
     res.render('edit-profile', {
         title: 'Edit Profile',
-        css: '/view-profile-section/css/edit-profile-index.css',
+        css: '/home-page-section/css/sign-up-in-index.css',
         css2: '/base-index.css',
         js: '/home-page-section/js/sign-up.js',
-        currentUserPic: userObj.profilePicture,
-        userExists: hasUser,
+        userExists: false,
         needHeader: false,
         needHeader2: false,
         needFooter: false,
     });
 });
 
-app.get('/reply', (req, res) => {
-    console.log("Request received for /reply");
-});
-
-app.post('/reply', (req, res) => {
-    console.log("POST Request received for /post");
-    reply = req.body.description;
-    console.log(reply);
-    console.log(currentUserName);
-    
-    replies.push(reply);
-    showReply = true;
-    res.redirect('/profile');
-});
-
-
 // edit profile post
 app.post('/edit', (req, res) => {
     console.log("Post Request received for /edit");
+    console.log(userObj);
 
-    let usernameInput = req.body.username;
-    let bioInput = req.body.bio;
-    let accountExists = false;
-    let userIndex = -1;
-
-    console.log(usernameInput); 
-    console.log(bioInput);
-
-    // check if account exists and if password is correct
-    for(let i = 0; i < users.length; i++) {
-        if(('@' + usernameInput) === users[i].username) {
-            if(!usernameInput && bioInput) {
-                users[i].bio = bioInput;
-            } else if (!bioInput && usernameInput) {
-                users[i].username = usernameInput;
-            } else if (usernameInput && bioInput) {
-                users[i].username = usernameInput;
-                users[i].bio = bioInput;
-            } 
-            console.log("Edit successful");
-            res.redirect('/profile');
-        } else {
-            console.log("Edit unsuccessful");
-            res.redirect('/profile');
-        }
+    const newUser = { 
+        username: '@' + req.body.username,
+        email: req.body.email,
+        lastname: req.body.lname,
+        firstname: req.body.fname,
+        bio: req.body.description,
+        phoneNum: req.body.number,
+        password: req.body.password,
+        profilePicture: req.body.file,
+        isOwner: req.body.checkbox,
+        numReviews: 0
     }
+
+    users.push(newUser);
+    userObj = newUser;
+    currentUserName = '@' + req.body.username;
+    username = '@' + req.body.username;
+
+    hasUser = true; 
+    currentUserPFP = req.body.file;
+
+    res.redirect('/profile');
+    
+    console.log("Success edit");
+
+    // const { username, email, lname, fname, description, number, password, file, checkbox } = req.body;
+    // console.log(username, email, lname, fname, description, number, password, file, checkbox);
+
 });
 
 // view all establishments
@@ -453,6 +421,7 @@ app.get('/all-establishments', (req, res) => {
         css2: '/base-index.css',
         css3: '/view-establishments-section/css/add-review.css',
         css4: '/view-establishments-section/css/view-review.css',
+        css5: '/view-establishments-section/css/crude-index.css',
         js: '/view-establishments-section/js/est-index.js',
         userExists: hasUser,
         currUsername: currentUserName,
@@ -482,15 +451,6 @@ app.get('/taft-picks', (req, res) => {
         searchIcon: '/global-assets/header/search-icon.png',
         taft10Logo: '/global-assets/header/taft-10.png'
     });
-});
-
-// add establishment
-app.get("/addEst", (req, res) => {
-    res.sendFile(__dirname + '/public/view-establishments-section/html/all-est-view.html');
-});
-
-app.get("/addEst", (req, res) => {
-    res.sendFile(__dirname + '/public/view-establishments-section/css/crud-index.css');
 });
 
 // port
