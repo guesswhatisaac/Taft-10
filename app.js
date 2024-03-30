@@ -8,6 +8,8 @@ const express = require('express'),
 const layoutsDir = __dirname + '/views/layouts/';
 const partialsDir = __dirname + '/views/partials/'; 
 
+const { connect } = require('./src/models/conn.js');
+
 
 /************************************************************************************
  *                                      USERS
@@ -454,7 +456,15 @@ app.get('/taft-picks', (req, res) => {
 });
 
 // port
-app.listen(PORT, function (err) {
+app.listen(PORT, async function (err) {
     if (err) console.log(err);
     console.log("Server listening on PORT", PORT);
+    try {
+        await connect();
+        console.log(`Now connected to MongoDB`);
+    } catch (err) {
+        console.log('Connection to MongoDB failed: ');
+        console.error(err);
+    }
 });
+
