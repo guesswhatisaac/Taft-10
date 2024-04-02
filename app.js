@@ -371,18 +371,30 @@ app.get('/success-msg', (req, res) => {
 // profile
 app.get('/profile', (req, res) => {
     console.log("Request received for /profile");
+    if(!replies) {
+        showReply = true;
+    }
+
     res.render('view-profile', {
         title: 'View Account Success',
         css: '/view-profile-section/css/profile-index.css',
         css2: '/base-index.css',
+        css3: '/view-establishments-section/css/est-index.css',
         currentUserPic: '/global-assets/header/icon.jpg',
         myName: '<h1>' + userObj.firstname + " " + userObj.lastname + '</h1>',
         numReviews: userObj.numReviews + ' reviews',
         userDescription: userObj.bio,
+        isOwner: userObj.isOwner,
+        userExists: hasUser,
+        currUsername: currentUserName,
         needHeader: false,
         needHeader2: true,
         needFooter: true,
-        isOwner: userObj.isOwner,
+        searchIcon: '/global-assets/header/search-icon.png',
+        taft10Logo: '/global-assets/header/taft-10.png',
+        displayReplies: showReply,
+        username: currentUserName,
+        ownerReply: reply,
     });
     console.log(userObj.firstname + " " + userObj.lastname);
     console.log()
@@ -393,49 +405,63 @@ app.get('/edit', (req, res) => {
     console.log("Request received for /edit");
     res.render('edit-profile', {
         title: 'Edit Profile',
-        css: '/home-page-section/css/sign-up-in-index.css',
+        css: '/view-profile-section/css/edit-profile-index.css',
         css2: '/base-index.css',
         js: '/home-page-section/js/sign-up.js',
-        userExists: false,
+        currentUserPic: userObj.profilePicture,
+        userExists: hasUser,
         needHeader: false,
         needHeader2: false,
         needFooter: false,
     });
 });
 
+app.get('/reply', (req, res) => {
+    console.log("Request received for /reply");
+});
+
+app.post('/reply', (req, res) => {
+    console.log("POST Request received for /post");
+    reply = req.body.description;
+    console.log(reply);
+    console.log(currentUserName);
+    
+    replies.push(reply);
+    showReply = true;
+    res.redirect('/profile');
+});
+
+
 // edit profile post
 app.post('/edit', (req, res) => {
     console.log("Post Request received for /edit");
-    console.log(userObj);
 
-    const newUser = { 
-        username: '@' + req.body.username,
-        email: req.body.email,
-        lastname: req.body.lname,
-        firstname: req.body.fname,
-        bio: req.body.description,
-        phoneNum: req.body.number,
-        password: req.body.password,
-        profilePicture: req.body.file,
-        isOwner: req.body.checkbox,
-        numReviews: 0
+    let usernameInput = req.body.username;
+    let bioInput = req.body.bio;
+    let accountExists = false;
+    let userIndex = -1;
+
+    console.log(usernameInput); 
+    console.log(bioInput);
+
+    // check if account exists and if password is correct
+    for(let i = 0; i < users.length; i++) {
+        if(('@' + usernameInput) === users[i].username) {
+            if(!usernameInput && bioInput) {
+                users[i].bio = bioInput;
+            } else if (!bioInput && usernameInput) {
+                users[i].username = usernameInput;
+            } else if (usernameInput && bioInput) {
+                users[i].username = usernameInput;
+                users[i].bio = bioInput;
+            } 
+            console.log("Edit successful");
+            res.redirect('/profile');
+        } else {
+            console.log("Edit unsuccessful");
+            res.redirect('/profile');
+        }
     }
-
-    users.push(newUser);
-    userObj = newUser;
-    currentUserName = '@' + req.body.username;
-    username = '@' + req.body.username;
-
-    hasUser = true; 
-    currentUserPFP = req.body.file;
-
-    res.redirect('/profile');
-    
-    console.log("Success edit");
-
-    // const { username, email, lname, fname, description, number, password, file, checkbox } = req.body;
-    // console.log(username, email, lname, fname, description, number, password, file, checkbox);
-
 });
 
 // view all establishments
