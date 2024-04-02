@@ -9,7 +9,31 @@ const layoutsDir = __dirname + '/views/layouts/';
 const partialsDir = __dirname + '/views/partials/'; 
 
 const { connect } = require('./src/models/conn.js');
+const User = require("./src/models/User");
 
+/* test only */
+runUser()
+async function runUser() {
+    try {
+        const user = await User.create({
+            username: "Kat", 
+            email: "kath@gmail.com",
+            lastName: "Cruz",
+            firstName: "Kathleen",
+            bio: "Coffee Lover",
+            password: "pass",
+            profilePicture: '/global-assets/header/icon.jpg',
+            isOwner: false,
+        })
+
+        user.username = "Lexy"
+        await user.save();
+
+        console.log(user)
+    } catch(e) {
+        console.log(e.message)
+    }
+}
 
 /************************************************************************************
  *                                      USERS
