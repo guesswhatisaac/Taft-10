@@ -367,6 +367,10 @@ app.get('/success-msg', (req, res) => {
 
     });
 });
+
+let reply = "";
+let replies = [];
+let showReply = false;
   
 // profile
 app.get('/profile', (req, res) => {
