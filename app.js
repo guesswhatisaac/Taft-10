@@ -11,12 +11,12 @@ const partialsDir = __dirname + '/views/partials/';
 const { connect } = require('./src/models/conn.js');
 const User = require("./src/models/User");
 
-/* test only */
+/* test only 
 runUser()
 async function runUser() {
     try {
         const user = await User.create({
-            username: "Kat", 
+            username: "check", 
             email: "kath@gmail.com",
             lastName: "Cruz",
             firstName: "Kathleen",
@@ -26,7 +26,7 @@ async function runUser() {
             isOwner: false,
         })
 
-        user.username = "Lexy"
+        user.username = "checkupdate"
         await user.save();
 
         console.log(user)
@@ -34,6 +34,7 @@ async function runUser() {
         console.log(e.message)
     }
 }
+*/
 
 /************************************************************************************
  *                                      USERS
