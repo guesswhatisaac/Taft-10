@@ -1,22 +1,24 @@
+<form action="/edit" method="post" class="edit">
+                            
+    <div class = "edit-profile-container">
+        <div class = "profile">
+            <div class = "profile-container">
+                <img src = {{currentUserPic}} alt = "Doggo Logo" class = "user-image">
+            </div>
+        </div>
+        
+        <div class = "to-be-edit-container">
+            <label for="username"> Username </label><br>
+            <input type="text" id="username" name="username"><br>
+        
+            <label for="description"> Description </label><br>
+            <textarea id="description" name="description"></textarea><br>
 
-<div class = "edit-profile-container">
-    <div class = "profile">
-        <div class = "profile-container">
-            <img src = {{currentUserPic}} alt = "Doggo Logo" class = "user-image">
+            <div class = "buttons">
+                <div class="save-button"><input type="submit" value="SAVE CHANGES" class="save" id="save-button"> </div> 
+                <div class="cancel-button"><a href = "/profile"><button class = "cancel" id="cancel-button"> CANCEL </button></a></div>
+            </div>    
+
         </div>
     </div>
-    
-    <div class = "to-be-edit-container">
-        <label for="username"> Username </label><br>
-        <input type="text" id="username" name="username"><br>
-    
-        <label for="description"> Description </label><br>
-        <textarea id="description" name="description"></textarea><br>
-
-        <div class = "buttons">
-            <div class="save-button"><button  type="submit" class = "save" id="save-button"> SAVE CHANGES </button></div> 
-            <div class="cancel-button"><a href = "/profile"><button class = "cancel" id="cancel-button"> CANCEL </button></a></div>
-        </div>    
-
-    </div>
-</div>
+</form>

@@ -425,6 +425,7 @@ app.get('/success-msg', (req, res) => {
 let reply = "";
 let replies = [];
 let showReply = false;
+let editSuccessful = false;
   
 // profile
 app.get('/profile', (req, res) => {
@@ -495,7 +496,7 @@ app.post('/edit', (req, res) => {
     console.log("Post Request received for /edit");
 
     let usernameInput = req.body.username;
-    let bioInput = req.body.bio;
+    let bioInput = req.body.description;
     let accountExists = false;
     let userIndex = -1;
 
@@ -504,16 +505,19 @@ app.post('/edit', (req, res) => {
 
     // check if account exists and if password is correct
     for(let i = 0; i < users.length; i++) {
-        if(('@' + usernameInput) === users[i].username) {
+        // console.log("try");
+        
+        if(userObj.username === users[i].username) {
             if(!usernameInput && bioInput) {
                 users[i].bio = bioInput;
             } else if (!bioInput && usernameInput) {
-                users[i].username = usernameInput;
+                users[i].username = '@' + usernameInput;
             } else if (usernameInput && bioInput) {
-                users[i].username = usernameInput;
+                users[i].username = '@' + usernameInput;
                 users[i].bio = bioInput;
             } 
             console.log("Edit successful");
+            editSuccessful = true;
             res.redirect('/profile');
         } else {
             console.log("Edit unsuccessful");
