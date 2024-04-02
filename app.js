@@ -372,6 +372,7 @@ app.get('/success-msg', (req, res) => {
 let reply = "";
 let replies = [];
 let showReply = false;
+let editSuccessful = false;
   
 // profile
 app.get('/profile', (req, res) => {
@@ -455,12 +456,13 @@ app.post('/edit', (req, res) => {
             if(!usernameInput && bioInput) {
                 users[i].bio = bioInput;
             } else if (!bioInput && usernameInput) {
-                users[i].username = usernameInput;
+                users[i].username = '@' + usernameInput;
             } else if (usernameInput && bioInput) {
-                users[i].username = usernameInput;
+                users[i].username = '@' + usernameInput;
                 users[i].bio = bioInput;
             } 
             console.log("Edit successful");
+            editSuccessful = true;
             res.redirect('/profile');
         } else {
             console.log("Edit unsuccessful");
