@@ -49,6 +49,18 @@ let username = "";
 let isIncorrectPass = false;
 let printUsernameErr = false;
 
+// use this to store current user temporarily
+let currentUserInfo = {
+    username: " ",
+    lastName: " ",
+    firstName: " ",
+    bio: " ",
+    profilePicture: " ",
+    isOwner: false
+}
+
+
+
 let users = [
     {
         username: '@kweenyasmin',
@@ -206,7 +218,7 @@ app.get('/', (req, res) => {
         title: 'Taft 10',
         css: '/home-page-section/css/home-index.css',
         userExists: hasUser,
-        currUsername: currentUserName,
+        currUsername: currentUserInfo.username,
         addcss: false,
         needHeader: true,
         needHeader2: false,
@@ -228,7 +240,16 @@ app.get('/home', (req, res) => {
 app.get('/log-out', (req, res) => {
     printUsernameErr = false;
     hasUser = false;
-    currentUserName = " ";
+    // currentUserName = " ";
+    
+    currentUserInfo = {
+        username: " ",
+        lastName: " ",
+        firstName: " ",
+        bio: " ",
+        profilePicture: " ",
+        isOwner: false
+    }
     console.log("Request received for /log-out");
     res.redirect('/');
 })
@@ -288,10 +309,6 @@ app.post('/sign-in', (req, res) => {
     
 });
 
-async function runUser(usernameInput, emailInput, lastNameInput, firstNameInput, bioInput, passwordInput, profilePictureInput, isOwnerInput) {
-    
-}
-
 // sign-up
 app.get('/sign-up', async (req, res) => {
     console.log("Get Request received for /sign-up");
@@ -336,11 +353,22 @@ app.post('/sign-up', async (req, res) => {
                 isOwner: isOwnerInput
             });
 
+            // store current user info for displaying
+            currentUserInfo = {
+                username: usernameInput,
+                lastName: lastNameInput,
+                firstName: firstNameInput,
+                bio: bioInput,
+                profilePicture: profilePictureInput,
+                isOwner: isOwnerInput
+            }
+
             // Use this to update: user.username = "checkupdate"
             await user.save();
 
             console.log(user);
             printUsernameErr = false;
+            // currentUserName = usernameInput;
             console.log("Success sign-up");
             hasUser = true; 
             res.redirect('/home');
@@ -428,7 +456,7 @@ let showReply = false;
 let editSuccessful = false;
   
 // profile
-app.get('/profile', (req, res) => {
+app.get('/profile', async (req, res) => {
     console.log("Request received for /profile");
     if(!replies) {
         showReply = true;
@@ -440,19 +468,19 @@ app.get('/profile', (req, res) => {
         css2: '/base-index.css',
         css3: '/view-establishments-section/css/est-index.css',
         currentUserPic: '/global-assets/header/icon.jpg',
-        myName: '<h1>' + userObj.firstname + " " + userObj.lastname + '</h1>',
-        numReviews: userObj.numReviews + ' reviews',
-        userDescription: userObj.bio,
-        isOwner: userObj.isOwner,
+        myName: '<h1>' + currentUserInfo.firstName + " " + currentUserInfo.lastName + '</h1>',
+        numReviews: userObj.numReviews + ' reviews', // TODO UPDATE THIS USING REVIEWS DATABASE
+        userDescription: currentUserInfo.bio,
+        isOwner: currentUserInfo.isOwner,
         userExists: hasUser,
-        currUsername: currentUserName,
+        currUsername: currentUserInfo.username,
         needHeader: false,
         needHeader2: true,
         needFooter: true,
         searchIcon: '/global-assets/header/search-icon.png',
         taft10Logo: '/global-assets/header/taft-10.png',
         displayReplies: showReply,
-        username: currentUserName,
+        username: currentUserInfo.username,
         ownerReply: reply,
     });
     console.log(userObj.firstname + " " + userObj.lastname);
@@ -483,7 +511,7 @@ app.post('/reply', (req, res) => {
     console.log("POST Request received for /post");
     reply = req.body.description;
     console.log(reply);
-    console.log(currentUserName);
+    console.log(currentUserInfo.username);
     
     replies.push(reply);
     showReply = true;
@@ -492,7 +520,59 @@ app.post('/reply', (req, res) => {
 
 
 // edit profile post
-app.post('/edit', (req, res) => {
+app.post('/edit', async (req, res) => {
+    console.log("Post request received for /edit");
+
+    try {
+        let filter = { username: currentUserInfo.username };
+        let usernameInput = req.body.username;
+        let bioInput = req.body.description;
+    
+        if (usernameInput && bioInput) { // Update username and bio
+            let updateFields = { username: usernameInput, bio: bioInput };
+    
+            let userDoc = await User.findOneAndUpdate(filter, updateFields, {
+                new: true
+            });
+    
+            currentUserInfo.username = usernameInput;
+            currentUserInfo.bio = bioInput;
+    
+            console.log("Success edit for both fields");
+            res.redirect('/profile');
+        } else if (usernameInput) { // Update username only
+            let updateUsername = { username: usernameInput };
+    
+            let userDoc = await User.findOneAndUpdate(filter, updateUsername, {
+                new: true
+            });
+    
+            currentUserInfo.username = usernameInput;
+    
+            console.log("Success edit for username field");
+            res.redirect('/profile');
+        } else if (bioInput) { // Update bio only
+            let updateBio = { bio: bioInput };
+    
+            let userDoc = await User.findOneAndUpdate(filter, updateBio, {
+                new: true
+            });
+    
+            currentUserInfo.bio = bioInput;
+    
+            console.log("Success edit for bio field");
+            res.redirect('/profile');
+        } else {
+            console.log("No updates provided");
+            res.redirect('/edit');
+        }
+    } catch (e) {
+        console.log(e.message);
+        res.redirect('/edit');
+    }
+    
+
+    /***************************ORIGINAL CODE**************************
     console.log("Post Request received for /edit");
 
     let usernameInput = req.body.username;
@@ -506,6 +586,7 @@ app.post('/edit', (req, res) => {
     // check if account exists and if password is correct
     for(let i = 0; i < users.length; i++) {
         // console.log("try");
+        
         
         if(userObj.username === users[i].username) {
             if(!usernameInput && bioInput) {
@@ -524,6 +605,7 @@ app.post('/edit', (req, res) => {
             res.redirect('/profile');
         }
     }
+    ********************************************************************/
 });
 
 // view all establishments
