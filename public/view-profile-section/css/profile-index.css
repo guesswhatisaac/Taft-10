@@ -237,6 +237,17 @@ body {
     width: 48px;
 }
 
+.upvote-display:hover {
+  background-image: url('../../global-assets/header/upvote.png');
+  background-repeat: no-repeat;
+  background-size: 30px;
+  position: relative;
+  left: 10px;
+  height: 30px;
+  width: 48px;
+  filter: brightness(0);
+}
+
 .upvote-container {
     color: #868686;
     text-align: center;
