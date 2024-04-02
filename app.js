@@ -507,22 +507,6 @@ app.get('/edit', async (req, res) => {
     });
 });
 
-app.get('/reply', (req, res) => {
-    console.log("Request received for /reply");
-});
-
-app.post('/reply', (req, res) => {
-    console.log("POST Request received for /post");
-    reply = req.body.description;
-    console.log(reply);
-    console.log(currentUserInfo.username);
-    
-    replies.push(reply);
-    showReply = true;
-    res.redirect('/profile');
-});
-
-
 // edit profile post
 app.post('/edit', async (req, res) => {
     console.log("Post request received for /edit");
@@ -620,6 +604,21 @@ app.post('/edit', async (req, res) => {
         }
     }
     ********************************************************************/
+});
+
+app.get('/reply', (req, res) => {
+    console.log("Request received for /reply");
+});
+
+app.post('/reply', (req, res) => {
+    console.log("POST Request received for /post");
+    reply = req.body.description;
+    console.log(reply);
+    console.log(currentUserInfo.username);
+    
+    replies.push(reply);
+    showReply = true;
+    res.redirect('/profile');
 });
 
 // view all establishments
