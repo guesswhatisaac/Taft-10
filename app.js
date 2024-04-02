@@ -452,7 +452,9 @@ app.post('/edit', (req, res) => {
 
     // check if account exists and if password is correct
     for(let i = 0; i < users.length; i++) {
-        if(('@' + usernameInput) === users[i].username) {
+        // console.log("try");
+        
+        if(userObj.username === users[i].username) {
             if(!usernameInput && bioInput) {
                 users[i].bio = bioInput;
             } else if (!bioInput && usernameInput) {
