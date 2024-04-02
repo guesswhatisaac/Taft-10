@@ -15,7 +15,11 @@
         </div>
         <form method="post" action="/sign-up" class="sign-up-form">
             <div class="fields-sign-up">
-                <label for="username"> Username </label><span class="asterisk">*</span><br>
+                <label for="username"> Username </label><span class="asterisk">* 
+                    {{#if isValid}}
+                        Username Already Exists!
+                    {{/if}}
+                </span><br>
                 <input type="text" id="username" name="username" required><br>
                 <label for="email"> Email Address </label><span class="asterisk">*</span><br>
                 <input type="email" id="email" name="email" required><br>

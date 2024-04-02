@@ -11,22 +11,22 @@ const partialsDir = __dirname + '/views/partials/';
 const { connect } = require('./src/models/conn.js');
 const User = require("./src/models/User");
 
-/* test only 
+/* test only
 runUser()
 async function runUser() {
     try {
         const user = await User.create({
-            username: "check", 
+            username: "kathleentrc", 
             email: "kath@gmail.com",
             lastName: "Cruz",
             firstName: "Kathleen",
             bio: "Coffee Lover",
             password: "pass",
             profilePicture: '/global-assets/header/icon.jpg',
-            isOwner: false,
+            isOwner: true,
         })
 
-        user.username = "checkupdate"
+        // use this to update: user.username = "checkupdate"
         await user.save();
 
         console.log(user)
@@ -35,6 +35,7 @@ async function runUser() {
     }
 }
 */
+
 
 /************************************************************************************
  *                                      USERS
@@ -46,6 +47,7 @@ let currentUserPFP = " ";
 let hasUser = false; // checks if a user is currently logged in
 let username = "";
 let isIncorrectPass = false;
+let printUsernameErr = false;
 
 let users = [
     {
@@ -224,6 +226,7 @@ app.get('/home', (req, res) => {
 });
 
 app.get('/log-out', (req, res) => {
+    printUsernameErr = false;
     hasUser = false;
     currentUserName = " ";
     console.log("Request received for /log-out");
@@ -285,9 +288,14 @@ app.post('/sign-in', (req, res) => {
     
 });
 
+async function runUser(usernameInput, emailInput, lastNameInput, firstNameInput, bioInput, passwordInput, profilePictureInput, isOwnerInput) {
+    
+}
+
 // sign-up
-app.get('/sign-up', (req, res) => {
-    console.log("Request received for /sign-up");
+app.get('/sign-up', async (req, res) => {
+    console.log("Get Request received for /sign-up");
+    console.log(printUsernameErr);
     res.render('sign-up', {
         title: 'Sign Up',
         css: '/home-page-section/css/sign-up-in-index.css',
@@ -297,11 +305,55 @@ app.get('/sign-up', (req, res) => {
         needHeader: false,
         needHeader2: false,
         needFooter: false,
+        isValid: printUsernameErr
     });
 });
 
 // sign-up
-app.post('/sign-up', (req, res) => {
+app.post('/sign-up', async (req, res) => {
+    console.log("Post Request received for /sign-up");
+
+    usernameInput = '@' + req.body.username;
+    emailInput = req.body.email;
+    lastNameInput = req.body.lname;
+    firstNameInput = req.body.fname;
+    bioInput = req.body.description;
+    passwordInput = req.body.password;
+    profilePictureInput = req.body.file;
+    isOwnerInput = (req.body.checkbox === "true"); // convert string to boolean
+
+    try {
+        let existingUsers = await User.find({ username: usernameInput });
+        if (existingUsers.length === 0) {
+            const user = await User.create({
+                username: usernameInput,
+                email: emailInput,
+                lastName: lastNameInput,
+                firstName: firstNameInput,
+                bio: bioInput,
+                password: passwordInput,
+                profilePicture: profilePictureInput,
+                isOwner: isOwnerInput
+            });
+
+            // Use this to update: user.username = "checkupdate"
+            await user.save();
+
+            console.log(user);
+            printUsernameErr = false;
+            console.log("Success sign-up");
+            hasUser = true; 
+            res.redirect('/home');
+        } else {
+            printUsernameErr = true;
+            console.log('Username already exists.');
+            res.redirect('/sign-up');
+        }
+    } catch (e) {
+        console.log(e.message);
+    }
+
+    /***********************  ORIGINAL CODE  *************************
     console.log("Post Request received for /sign-up");
     console.log(req.body);
 
@@ -329,6 +381,7 @@ app.post('/sign-up', (req, res) => {
     res.redirect('/home');
     
     console.log("Success sign-up");
+    ****************************************************************/
 
     // const { username, email, lname, fname, description, number, password, file, checkbox } = req.body;
     // console.log(username, email, lname, fname, description, number, password, file, checkbox);

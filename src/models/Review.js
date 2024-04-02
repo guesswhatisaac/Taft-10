@@ -6,6 +6,12 @@ const reviewSchema = new Schema({
         required: true,
     },
     reviews: [{
+        id: {
+            type: SchemaTypes.Number,
+            required: true,
+            unique: true
+            // TODO use Model.count() method in app.js to set ID- used to count the number of documents present in the collection 
+        },
         rating: {
             type: SchemaTypes.Number,
             required: true
