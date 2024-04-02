@@ -48,6 +48,7 @@ let hasUser = false; // checks if a user is currently logged in
 let username = "";
 let isIncorrectPass = false;
 let printUsernameErr = false;
+let printEditErr = false;
 
 // use this to store current user temporarily
 let currentUserInfo = {
@@ -488,7 +489,7 @@ app.get('/profile', async (req, res) => {
 });
 
 // edit profile get
-app.get('/edit', (req, res) => {
+app.get('/edit', async (req, res) => {
     console.log("Request received for /edit");
     res.render('edit-profile', {
         title: 'Edit Profile',
@@ -500,6 +501,9 @@ app.get('/edit', (req, res) => {
         needHeader: false,
         needHeader2: false,
         needFooter: false,
+        errorMsg : printEditErr,
+        usernamePlaceholder: currentUserInfo.username,
+        bioPlaceholder: currentUserInfo.bio
     });
 });
 
@@ -524,51 +528,61 @@ app.post('/edit', async (req, res) => {
     console.log("Post request received for /edit");
 
     try {
-        let filter = { username: currentUserInfo.username };
-        let usernameInput = req.body.username;
-        let bioInput = req.body.description;
-    
-        if (usernameInput && bioInput) { // Update username and bio
-            let updateFields = { username: usernameInput, bio: bioInput };
-    
-            let userDoc = await User.findOneAndUpdate(filter, updateFields, {
-                new: true
-            });
-    
-            currentUserInfo.username = usernameInput;
-            currentUserInfo.bio = bioInput;
-    
-            console.log("Success edit for both fields");
-            res.redirect('/profile');
-        } else if (usernameInput) { // Update username only
-            let updateUsername = { username: usernameInput };
-    
-            let userDoc = await User.findOneAndUpdate(filter, updateUsername, {
-                new: true
-            });
-    
-            currentUserInfo.username = usernameInput;
-    
-            console.log("Success edit for username field");
-            res.redirect('/profile');
-        } else if (bioInput) { // Update bio only
-            let updateBio = { bio: bioInput };
-    
-            let userDoc = await User.findOneAndUpdate(filter, updateBio, {
-                new: true
-            });
-    
-            currentUserInfo.bio = bioInput;
-    
-            console.log("Success edit for bio field");
-            res.redirect('/profile');
-        } else {
-            console.log("No updates provided");
-            res.redirect('/edit');
-        }
+        // check if username is taken
+        let existingUsers = await User.find( { username: currentUserInfo.username });
+        
+        //if (existingUsers.length === 0) {
+            printEditErr = false;
+            let filter = { username: currentUserInfo.username };
+            let usernameInput = req.body.username;
+            let bioInput = req.body.description;
+        
+            if (usernameInput && bioInput) { // Update username and bio
+                let updateFields = { username: usernameInput, bio: bioInput };
+        
+                let userDoc = await User.findOneAndUpdate(filter, updateFields, {
+                    new: true
+                });
+        
+                currentUserInfo.username = usernameInput;
+                currentUserInfo.bio = bioInput;
+                await userDoc.save();
+        
+                console.log("Success edit for both fields");
+                res.redirect('/profile');
+            } else if (usernameInput) { // Update username only
+                let updateUsername = { username: usernameInput };
+        
+                let userDoc = await User.findOneAndUpdate(filter, updateUsername, {
+                    new: true
+                });
+        
+                currentUserInfo.username = usernameInput;
+                await userDoc.save();
+        
+                console.log("Success edit for username field");
+                res.redirect('/profile');
+            } else if (bioInput) { // Update bio only
+                let updateBio = { bio: bioInput };
+        
+                let userDoc = await User.findOneAndUpdate(filter, updateBio, {
+                    new: true
+                });
+        
+                currentUserInfo.bio = bioInput;
+                await userDoc.save();
+        
+                console.log("Success edit for bio field");
+                res.redirect('/profile');
+            } 
+        // if username is taken:
+        //} else {
+        //    printEditErr = true;
+        //    console.log("username exists");
+        //    res.redirect('/edit');
+        //}
     } catch (e) {
         console.log(e.message);
-        res.redirect('/edit');
     }
     
 
