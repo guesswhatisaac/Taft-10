@@ -441,7 +441,7 @@ app.post('/edit', (req, res) => {
     console.log("Post Request received for /edit");
 
     let usernameInput = req.body.username;
-    let bioInput = req.body.bio;
+    let bioInput = req.body.description;
     let accountExists = false;
     let userIndex = -1;
 
