@@ -1,6 +1,5 @@
 const Review = function(username, rating, date, content, establishmentName) {
   this.username = username;
-
   /* TODO: LOGIC FOR USERNAME */
   this.userStatus = "De La Salle University";
   this.rating = rating;
@@ -34,18 +33,18 @@ else if(priceRange == 4){
 }
 
 const generateEstablishmentId = () => {
-return establishments.length + 1;
+  return establishments.length + 1;
 };
 
 const getEstablishmentOwner = () => {
-// TODO
+  // TODO
 }
 
 /* generates view review button class name */
 function generateReviewsButtonClass(establishmentName) {
-const name = establishmentName.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '');
-console.log(`est-view-review-${name} view-review-btn`);
-return `est-view-review-${name} view-review-btn`;
+  const name = establishmentName.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '');
+  console.log(`est-view-review-${name} view-review-btn`);
+  return `est-view-review-${name} view-review-btn`;
 }
 
 /* generates add review button class name */
@@ -56,48 +55,19 @@ function generateAddReviewClass(establishmentName) {
 }
 
 const Establishment = function(name, priceRange, tags, description, coverImage) {
-this.id = generateEstablishmentId(); 
-this.name = name;
-this.establishmentOwner = 'SINO BA'; // TODO
-this.rating = 0;
-this.priceRange = generatePriceRange(priceRange);
-this.tags = tags;
-this.description = description;
-this.coverImage = coverImage; // TODO: Only adds cover image if it exists in assets folder, uploaded images not added
-this.reviewsButtonClass = generateReviewsButtonClass(name);
-this.addReviewClass = generateAddReviewClass(name);
+  this.id = generateEstablishmentId(); 
+  this.name = name;
+  this.establishmentOwner = 'SINO BA'; // TODO
+  this.rating = 0;
+  this.priceRange = generatePriceRange(priceRange);
+  this.tags = tags;
+  this.description = description;
+  this.coverImage = coverImage; // TODO: Only adds cover image if it exists in assets folder, uploaded images not added
+  this.reviewsButtonClass = generateReviewsButtonClass(name);
+  this.addReviewClass = generateAddReviewClass(name);
 };
 
 
-/*
-
-establishments = [];
-// preloaded establishments
-establishments.push(new Establishment(
-'24 Chicken', 1, ['Filipino', 'Chicken'],
-'If you\'re on the hunt for a chicken experience that transcends the ordinary, look no further than 24 Chicken.',
-'24Chicken.png'));
-
-establishments.push(new Establishment(
-"Ate Rica's Bacsilog", 1, ['Filipino', 'Rice Meal'], 
-'Ate Rica\'s Bacsilog lives up to its "Sauce Sarap" promise! Delicious, affordable Filipino comfort food with generous portions and...',
-'AteRicasBacsilog.png'));
-
-establishments.push(new Establishment(
-'Tomo Coffee', 1, ['Drinks'],
-'Tucked away in a vibrant student district, Tomo Coffee is a haven for caffeine-craving scholars. I love it so much!',
-'TomoCoffee.png'));
-
-establishments.push(new Establishment(
-'Tinuhog ni Benny', 1, ['Filipino', 'Rice Meal'],
-'Tinuhog ni Benny is a haven for budget-friendly, delicious Filipino comfort food. The highlight is undoubtedly their namesake "tinuhog"...',
-'TinuhogNiBenny.png'));
-
-establishments.push(new Establishment(
-'Hungry Seoul', 2, ['Korean', 'Rice Meal'],
-'If you\'re craving a taste of Korea in Manila, Hungry Seoul is definitely worth a visit. This casual restaurant...',
-'HungrySeoul.png'));
-*/
 
 const establishments = [
 {
@@ -563,9 +533,6 @@ if (establishmentToUpdate) {
       </div>
     `;
   }
-
-
-
     
     /* executed when a user submits a new review */
     document.addEventListener('click', function(event) {
@@ -662,7 +629,6 @@ if (establishmentToUpdate) {
       `;
     }
 
-
     /********************** PRICE SELECTION **********************/ 
     const priceButtons = document.querySelectorAll('.price-button-inner, .price-button-outer-left, .price-button-outer-right');
 
@@ -723,8 +689,3 @@ if (establishmentToUpdate) {
     });
 
   });
-
-
-
-
-
