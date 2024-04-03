@@ -1,31 +1,46 @@
-const { authenticate } = require('passport')
+const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
 
-const LocalStrategy = require('passport-local').Strategy
+const { connect } = require('./src/models/conn.js');
+const User = require("./src/models/User");
 
-async function initialize(passport, getUserByUsername) {
-    const authenticateUser = (username, password, done) => {
-        const user = getUserByUsername(username)
-        
-        if(user === null) {
-            return done(null, false, { message: 'No user found'})
-        }
-
+async function initialize(passport, getUserByUsername, getUserByID) {
+    const authenticateUser = async (username, password, done) => {
         try {
-            // if (await bcrypt.compare(password, user.password)) {
+            const user = await getUserByUsername(username);
+            console.log("TEST ", user);
 
-            // } else {
-            //    return done(null, false, { message: 'Password incorrect' })
-            // }
-        } catch(e) {
-            return done(e)
+            if(!user) {
+                return done(null, false, { message: 'No user found' });
+            }
+
+            const isPasswordMatch = await bcrypt.compare(password, user.password);
+
+            if(isPasswordMatch) {
+                return done(null, user);
+            } else {
+                return done(null, false, { message: 'Password incorrect' });
+            }
+        } catch(error) {
+            return done(error);
         }
     }
 
-    passport.use(new LocalStrategy({ username: 'username'}), authenticateUser)
+    passport.use(new LocalStrategy({ usernameField: 'username' }, authenticateUser));
 
-    passport.serializeUser((user, done) => {  })
-    passport.deserializeUser((id, done) => {  })
+    passport.serializeUser((user, done) => {
+        done(null, user.id);
+    });
+
+    passport.deserializeUser(async function(id, done) {
+        try {
+            const user = await User.findById(id).exec();
+            done(null, user);
+        } catch (err) {
+            done(err);
+        }
+    });
+    
 }
 
-module.exports = initialize
+module.exports = initialize;

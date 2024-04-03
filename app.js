@@ -1,3 +1,7 @@
+if (process.env.NPDE_ENV !== 'production') {
+    require('dotenv').config()
+}
+
 const PORT = 3000; // TODO: Change to 3000 before submitting
 
 const express = require('express'),
@@ -5,6 +9,9 @@ const express = require('express'),
       bodyParser = require('body-parser'),
       bcrypt = require('bcrypt'),
       passport = require('passport'),
+      flash = require('express-flash'),
+      session = require('express-session'),
+      methodOverride = require('method-override'),
       app = express();
 
 const layoutsDir = __dirname + '/views/layouts/';
@@ -12,185 +19,36 @@ const partialsDir = __dirname + '/views/partials/';
 
 const { connect } = require('./src/models/conn.js');
 const User = require("./src/models/User");
-const initializePassport = require('./passport')
 
-/* test only
-runUser()
-async function runUser() {
+const initializePassport = require('./passport');
+
+initializePassport(passport, 
+    async (username) => {
     try {
-        const user = await User.create({
-            username: "kathleentrc", 
-            email: "kath@gmail.com",
-            lastName: "Cruz",
-            firstName: "Kathleen",
-            bio: "Coffee Lover",
-            password: "pass",
-            profilePicture: '/global-assets/header/icon.jpg',
-            isOwner: true,
-        })
-
-        // use this to update: user.username = "checkupdate"
-        await user.save();
-
-        console.log(user)
-    } catch(e) {
-        console.log(e.message)
+        const user = await User.findOne({ username: '@' + username }).exec();
+        return user;
+    } catch (error) {
+        console.error("Error finding user:", error);
+        return null; 
+    }}, 
+    async (id) => {
+        try {
+            const user = await User.findOne({ id: id }).exec();
+            return user;
+        } catch (error) {
+            console.error("Error finding id:", error);
+            return null; 
+        }
     }
-}
-*/
-
-
-/************************************************************************************
- *                                      USERS
-************************************************************************************/
+);
 
 let userObj = "";
 let currentUserName = " "; 
 let currentUserPFP = " ";
 let hasUser = false; // checks if a user is currently logged in
 let username = "";
-let isIncorrectPass = false;
 let printUsernameErr = false;
 let printEditErr = false;
-
-// use this to store current user temporarily
-let currentUserInfo = {
-    username: " ",
-    lastName: " ",
-    firstName: " ",
-    bio: " ",
-    profilePicture: " ",
-    isOwner: false
-}
-
-let users = [
-    {
-        username: '@kweenyasmin',
-        email: 'asistido_yasmin@gmail.com',
-        lastname: 'Asistido',
-        firstname: 'Yasmin',
-        bio: 'To be or not to be.',
-        phoneNum: '09143227896',
-        password: '2kuyukoT',
-        profilePicture: "/global-assets/header/icon.jpg",
-        isOwner: false,
-        numReviews: 0
-    },
-    {
-        username: '@shanecloma',
-        email: 'cloma_shane@gmail.com',
-        lastname: 'Cloma',
-        firstname: 'Shane',
-        bio: 'No pain, no gain!',
-        phoneNum: '09808065541',
-        password: 'iLovemyWIF3Y',
-        profilePicture: "/global-assets/header/icon.jpg",
-        isOwner: false,
-        numReviews: 0
-    },
-    {
-        username: '@romanisaac',
-        email: 'roman_isaac@gmail.com',
-        lastname: 'Roman',
-        firstname: 'Isaac',
-        bio: 'Love is like a rosary, full of mystery.',
-        phoneNum: '09066684661',
-        password: 'valoGodz123',
-        profilePicture: "/global-assets/header/isaac-pic.jpg",
-        isOwner: false,
-        numReviews: 0
-    },
-    {
-        username: '@kathmeow',
-        email: 'cruz_kathleen@gmail.com',
-        lastname: 'Cruz',
-        firstname: 'Kathleen',
-        bio: 'Time is gold.',
-        phoneNum: '09702432277',
-        password: 'BULDAK22enjoyer',
-        profilePicture: "/global-assets/header/kathleen-pic.png",
-        isOwner: false,
-        numReviews: 0
-    },
-    {
-        username: '@alexisae',
-        email: 'arcega_alexis@gmail.com',
-        lastname: 'Arcega',
-        firstname: 'Alexis',
-        bio: 'Teamwork makes the dream work.',
-        phoneNum: '09317573077',
-        password: 'yashFOREVERloversS143',
-        profilePicture: "/global-assets/header/alexis-pic.jpeg",
-        isOwner: false,
-        numReviews: 0
-    },
-    {
-        username: '@bashruiz',
-        email: 'asistido_yasmin@gmail.com',
-        lastname: 'Ruiz',
-        firstname: 'Yashel',
-        bio: 'Shark is life!',
-        phoneNum: '09339464368',
-        password: 'BABYsharkdududu',
-        profilePicture: "/global-assets/header/yash.jpg",
-        isOwner: true,
-        numReviews: 0
-    },
-    {
-        username: '@hannissaad',
-        email: 'vinuya_hannah@gmail.com',
-        lastname: 'Vinuya',
-        firstname: 'Hannah',
-        bio: 'Slip in to the diamond life.',
-        phoneNum: '09145134782',
-        password: 'iLoveMYSHANIA22',
-        profilePicture: "/global-assets/header/hannah-pic.jpg",
-        isOwner: true,
-        numReviews: 0
-    },
-    {
-        username: '@jeylinnumbawan',
-        email: 'sandoval_jalene@gmail.com',
-        lastname: 'Sandoval',
-        firstname: 'Jalene',
-        bio: 'Stay delulu until it becomes truelulu.',
-        phoneNum: '09798243924',
-        password: 'JaLeeforevah',
-        profilePicture: "/global-assets/header/jal-pic.jpg",
-        isOwner: true,
-        numReviews: 0
-    },
-    {
-        username: '@onyourmark',
-        email: 'lee_mark@gmail.com',
-        lastname: 'Lee',
-        firstname: 'Mark',
-        bio: 'Be yourself.',
-        phoneNum: '09091632635',
-        password: 'alexisLangSapatNaILY',
-        profilePicture: "/global-assets/header/mark-pic.jpg",
-        isOwner: true,
-        numReviews: 0
-    },
-    {
-        username: '@mojicajosh',
-        email: 'mojica_josh@gmail.com',
-        lastname: 'Mojica',
-        firstname: 'Josh',
-        bio: 'Patience is a virtue.',
-        phoneNum: '09573670854',
-        password: '404KANGKONGChips',
-        profilePicture: "/global-assets/header/josh-pogi.jpg",
-        isOwner: true,
-        numReviews: 0
-    },
-]
-
-/************************************************************************************
- *                                  ESTABLISHMENTS
-************************************************************************************/
-
-// insert variables here
 
 app.engine('hbs', hbs.engine({
     extname: 'hbs',
@@ -203,23 +61,52 @@ app.set('view engine', 'hbs');
 app.use(express.static("public"));
 app.use(express.json());
 app.use(bodyParser.json());
+app.use(methodOverride('_method'));
+app.use(express.urlencoded({ extended: true })); 
+app.use(bodyParser.urlencoded({ extended: true }));
+
 // app.use(express.urlencoded()); 
 // app.use(bodyParser.urlencoded({ extended: false })); 
-app.use(express.urlencoded({ extended: true })); 
 
-app.use(
-    bodyParser.urlencoded({
-        extended: true
-    })
-);
+app.use(flash());
+app.use(session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: false
+}));
 
-// home
-app.get('/', (req, res) => {
+app.use(passport.initialize())
+app.use(passport.session())
+
+function checkAuthenticated(req, res, next) {
+    if(req.isAuthenticated()) {
+        return next()
+    }
+
+    res.redirect('/guest-view')
+}
+
+function checkNotAuthenticated(req, res, next) {
+    if(req.isAuthenticated()) {
+        return res.redirect('/')
+    }
+
+    next()
+}
+
+// home with current user
+app.get('/', checkAuthenticated, (req, res) => {
+    if(!req.user) {
+        hasUser = false;
+    } else {
+        hasUser = true;
+    }
+
     res.render('main', {
         title: 'Taft 10',
         css: '/home-page-section/css/home-index.css',
         userExists: hasUser,
-        currUsername: currentUserInfo.username,
+        currUsername: req.user.username,
         addcss: false,
         needHeader: true,
         needHeader2: false,
@@ -229,34 +116,60 @@ app.get('/', (req, res) => {
         ateRica: '/home-page-section/assets/ate-rica.png',
         chefBab: '/home-page-section/assets/chef-bab.png',
     });
-    isIncorrectPass = false;
+
+    console.log("curr un: " + req.user.username);
+    console.log("has user: " + hasUser);
+    console.log("is owner: " + req.user.isOwner);
+});
+
+/****************************************************************
+ *                    HOME, SIGN-IN, SIGN-UP
+ ***************************************************************/
+
+// home without current user <- redirect here
+app.get('/guest-view', checkNotAuthenticated, (req, res) => {
+    res.render('main', {
+        title: 'Taft 10',
+        css: '/home-page-section/css/home-index.css',
+        userExists: false,
+        currUsername: null,
+        addcss: false,
+        needHeader: true,
+        needHeader2: false,
+        needFooter: true,
+        searchIcon: '/global-assets/header/search-icon.png',
+        taft10Logo: '/global-assets/header/taft-10.png',
+        ateRica: '/home-page-section/assets/ate-rica.png',
+        chefBab: '/home-page-section/assets/chef-bab.png',
+    });
+
+    console.log("has user: " + hasUser);
 });
 
 // home 
-app.get('/home', (req, res) => {
+app.get('/home', checkAuthenticated, (req, res) => {
     console.log("Request received for /home");
     res.redirect('/');
 });
 
+// log-out
 app.get('/log-out', (req, res) => {
+    console.log("Request received for /log-out");
     printUsernameErr = false;
     hasUser = false;
-    // currentUserName = " ";
     
-    currentUserInfo = {
-        username: " ",
-        lastName: " ",
-        firstName: " ",
-        bio: " ",
-        profilePicture: " ",
-        isOwner: false
-    }
-    console.log("Request received for /log-out");
-    res.redirect('/');
-})
+    req.logOut(function(err) {
+        if (err) {
+            console.error("Error logging out:", err);
+            return res.status(500).send("Error logging out");
+        }
+        
+        res.redirect('/guest-view');
+    });
+});
 
 // sign-in
-app.get('/sign-in', async (req, res) => {
+app.get('/sign-in', checkNotAuthenticated, async (req, res) => {
     console.log("Request received for /sign-in");
     res.render('sign-in', {
         title: 'Sign In',
@@ -266,77 +179,18 @@ app.get('/sign-in', async (req, res) => {
         needHeader: false,
         needHeader2: false,
         needFooter: false,
-        passwordIncorrect: isIncorrectPass
     });
 });
 
 // sign-in
-app.post('/sign-in', async (req, res) => {
-    console.log("Post Request received for /sign-in");
-
-    let usernameInput = req.body.username;
-    let passwordInput = req.body.password;
-    let accountExists = false;
-
-    console.log(usernameInput); 
-    console.log(passwordInput);
-
-    try {
-        let existingUsers = await User.find({ username: '@' + usernameInput }).exec();
-
-        let user = existingUsers[0]; 
-
-        let usernameQuery = user.username;
-        let passwordQuery = user.password;
-        let lastNameQuery = user.lastName;
-        let firstNameQuery = user.firstName;
-        let bioQuery = user.bio;
-        let profilePictureQuery = user.profilePicture;
-        let isOwnerQuery = user.isOwner;
-        
-        let isExisting = usernameQuery === '@' + usernameInput;
-        
-        // account does not exist in the database
-        if(!isExisting) { 
-            console.log("account does not exist");
-            isIncorrectPass = true;
-            res.redirect('/sign-in');
-        } else {
-            console.log("account exists");
-            
-            // check hashed password
-            if(await bcrypt.compare(passwordInput, passwordQuery)) {
-                accountExists = true;
-                isIncorrectPass = false;
-
-                console.log("Sign-in successful");
-                hasUser = true; 
-                currentUserName = '@' + usernameInput;
-                
-                currentUserInfo = {
-                    username: usernameQuery,
-                    lastName: lastNameQuery,
-                    firstName: firstNameQuery,
-                    bio: bioQuery,
-                    profilePicture: profilePictureQuery,
-                    isOwner: isOwnerQuery
-                }
-
-                res.redirect('/home');
-
-            } else {
-                console.log("incorrect password")
-                isIncorrectPass = true;
-                res.redirect('/sign-in');
-            }
-        }
-    } catch(e) {
-        console.log(e.message);
-    }
-});
+app.post('/sign-in', passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/sign-in',
+    failureFlash: true
+}));
 
 // sign-up
-app.get('/sign-up', async (req, res) => {
+app.get('/sign-up', checkNotAuthenticated, async (req, res) => {
     console.log("Get Request received for /sign-up");
     console.log(printUsernameErr);
     res.render('sign-up', {
@@ -352,64 +206,61 @@ app.get('/sign-up', async (req, res) => {
     });
 });
 
-// sign-up
 app.post('/sign-up', async (req, res) => {
     console.log("Post Request received for /sign-up");
 
-    usernameInput = '@' + req.body.username;
-    emailInput = req.body.email;
-    lastNameInput = req.body.lname;
-    firstNameInput = req.body.fname;
-    bioInput = req.body.description;
-    passwordInput = req.body.password;
-    profilePictureInput = req.body.file;
-    isOwnerInput = (req.body.checkbox === "true"); // convert string to boolean
+    const { username, email, lname, fname, description, password, file, checkbox } = req.body;
+    const usernameInput = '@' + username;
+    const lastNameInput = lname;
+    const firstNameInput = fname;
+    const bioInput = description;
+    const profilePictureInput = file;
+    const isOwnerInput = (checkbox === 'checkbox'); 
+
+    console.log(req.body)
 
     try {
-        // generate hash
-        const hashedPassword = await bcrypt.hash(passwordInput, 10)
-
-        let existingUsers = await User.find({ username: usernameInput }).exec();
-        if(existingUsers.length === 0) {
-            const user = await User.create({
-                username: usernameInput,
-                email: emailInput,
-                lastName: lastNameInput,
-                firstName: firstNameInput,
-                bio: bioInput,
-                password: hashedPassword,
-                profilePicture: profilePictureInput,
-                isOwner: isOwnerInput
-            });
-
-            // store current user info for displaying
-            currentUserInfo = {
-                username: usernameInput,
-                lastName: lastNameInput,
-                firstName: firstNameInput,
-                bio: bioInput,
-                profilePicture: profilePictureInput,
-                isOwner: isOwnerInput
-            }
-
-            // Use this to update: user.username = "checkupdate"
-            await user.save();
-
-            console.log(user);
-            printUsernameErr = false;
-
-            console.log("Success sign-up");
-            hasUser = true; 
-            res.redirect('/home');
-        } else {
-            printUsernameErr = true;
+        // check if the username already exists in the database
+        const existingUser = await User.findOne({ username: usernameInput });
+        if (existingUser) {
             console.log('Username already exists.');
-            res.redirect('/sign-up');
+
+            printUsernameErr = true;
+            return res.redirect('/sign-up');
         }
-    } catch (e) {
-        console.log(e.message);
+
+        // generate hash for password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // create a new user
+        const newUser = await User.create({
+            username: usernameInput,
+            email,
+            lastName: lastNameInput,
+            firstName: firstNameInput,
+            bio: bioInput,
+            password: hashedPassword,
+            profilePicture: profilePictureInput,
+            isOwner: isOwnerInput
+        });
+
+        console.log('Success sign-up');
+        
+        // log in the user after sign-up
+        req.login(newUser, function(err) {
+            if (err) {
+                console.error("Error logging in after sign-up:", err);
+                return res.status(500).send("Error logging in after sign-up.");
+            }
+            // redirect the user to the home page
+            res.redirect('/');
+        });
+    } catch(error) {
+        console.error("Error during sign-up:", error.message);
+        return res.status(500).send("An error occurred during sign-up.");
     }
 });
+
 
 // recover-account
 app.get('/forgot-pw', (req, res) => {
@@ -425,12 +276,14 @@ app.get('/forgot-pw', (req, res) => {
     });
 });
 
+// forgot-pw
 app.post('/forgot-pw', (req, res) => {
     console.log("POST Request received for /forgot-pw");
     console.log(req.body);
     res.redirect("/success-msg");
 });
 
+// success-msg
 app.get('/success-msg', (req, res) => {
     console.log("Request received for /success-msg");
     res.render('forgot-pw-response', {
@@ -440,10 +293,12 @@ app.get('/success-msg', (req, res) => {
         needHeader: false,
         needHeader2: false,
         needFooter: false,
-        isOwner: userObj.isOwner
-
     });
 });
+
+/****************************************************************
+ *                         PROFILE       
+ ***************************************************************/
 
 let reply = "";
 let replies = [];
@@ -451,7 +306,7 @@ let showReply = false;
 let editSuccessful = false;
   
 // profile
-app.get('/profile', async (req, res) => {
+app.get('/profile', checkAuthenticated, async (req, res) => {
     console.log("Request received for /profile");
     if(!replies) {
         showReply = true;
@@ -463,142 +318,95 @@ app.get('/profile', async (req, res) => {
         css2: '/base-index.css',
         css3: '/view-establishments-section/css/est-index.css',
         currentUserPic: '/global-assets/header/icon.jpg',
-        myName: '<h1>' + currentUserInfo.firstName + " " + currentUserInfo.lastName + '</h1>',
+        myName: '<h1>' + req.user.firstName + " " + req.user.lastName + '</h1>',
         numReviews: userObj.numReviews + ' reviews', // TODO UPDATE THIS USING REVIEWS DATABASE
-        userDescription: currentUserInfo.bio,
-        isOwner: currentUserInfo.isOwner,
+        userDescription: req.user.bio,
+        isOwner: req.user.isOwner,
         userExists: hasUser,
-        currUsername: currentUserInfo.username,
+        currUsername: req.user.username,
         needHeader: false,
         needHeader2: true,
         needFooter: true,
         searchIcon: '/global-assets/header/search-icon.png',
         taft10Logo: '/global-assets/header/taft-10.png',
         displayReplies: showReply,
-        username: currentUserInfo.username,
+        username: req.user.username,
         ownerReply: reply,
     });
-    console.log(userObj.firstname + " " + userObj.lastname);
-    console.log()
 });
 
 // edit profile get
-app.get('/edit', async (req, res) => {
+app.get('/edit', checkAuthenticated, async (req, res) => {
     console.log("Request received for /edit");
     res.render('edit-profile', {
         title: 'Edit Profile',
         css: '/view-profile-section/css/edit-profile-index.css',
         css2: '/base-index.css',
         js: '/home-page-section/js/sign-up.js',
-        currentUserPic: userObj.profilePicture,
+        currentUserPic: req.user.profilePicture,
         userExists: hasUser,
         needHeader: false,
         needHeader2: false,
         needFooter: false,
-        errorMsg : printEditErr,
-        usernamePlaceholder: currentUserInfo.username,
-        bioPlaceholder: currentUserInfo.bio
+        errorMsg: printEditErr,
+        usernamePlaceholder: req.user.username,
+        bioPlaceholder: req.user.bio
     });
 });
 
-// edit profile post
-app.post('/edit', async (req, res) => {
+app.post('/edit', checkAuthenticated, async (req, res) => {
     console.log("Post request received for /edit");
 
     try {
-        // check if username is taken
-        let existingUsers = await User.find( { username: currentUserInfo.username });
-        
-        //if (existingUsers.length === 0) {
-            printEditErr = false;
-            let filter = { username: currentUserInfo.username };
-            let usernameInput = req.body.username;
-            let bioInput = req.body.description;
-        
-            if (usernameInput && bioInput) { // Update username and bio
-                let updateFields = { username: usernameInput, bio: bioInput };
-        
-                let userDoc = await User.findOneAndUpdate(filter, updateFields, {
-                    new: true
-                });
-        
-                currentUserInfo.username = usernameInput;
-                currentUserInfo.bio = bioInput;
-                await userDoc.save();
-        
-                console.log("Success edit for both fields");
-                res.redirect('/profile');
-            } else if (usernameInput) { // Update username only
-                let updateUsername = { username: usernameInput };
-        
-                let userDoc = await User.findOneAndUpdate(filter, updateUsername, {
-                    new: true
-                });
-        
-                currentUserInfo.username = usernameInput;
-                await userDoc.save();
-        
-                console.log("Success edit for username field");
-                res.redirect('/profile');
-            } else if (bioInput) { // Update bio only
-                let updateBio = { bio: bioInput };
-        
-                let userDoc = await User.findOneAndUpdate(filter, updateBio, {
-                    new: true
-                });
-        
-                currentUserInfo.bio = bioInput;
-                await userDoc.save();
-        
-                console.log("Success edit for bio field");
-                res.redirect('/profile');
-            } 
-        // if username is taken:
-        //} else {
-        //    printEditErr = true;
-        //    console.log("username exists");
-        //    res.redirect('/edit');
-        //}
-    } catch (e) {
-        console.log(e.message);
-    }
-    
+        let existingUsers = await User.find({ username: req.user.username });
+        let currUserID = existingUsers[0]._id;
+        let filter = { _id: currUserID };
+        let usernameInput = req.body.username;
+        let bioInput = req.body.description;
 
-    /***************************ORIGINAL CODE**************************
-    console.log("Post Request received for /edit");
+        let updateFields = {};
 
-    let usernameInput = req.body.username;
-    let bioInput = req.body.description;
-    let accountExists = false;
-    let userIndex = -1;
-
-    console.log(usernameInput); 
-    console.log(bioInput);
-
-    // check if account exists and if password is correct
-    for(let i = 0; i < users.length; i++) {
-        // console.log("try");
-        
-        
-        if(userObj.username === users[i].username) {
-            if(!usernameInput && bioInput) {
-                users[i].bio = bioInput;
-            } else if (!bioInput && usernameInput) {
-                users[i].username = '@' + usernameInput;
-            } else if (usernameInput && bioInput) {
-                users[i].username = '@' + usernameInput;
-                users[i].bio = bioInput;
-            } 
-            console.log("Edit successful");
-            editSuccessful = true;
-            res.redirect('/profile');
-        } else {
-            console.log("Edit unsuccessful");
-            res.redirect('/profile');
+        if(usernameInput && bioInput) { // update username and bio
+            updateFields = { username: '@' + usernameInput, bio: bioInput };
+        } else if(usernameInput && !bioInput) { // update username only
+            updateFields = { username: '@' + usernameInput };
+        } else if(bioInput && !usernameInput) { // update bio only
+            updateFields = { bio: bioInput };
         }
+
+        if(Object.keys(updateFields).length > 0) {
+            let userDoc = await User.findOneAndUpdate(filter, updateFields, {
+                new: true
+            });
+
+            if(usernameInput) {
+                req.user.username = '@' + usernameInput;
+            }
+
+            if(bioInput) {
+                req.user.bio = bioInput;
+            }
+
+            await userDoc.save();
+            console.log("Success edit");
+        } else {
+            console.log("No fields to update");
+        }
+
+        res.redirect('/profile');
+        printEditErr = false;
+
+    } catch(e) {
+        printEditErr = true;
+        console.error("Error editing profile:", e.message);
+        res.redirect('/edit');
     }
-    ********************************************************************/
 });
+
+app.get('/cancel-edit', checkAuthenticated, (req, res) => {
+    console.log("Request received for /cancel-edit");
+    res.redirect('/profile');
+})
 
 app.get('/reply', (req, res) => {
     console.log("Request received for /reply");
@@ -608,12 +416,16 @@ app.post('/reply', (req, res) => {
     console.log("POST Request received for /post");
     reply = req.body.description;
     console.log(reply);
-    console.log(currentUserInfo.username);
     
     replies.push(reply);
     showReply = true;
     res.redirect('/profile');
 });
+
+
+/****************************************************************
+ *                         ESTABLISHMENTS       
+ ***************************************************************/
 
 // view all establishments
 app.get('/all-establishments', (req, res) => {
