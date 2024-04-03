@@ -1,59 +1,59 @@
+// Review constructor function
 const Review = function(username, rating, date, content, establishmentName) {
   this.username = username;
-  /* TODO: LOGIC FOR USERNAME */
   this.userStatus = "De La Salle University";
   this.rating = rating;
   this.date = date;
   this.content = content;
   this.establishmentName = establishmentName;
-}
+};
 
+// Array to store reviews
 const reviews = [];
 
+// Function to change text
 function changeText(option) {
-    var selectedText = option.textContent;
-    var titleElement = document.querySelector('.category-dropdown-title');
-    titleElement.textContent = selectedText;
+  const selectedText = option.textContent;
+  const titleElement = document.querySelector('.category-dropdown-title');
+  titleElement.textContent = selectedText;
 }
 
+// Function to generate price range
 const generatePriceRange = (priceRange) => {
+  if(priceRange == 1) {
+    return ['₱', '₱₱₱'];
+  } else if(priceRange == 2) {
+    return ['₱₱', '₱₱'];
+  } else if(priceRange == 3) {
+    return ['₱₱₱', '₱'];    
+  } else if(priceRange == 4) {
+    return ['₱₱₱₱', ''];
+  }
+};
 
-if(priceRange == 1){
-  return ['₱', '₱₱₱'];
-}
-else if(priceRange == 2){
-  return ['₱₱', '₱₱'];
-}
-else if(priceRange == 3){
-  return ['₱₱₱', '₱'];    
-}
-else if(priceRange == 4){
-  return ['₱₱₱₱', ''];
-}
-}
-
+// Function to generate establishment ID
 const generateEstablishmentId = () => {
   return establishments.length + 1;
 };
 
+// Function to generate establishment owner
 const getEstablishmentOwner = () => {
   // TODO
-}
+};
 
-/* generates view review button class name */
+// Function to generate class name for view review button
 function generateReviewsButtonClass(establishmentName) {
   const name = establishmentName.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '');
-  console.log(`est-view-review-${name} view-review-btn`);
   return `est-view-review-${name} view-review-btn`;
 }
 
-/* generates add review button class name */
+// Function to generate class name for add review button
 function generateAddReviewClass(establishmentName) {
   const name = establishmentName.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '');
-  console.log(`add-review-${name} add-review-btn`);
   return `add-review-${name} add-review-btn`;
 }
 
+// Establishment constructor function
 const Establishment = function(name, priceRange, tags, description, coverImage) {
   this.id = generateEstablishmentId(); 
   this.name = name;
@@ -66,9 +66,6 @@ const Establishment = function(name, priceRange, tags, description, coverImage) 
   this.reviewsButtonClass = generateReviewsButtonClass(name);
   this.addReviewClass = generateAddReviewClass(name);
 };
-
-
-
 const establishments = [
 {
   name: '24 Chicken',
@@ -136,29 +133,22 @@ const createModal = document.getElementById('create-modal');
 const updateModal = document.getElementById('update-modal');
 const deleteModal = document.getElementById('delete-modal');
 
+// Function to show modal
 function showModal(modal) {
   modal.style.display = 'block';
-  document.body.style.backgroundColor = 'rgba(0,0,0,0.4)'; // Add background color on open
-
+  document.body.style.backgroundColor = 'rgba(0,0,0,0.4)';
 }
 
+// Function to hide modal
 function hideModal(modal) {
-  
-  document.body.style.backgroundColor = 'inherit'; // Remove background color on close
+  document.body.style.backgroundColor = 'inherit';
   modal.style.display = 'none';
-
-  const createErrorMessageElement = document.querySelector('.create-error-message');
-  createErrorMessageElement.classList.add('create-error-message'); 
-  createErrorMessageElement.textContent = '';
-
-  const updateErrorMessageElement = document.querySelector('.update-error-message');
-  updateErrorMessageElement.classList.add('update-error-message'); 
-  updateErrorMessageElement.textContent = '';
-
-  const deleteErrorMessageElement = document.querySelector('.delete-error-message');
-  deleteErrorMessageElement.classList.add('delete-error-message'); 
-  deleteErrorMessageElement.textContent = '';
-
+  // Clear error messages
+  const errorMessages = modal.querySelectorAll('.error-message');
+  errorMessages.forEach(message => {
+    message.classList.add('error-message'); 
+    message.textContent = '';
+  });
 }
 
 createButton.addEventListener('click', () => showModal(createModal));
@@ -168,10 +158,10 @@ deleteButton.addEventListener('click', () => showModal(deleteModal));
 const closeButtons = document.querySelectorAll('.close-button');
 
 closeButtons.forEach(closeButton => {
-closeButton.addEventListener('click', () => {
-  const modal = closeButton.parentElement.parentElement.parentElement; // Get the modal element
-  hideModal(modal);
-});
+  closeButton.addEventListener('click', () => {
+    const modal = closeButton.parentElement.parentElement.parentElement; // Get the modal element
+    hideModal(modal);
+  });
 });
 
 /*****************************    CREATE MODAL    ****************************/
