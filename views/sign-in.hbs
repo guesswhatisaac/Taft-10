@@ -26,7 +26,7 @@
                 <label for="checkbox"> Remember Me </label><br>
             </div>
 
-            {{#if passwordIncorrect}}
+            {{#if messages.error}}
             <div class="forgot-password">
                 <a href="/forgot-pw" id="forgot-password-link">Incorrect Password. Click me to Reset</a>
             </div>
