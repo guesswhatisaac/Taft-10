@@ -3,14 +3,16 @@ const PORT = 3000; // TODO: Change to 3000 before submitting
 const express = require('express'),
       hbs = require('express-handlebars'),
       bodyParser = require('body-parser'),
-      app = express(),
-      bcrypt = require('bcrypt');
+      bcrypt = require('bcrypt'),
+      passport = require('passport'),
+      app = express();
 
 const layoutsDir = __dirname + '/views/layouts/';
 const partialsDir = __dirname + '/views/partials/'; 
 
 const { connect } = require('./src/models/conn.js');
 const User = require("./src/models/User");
+const initializePassport = require('./passport')
 
 /* test only
 runUser()
