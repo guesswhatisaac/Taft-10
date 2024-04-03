@@ -3,7 +3,8 @@ const PORT = 3000; // TODO: Change to 3000 before submitting
 const express = require('express'),
       hbs = require('express-handlebars'),
       bodyParser = require('body-parser'),
-      app = express();
+      app = express(),
+      bcrypt = require('bcrypt');
 
 const layoutsDir = __dirname + '/views/layouts/';
 const partialsDir = __dirname + '/views/partials/'; 
@@ -295,7 +296,6 @@ app.post('/sign-in', async (req, res) => {
         let isOwnerQuery = user.isOwner;
         
         let isExisting = usernameQuery === '@' + usernameInput;
-        let isCorrectPassword = passwordQuery === passwordInput;
         
         // account does not exist in the database
         if(!isExisting) { 
@@ -305,7 +305,8 @@ app.post('/sign-in', async (req, res) => {
         } else {
             console.log("account exists");
             
-            if(isCorrectPassword) {
+            // check hashed password
+            if(await bcrypt.compare(passwordInput, passwordQuery)) {
                 accountExists = true;
                 isIncorrectPass = false;
 
@@ -366,6 +367,9 @@ app.post('/sign-up', async (req, res) => {
     isOwnerInput = (req.body.checkbox === "true"); // convert string to boolean
 
     try {
+        // generate hash
+        const hashedPassword = await bcrypt.hash(passwordInput, 10)
+
         let existingUsers = await User.find({ username: usernameInput }).exec();
         if(existingUsers.length === 0) {
             const user = await User.create({
@@ -374,7 +378,7 @@ app.post('/sign-up', async (req, res) => {
                 lastName: lastNameInput,
                 firstName: firstNameInput,
                 bio: bioInput,
-                password: passwordInput,
+                password: hashedPassword,
                 profilePicture: profilePictureInput,
                 isOwner: isOwnerInput
             });
