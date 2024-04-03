@@ -577,8 +577,8 @@ if (establishmentToUpdate) {
               }
           })
           .then(data => {
-              console.log(data); // Log response from server
-              // Optionally, perform any additional actions after successful review submission
+              console.log(data); 
+
               renderReviews(establishmentName);
               resetStarRatingInputs();
               button.closest('.review-window-container').querySelector('.comment-content').value = '';
@@ -586,7 +586,7 @@ if (establishmentToUpdate) {
           })
           .catch(error => {
               console.error('Error:', error);
-              // Optionally, display an error message to the user
+
               alert('Error submitting review');
           });
       }
