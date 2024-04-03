@@ -63,8 +63,6 @@ let currentUserInfo = {
     isOwner: false
 }
 
-
-
 let users = [
     {
         username: '@kweenyasmin',
@@ -193,7 +191,6 @@ let users = [
 ************************************************************************************/
 
 // insert variables here
-
 
 app.engine('hbs', hbs.engine({
     extname: 'hbs',

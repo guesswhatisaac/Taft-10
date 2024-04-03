@@ -1,6 +1,5 @@
 const Review = function(username, rating, date, content, establishmentName) {
   this.username = username;
-
   /* TODO: LOGIC FOR USERNAME */
   this.userStatus = "De La Salle University";
   this.rating = rating;
