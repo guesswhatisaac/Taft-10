@@ -526,43 +526,71 @@ if (establishmentToUpdate) {
     
     /* executed when a user submits a new review */
     document.addEventListener('click', function(event) {
-        if (event.target.classList.contains('submit-button')) {
-            const button = event.target;
-    
-            console.log("SUBMIT BUTTON CLICKED");
-    
-            const username = "User";
-            const rating = document.querySelector('input[name="rating"]:checked');
-            const content = button.closest('.review-window-container').querySelector('.comment-content').value.trim();
-            const establishmentName = button.closest('.review-window-container').querySelector('.est-title-header span.title').textContent.trim().replace(/\s+/g, '-').toLowerCase().replace(/'/g, '');
-    
-            if (!rating && content === "") {
-                alert("You cannot submit an empty review.");
-                return;
-            }
-
-            if (!rating) {
-                alert("Please provide your rating.");
-                return;
-            }
-    
-            if (content === "") {
-                alert("Please add your review.");
-                return;
-            }
-    
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            const date = new Date().toLocaleDateString('en-US', options);
-            const newReview = new Review(username, rating.value, date, content, establishmentName);
-            reviews.push(newReview);
-    
-            renderReviews(establishmentName);
-    
-            resetStarRatingInputs();
-            button.closest('.review-window-container').querySelector('.comment-content').value = '';
-            document.querySelector(`#reviewWindow-${establishmentName}`).style.display = 'none';
-        }
-    });
+      if (event.target.classList.contains('submit-button')) {
+          const button = event.target;
+  
+          console.log("SUBMIT BUTTON CLICKED");
+  
+          const username = "User";
+          const rating = document.querySelector('input[name="rating"]:checked');
+          const content = button.closest('.review-window-container').querySelector('.comment-content').value.trim();
+          const establishmentName = button.closest('.review-window-container').querySelector('.est-title-header span.title').textContent.trim().replace(/\s+/g, '-').toLowerCase().replace(/'/g, '');
+  
+          if (!rating && content === "") {
+              alert("You cannot submit an empty review.");
+              return;
+          }
+  
+          if (!rating) {
+              alert("Please provide your rating.");
+              return;
+          }
+  
+          if (content === "") {
+              alert("Please add your review.");
+              return;
+          }
+  
+          const options = { year: 'numeric', month: 'long', day: 'numeric' };
+          const date = new Date().toLocaleDateString('en-US', options);
+  
+          // Send form data to the server using AJAX
+          const formData = {
+              username: username,
+              rating: rating.value,
+              content: content,
+              establishmentName: establishmentName
+          };
+  
+          fetch('/add-review', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(formData)
+          })
+          .then(response => {
+              if (response.ok) {
+                  return response.text();
+              } else {
+                  throw new Error('Error submitting review');
+              }
+          })
+          .then(data => {
+              console.log(data); // Log response from server
+              // Optionally, perform any additional actions after successful review submission
+              renderReviews(establishmentName);
+              resetStarRatingInputs();
+              button.closest('.review-window-container').querySelector('.comment-content').value = '';
+              document.querySelector(`#reviewWindow-${establishmentName}`).style.display = 'none';
+          })
+          .catch(error => {
+              console.error('Error:', error);
+              // Optionally, display an error message to the user
+              alert('Error submitting review');
+          });
+      }
+  });
   
     function resetStarRatingInputs() {
       document.querySelectorAll('input[name="rating"]').forEach(function(input) {
@@ -639,7 +667,6 @@ if (establishmentToUpdate) {
     /* event listener for Add Review buttons */
     document.querySelector('.est-container').addEventListener('click', function(event) {
       if (event.target.classList.contains('add-review-btn')) {
-        window.location.href = '/add-review';
         const button = event.target;
         const establishmentName = button.closest('.est-content').querySelector('.est-title').textContent.trim();
         const reviewWindowId = `reviewWindow-${establishmentName.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
