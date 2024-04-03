@@ -19,8 +19,13 @@ const partialsDir = __dirname + '/views/partials/';
 
 const { connect } = require('./src/models/conn.js');
 const User = require("./src/models/User");
+const Review = require("./src/models/Review.js")
 
 const initializePassport = require('./passport');
+
+const getUsername = (req) => {
+    return req.user.username; 
+};
 
 initializePassport(passport, 
     async (username) => {
@@ -428,8 +433,9 @@ app.post('/reply', (req, res) => {
  ***************************************************************/
 
 // view all establishments
-app.get('/all-establishments', (req, res) => {
+app.get('/all-establishments', checkAuthenticated, (req, res) => {
     console.log("Request received for /all-establishments");
+
     res.render('all-establishments', {
         title: 'All Establishments',
         css: '/view-establishments-section/css/est-index.css',
@@ -439,13 +445,17 @@ app.get('/all-establishments', (req, res) => {
         css5: '/view-establishments-section/css/crude-index.css',
         js: '/view-establishments-section/js/est-index.js',
         userExists: hasUser,
-        currUsername: currentUserName,
+        currUsername: req.user.username,
         needHeader: false,
         needHeader2: true,
         needFooter: true,
         searchIcon: '/global-assets/header/search-icon.png',
-        taft10Logo: '/global-assets/header/taft-10.png'
+        taft10Logo: '/global-assets/header/taft-10.png',
     });
+});
+
+app.get('/add-review', checkAuthenticated, (req, res) => {
+    console.log("Request received for /add-review"); 
 });
 
 // view taft picks

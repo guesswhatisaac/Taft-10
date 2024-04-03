@@ -639,6 +639,7 @@ if (establishmentToUpdate) {
     /* event listener for Add Review buttons */
     document.querySelector('.est-container').addEventListener('click', function(event) {
       if (event.target.classList.contains('add-review-btn')) {
+        window.location.href = '/add-review';
         const button = event.target;
         const establishmentName = button.closest('.est-content').querySelector('.est-title').textContent.trim();
         const reviewWindowId = `reviewWindow-${establishmentName.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
