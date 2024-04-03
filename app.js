@@ -256,7 +256,7 @@ app.get('/log-out', (req, res) => {
 })
 
 // sign-in
-app.get('/sign-in', (req, res) => {
+app.get('/sign-in', async (req, res) => {
     console.log("Request received for /sign-in");
     res.render('sign-in', {
         title: 'Sign In',
@@ -271,43 +271,68 @@ app.get('/sign-in', (req, res) => {
 });
 
 // sign-in
-app.post('/sign-in', (req, res) => {
+app.post('/sign-in', async (req, res) => {
     console.log("Post Request received for /sign-in");
 
     let usernameInput = req.body.username;
     let passwordInput = req.body.password;
     let accountExists = false;
-    let userIndex = -1;
 
     console.log(usernameInput); 
     console.log(passwordInput);
 
-    // check if account exists and if password is correct
-    for(let i = 0; i < users.length; i++) {
-        if(('@' + usernameInput) === users[i].username) {
-            if(passwordInput === users[i].password) {
+    try {
+        let existingUsers = await User.find({ username: '@' + usernameInput }).exec();
+
+        let user = existingUsers[0]; 
+
+        let usernameQuery = user.username;
+        let passwordQuery = user.password;
+        let lastNameQuery = user.lastName;
+        let firstNameQuery = user.firstName;
+        let bioQuery = user.bio;
+        let profilePictureQuery = user.profilePicture;
+        let isOwnerQuery = user.isOwner;
+        
+        let isExisting = usernameQuery === '@' + usernameInput;
+        let isCorrectPassword = passwordQuery === passwordInput;
+        
+        // account does not exist in the database
+        if(!isExisting) { 
+            console.log("account does not exist");
+            isIncorrectPass = true;
+            res.redirect('/sign-in');
+        } else {
+            console.log("account exists");
+            
+            if(isCorrectPassword) {
                 accountExists = true;
-                userIndex = i;
+                isIncorrectPass = false;
+
+                console.log("Sign-in successful");
+                hasUser = true; 
+                currentUserName = '@' + usernameInput;
+                
+                currentUserInfo = {
+                    username: usernameQuery,
+                    lastName: lastNameQuery,
+                    firstName: firstNameQuery,
+                    bio: bioQuery,
+                    profilePicture: profilePictureQuery,
+                    isOwner: isOwnerQuery
+                }
+
+                res.redirect('/home');
+
             } else {
-                console.log("wrong password input");
+                console.log("incorrect password")
+                isIncorrectPass = true;
+                res.redirect('/sign-in');
             }
         }
+    } catch(e) {
+        console.log(e.message);
     }
-
-    if(accountExists) {
-        console.log("Sign-in successful");
-        hasUser = true; 
-        isIncorrectPass = false;
-        currentUserName = '@' + usernameInput;
-        currentUserPFP = users[userIndex].profilePicture;
-        userObj = users[userIndex];
-        res.redirect('/home');
-    } else {
-        console.log("account does not exist");
-        isIncorrectPass = true;
-        res.redirect('/sign-in');
-    }
-    
 });
 
 // sign-up
@@ -341,8 +366,8 @@ app.post('/sign-up', async (req, res) => {
     isOwnerInput = (req.body.checkbox === "true"); // convert string to boolean
 
     try {
-        let existingUsers = await User.find({ username: usernameInput });
-        if (existingUsers.length === 0) {
+        let existingUsers = await User.find({ username: usernameInput }).exec();
+        if(existingUsers.length === 0) {
             const user = await User.create({
                 username: usernameInput,
                 email: emailInput,
@@ -369,7 +394,7 @@ app.post('/sign-up', async (req, res) => {
 
             console.log(user);
             printUsernameErr = false;
-            // currentUserName = usernameInput;
+
             console.log("Success sign-up");
             hasUser = true; 
             res.redirect('/home');
@@ -381,40 +406,6 @@ app.post('/sign-up', async (req, res) => {
     } catch (e) {
         console.log(e.message);
     }
-
-    /***********************  ORIGINAL CODE  *************************
-    console.log("Post Request received for /sign-up");
-    console.log(req.body);
-
-    const newUser = { 
-        username: '@' + req.body.username,
-        email: req.body.email,
-        lastname: req.body.lname,
-        firstname: req.body.fname,
-        bio: req.body.description,
-        phoneNum: req.body.number,
-        password: req.body.password,
-        profilePicture: req.body.file,
-        isOwner: req.body.checkbox,
-        numReviews: 0
-    }
-
-    users.push(newUser);
-    userObj = newUser;
-    currentUserName = '@' + req.body.username;
-    username = '@' + req.body.username;
-
-    hasUser = true; 
-    currentUserPFP = req.body.file;
-
-    res.redirect('/home');
-    
-    console.log("Success sign-up");
-    ****************************************************************/
-
-    // const { username, email, lname, fname, description, number, password, file, checkbox } = req.body;
-    // console.log(username, email, lname, fname, description, number, password, file, checkbox);
-
 });
 
 // recover-account
