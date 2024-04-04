@@ -463,13 +463,13 @@ app.get('/add-review', checkAuthenticated, (req, res) => {
     console.log("Request received for /add-review"); 
 });
 
-// Server-side route handler for POST request to '/add-review'
+// route handler for POST request to '/add-review'
 app.post('/add-review', checkAuthenticated, (req, res) => {
     console.log("Request received for POST /add-review"); 
-    const { username, rating, content, establishmentName } = req.body;
+    const { rating, date, review, establishmentName } = req.body;
     console.log("Username:", req.user.username);
     console.log("Rating:", rating);
-    console.log("Content:", content);
+    console.log("Review:", review);
     console.log("Establishment Name:", establishmentName);
 
     res.send("Review submitted successfully");
