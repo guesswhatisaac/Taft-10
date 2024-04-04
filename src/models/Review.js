@@ -28,6 +28,10 @@ const reviewSchema = new Schema({
         review: { 
             type: SchemaTypes.String,
             required: true
+        },
+        establishmentName: {
+            type: SchemaTypes.String,
+            required: true
         }
     }]
 })

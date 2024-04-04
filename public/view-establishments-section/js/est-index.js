@@ -317,17 +317,17 @@ function generateViewWindow(viewReviewWindowId, establishment, estId) {
 
 document.querySelector('.search-form').addEventListener('input', handleSearch);
 
-// filter establishments based on search term
-function searchEstablishments(searchTerm) {
-searchTerm = searchTerm.toLowerCase().trim();
-if (searchTerm === "") {
-    return establishments; // return all establishments if search term is empty
-} else {
-    return establishments.filter(establishment =>
-        establishment.name.toLowerCase().includes(searchTerm)
-    );
-}
-}
+  // filter establishments based on search term
+  function searchEstablishments(searchTerm) {
+  searchTerm = searchTerm.toLowerCase().trim();
+  if (searchTerm === "") {
+      return establishments; // return all establishments if search term is empty
+  } else {
+      return establishments.filter(establishment =>
+          establishment.name.toLowerCase().includes(searchTerm)
+      );
+  }
+  }
 
 // Function to handle search
 function handleSearch() {
@@ -531,9 +531,9 @@ if (establishmentToUpdate) {
   
           console.log("SUBMIT BUTTON CLICKED");
   
-          const username = "User";
+          const username = "";
           const rating = document.querySelector('input[name="rating"]:checked');
-          const content = button.closest('.review-window-container').querySelector('.comment-content').value.trim();
+          const review = button.closest('.review-window-container').querySelector('.comment-content').value.trim();
           const establishmentName = button.closest('.review-window-container').querySelector('.est-title-header span.title').textContent.trim().replace(/\s+/g, '-').toLowerCase().replace(/'/g, '');
   
           if (!rating && content === "") {
@@ -546,7 +546,7 @@ if (establishmentToUpdate) {
               return;
           }
   
-          if (content === "") {
+          if (review === "") {
               alert("Please add your review.");
               return;
           }
@@ -556,9 +556,9 @@ if (establishmentToUpdate) {
   
           // Send form data to the server using AJAX
           const formData = {
-              username: username,
               rating: rating.value,
-              content: content,
+              date: date,
+              review: review,
               establishmentName: establishmentName
           };
   
@@ -661,7 +661,7 @@ if (establishmentToUpdate) {
     
     }
     
-        /********************** ADD & VIEW REVIEW **********************/ 
+    /********************** ADD & VIEW REVIEW **********************/ 
     // let establishmentName = '';
 
     /* event listener for Add Review buttons */
