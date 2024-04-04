@@ -3,6 +3,7 @@ const { Schema, SchemaTypes, model } = require('mongoose');
 const reviewSchema = new Schema({
     username: {
         type: SchemaTypes.ObjectId,
+        // add model reference
         required: true,
     },
     reviews: [{

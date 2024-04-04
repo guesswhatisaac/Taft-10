@@ -1,8 +1,4 @@
-if (process.env.NPDE_ENV !== 'production') {
-    require('dotenv').config()
-}
-
-const PORT = 3000; // TODO: Change to 3000 before submitting
+const PORT = 3000; 
 
 const express = require('express'),
       hbs = require('express-handlebars'),
@@ -12,6 +8,8 @@ const express = require('express'),
       flash = require('express-flash'),
       session = require('express-session'),
       methodOverride = require('method-override'),
+      multer = require('multer'),
+      path = require('path'),
       app = express();
 
 const layoutsDir = __dirname + '/views/layouts/';
@@ -19,7 +17,30 @@ const partialsDir = __dirname + '/views/partials/';
 
 const { connect } = require('./src/models/conn.js');
 const User = require("./src/models/User");
-const Review = require("./src/models/Review.js")
+const Review = require("./src/models/Review");
+const File = require("./src/models/File");
+
+// const upload = path.join(__dirname, './public/data/uploads/'); 
+// const upload = multer({ dest: './public/data/uploads/' });
+const fs = require('fs');
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        const dest = './public/data/uploads/';
+        // check if the directory exists, create it if not
+        if(!fs.existsSync(dest)) {
+            fs.mkdirSync(dest, { recursive: true });
+        }
+        cb(null, dest);
+    },
+    filename: function(req, file, cb) {
+        const uniqueSuffix = Date.now();
+        cb(null, uniqueSuffix + file.originalname);
+    }
+});
+
+const upload = multer({
+    storage: storage
+})
 
 const initializePassport = require('./passport');
 
@@ -63,7 +84,8 @@ app.engine('hbs', hbs.engine({
 }));
 
 app.set('view engine', 'hbs');
-app.use(express.static("public"));
+app.use(express.static(__dirname + '/public/'));
+// app.use(express.static("public"));
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(methodOverride('_method'));
@@ -100,7 +122,7 @@ function checkNotAuthenticated(req, res, next) {
 }
 
 // home with current user
-app.get('/', checkAuthenticated, (req, res) => {
+app.get('/', checkAuthenticated, async (req, res) => {
     if(!req.user) {
         hasUser = false;
     } else {
@@ -197,7 +219,7 @@ app.post('/sign-in', passport.authenticate('local', {
 // sign-up
 app.get('/sign-up', checkNotAuthenticated, async (req, res) => {
     console.log("Get Request received for /sign-up");
-    console.log(printUsernameErr);
+    
     res.render('sign-up', {
         title: 'Sign Up',
         css: '/home-page-section/css/sign-up-in-index.css',
@@ -211,7 +233,7 @@ app.get('/sign-up', checkNotAuthenticated, async (req, res) => {
     });
 });
 
-app.post('/sign-up', async (req, res) => {
+app.post('/sign-up', upload.single("file"), async (req, res) => {
     console.log("Post Request received for /sign-up");
 
     const { username, email, lname, fname, description, number, password, file, checkbox } = req.body;
@@ -221,11 +243,24 @@ app.post('/sign-up', async (req, res) => {
     const firstNameInput = fname;
     const bioInput = description;
     const phoneInput = number;
-    const profilePictureInput = file;
     const isOwnerInput = (checkbox === 'checkbox'); 
 
-    console.log("req.body:");
-    console.log(req.body);
+    const fileData = {
+        path: req.file.path,
+        fileName: req.file.originalname
+    }
+
+    console.log(req.file);
+
+    // const profilePictureInput = null;
+
+    const profilePictureInput = await File.create(fileData);
+    console.log(profilePictureInput)
+
+    await profilePictureInput.save();
+
+    // console.log("req.body:");
+    // console.log(req.body);
 
     try {
         // check if the username already exists in the database
@@ -253,21 +288,29 @@ app.post('/sign-up', async (req, res) => {
             isOwner: isOwnerInput
         });
 
+        await newUser.save()
+
+        console.log("New user created");
+        console.log(newUser);
+        
+        console.log("File");
+        console.log(newUser.profilePicture);
+
         console.log('Success sign-up');
         console.log('Hashed password: ' + hashedPassword);
         
         // log in the user after sign-up
         req.login(newUser, function(err) {
-            if (err) {
+            if(err) {
                 console.error("Error logging in after sign-up:", err);
-                return res.status(500).send("Error logging in after sign-up.");
+                return res.status(500);
             }
             // redirect the user to the home page
             res.redirect('/');
         });
     } catch(error) {
         console.error("Error during sign-up:", error.message);
-        return res.status(500).send("An error occurred during sign-up.");
+        return res.status(500);
     }
 });
 
@@ -318,21 +361,28 @@ let editSuccessful = false;
 // profile
 app.get('/profile', checkAuthenticated, async (req, res) => {
     console.log("Request received for /profile");
+    
     if(!replies) {
         showReply = true;
     }
+
+    const file_id = req.user.profilePicture;
+    const pfp_path = await File.findById(file_id).exec();
+
+    console.log("pfp-path " + __dirname + pfp_path);
+    console.log(pfp_path);
 
     res.render('view-profile', {
         title: 'View Account Success',
         css: '/view-profile-section/css/profile-index.css',
         css2: '/base-index.css',
         css3: '/view-establishments-section/css/est-index.css',
-        currentUserPic: '/global-assets/header/icon.jpg',
+        currentUserPic: path.basename(pfp_path.path), 
         myName: '<h1>' + req.user.firstName + " " + req.user.lastName + '</h1>',
-        numReviews: userObj.numReviews + ' reviews', // TODO UPDATE THIS USING REVIEWS DATABASE
+        // numReviews: userObj.numReviews + ' reviews', // TODO UPDATE THIS USING REVIEWS 
         userDescription: req.user.bio,
         isOwner: req.user.isOwner,
-        userExists: hasUser,
+        userExists: true, 
         currUsername: req.user.username,
         needHeader: false,
         needHeader2: true,
