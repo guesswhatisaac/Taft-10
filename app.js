@@ -214,15 +214,18 @@ app.get('/sign-up', checkNotAuthenticated, async (req, res) => {
 app.post('/sign-up', async (req, res) => {
     console.log("Post Request received for /sign-up");
 
-    const { username, email, lname, fname, description, password, file, checkbox } = req.body;
+    const { username, email, lname, fname, description, number, password, file, checkbox } = req.body;
     const usernameInput = '@' + username;
+    const emailInput = email;
     const lastNameInput = lname;
     const firstNameInput = fname;
     const bioInput = description;
+    const phoneInput = number;
     const profilePictureInput = file;
     const isOwnerInput = (checkbox === 'checkbox'); 
 
-    console.log(req.body)
+    console.log("req.body:");
+    console.log(req.body);
 
     try {
         // check if the username already exists in the database
@@ -240,16 +243,18 @@ app.post('/sign-up', async (req, res) => {
         // create a new user
         const newUser = await User.create({
             username: usernameInput,
-            email,
+            email: emailInput,
             lastName: lastNameInput,
             firstName: firstNameInput,
             bio: bioInput,
+            number: phoneInput,
             password: hashedPassword,
             profilePicture: profilePictureInput,
             isOwner: isOwnerInput
         });
 
         console.log('Success sign-up');
+        console.log('Hashed password: ' + hashedPassword);
         
         // log in the user after sign-up
         req.login(newUser, function(err) {
