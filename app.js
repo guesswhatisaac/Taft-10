@@ -373,17 +373,23 @@ app.get('/profile', checkAuthenticated, async (req, res) => {
         showReply = true;
     }
 
-    //////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////
     // NOTES: USE THIS CODE TO DISPLAY PROFILE PICTURE
+    
+    // inside GET add this:
     const file_id = req.user.profilePicture;
     const pfp_path = await File.findById(file_id).exec();
 
     console.log("pfp-path " + __dirname + pfp_path);
     console.log(pfp_path);
 
+    // OTHER CODES:
     // inside hbs file: <img src = "../../data/uploads/{{currentUserPic}}"
     // inside res.render: currentUserPic: path.basename(pfp_path.path), 
-    /////////////////////////////////////////////////////////////////////
+    // inside POST method: *CHECK app.post('/sign-up') CODE 
+    //                      FOR SAVING FILES INSIDE THE DB
+
+    ///////////////////////////////////////////////////////////////////////////
 
     res.render('view-profile', {
         title: 'View Account Success',
