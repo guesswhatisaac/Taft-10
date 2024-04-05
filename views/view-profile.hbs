@@ -48,7 +48,7 @@
         <div class = "scrollbar-container">
             <div class = "scroll-object">
                 <div class = "reviews-container">
-                    {{#if reviews}}
+                    {{#if populateReviewsContainer}}
                     <div class = "review">
                         
                         {{#if isOwner}}
@@ -60,17 +60,24 @@
                                     <input type="submit" value="Post Reply" class="reply-button">
                                 </form>
                             {{/each}}
-                        {{/if}}
-
-                        {{#if displayReplies}}
-                            {{#each reply}}
-                            <div class="review-replies-container">
-                                <div id="reply-display">
-                                    <p class="username-display"> {{this.username}} <span class="replied">replied: </span></p>
-                                    <p> {{this.ownerReply}} </p>
+                        
+                            {{#if displayReplies}}
+                                {{#each reply}}
+                                <div class="review-replies-container">
+                                    <div id="reply-display">
+                                        <p class="username-display"> {{this.username}} <span class="replied">replied: </span></p>
+                                        <p> {{this.ownerReply}} </p>
+                                    </div>
                                 </div>
-                            </div>
+                                {{/each}}
+                            {{/if}}
+
+                        {{else}}
+
+                            {{#each displayReviews}}
+                                {{>review}}                        
                             {{/each}}
+                            
                         {{/if}}
                         
                     </div>

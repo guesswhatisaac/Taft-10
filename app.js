@@ -130,7 +130,8 @@ async function findUserReviews() {
     try {
         const userInfo = await Review.find({ username: req.user.username }).exec();
         const userReviews = userInfo.reviews;
-
+        console.log("FUNCTION TEST");
+        console.log(userReviews);
         return userReviews;
 
     } catch(e) {
@@ -400,33 +401,57 @@ app.get('/profile', checkAuthenticated, async (req, res) => {
     try {
         let reviews = [];
 
+        console.log("is owner: " + req.user.isOwner);
+
         if(req.user.isOwner) { // establishment owner
+            console.log("test first if statement");
             const estReviews = await findEstablishmentReviews();   
             if (estReviews) {
                 for (let i = 0; i < estReviews.length; i++) {
-                    reviews.push({
+                    console.log(i);
+                    console.log("\n");
+                    let review = reviews.push({
                         nameDisplay: estReviews[i].username,
                         ratingDisplay: estReviews[i].reviews.rating,
                         dateDisplay: estReviews[i].reviews.date,
                         upvotesDisplay: estReviews[i].reviews.upvotes,
                         reviewDisplay: estReviews[i].reviews.review
                     });
+                    console.log(review);
                 }
                 reviewCount = estReviews.length;
             } else {
                 reviews = null;
             }
         } else { // non-owner user
-            const userReviews = await findUserReviews();
-            if (userReviews) {
+            console.log("test else statement");
+            // const userReviews = await findUserReviews();
+            const userReviews = await Review.find({ username: req.user.username }).exec();
+            console.log(userReviews[0].reviews[0].rating);
+            //const userReviews = userInfo.reviews;
+            console.log("FUNCTION TEST");
+            //console.log(userReviews);
+
+        
+            if(userReviews) {
                 for (let i = 0; i < userReviews.length; i++) {
+                    console.log(i);
+                    let userInfo = await User.findOne({ username: userReviews[i].username }).exec();
+                    let fileID = userInfo.profilePicture;
+                    let filePath = await File.findById(fileID).exec();
+
+                    let rawDate = userReviews[i].reviews[0].date;
+                    let date = new Date(rawDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
                     reviews.push({
-                        nameDisplay: estReviews[i].username,
-                        ratingDisplay: estReviews[i].reviews.rating,
-                        dateDisplay: estReviews[i].reviews.date,
-                        upvotesDisplay: estReviews[i].reviews.upvotes,
-                        reviewDisplay: estReviews[i].reviews.review
+                        nameDisplay: userReviews[i].username,
+                        ratingDisplay: userReviews[i].reviews[0].rating,
+                        dateDisplay: date,
+                        upvotesDisplay: userReviews[i].reviews[0].upvotes,
+                        reviewDisplay: userReviews[i].reviews[0].review,
+                        profilePictureDisplay: path.basename(filePath.path)
                     });
+                    console.log(reviews[i]);
                 }
                 reviewCount = userReviews.length;
             } else {
@@ -439,6 +464,9 @@ app.get('/profile', checkAuthenticated, async (req, res) => {
             showReply = true;
         }
 
+    if(reviewCount > 0) {
+        populate = true
+    }
     //////////////////////////////////////////////////////////////////////////
     // NOTES: USE THIS CODE TO DISPLAY PROFILE PICTURE
     
@@ -478,7 +506,8 @@ app.get('/profile', checkAuthenticated, async (req, res) => {
         username: req.user.username,
         ownerReply: reply,
         // reviews display if owner:
-        displayReviews: reviews
+        displayReviews: reviews,
+        populateReviewsContainer: populate
     });
 
     } catch(e) {

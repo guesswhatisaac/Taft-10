@@ -260,6 +260,10 @@ body {
     font-weight: bold;
 }
 
+.circle {
+  border-radius: 50%;
+}
+
 
 /*********************************************
                    Footer
