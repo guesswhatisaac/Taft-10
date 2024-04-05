@@ -1,3 +1,4 @@
+
 <div class = "contents-container">
     
     <div class = "profile-container">
@@ -11,7 +12,129 @@
                     {{{myName}}} <br>
                     {{#if isOwner}}
                     <p> (Establishment Owner) </p>
-                    <a href = "/all-establishments"><button type="submit" class="btn"> Add Establishment </button></a>
+
+                    <!-- NATHAN EDIT: Add crud button operations here -->
+
+                    <div class="crud-container">
+                        <div class="button-group">
+                            <button class="crud-button" id="create-button">Create</button>
+                            <button class="crud-button" id="update-button">Update</button> 
+                            <button class="crud-button" id="delete-button">Delete</button>
+                        </div>
+                    </div>
+
+                    <div class="modal" id="create-modal">
+
+                            <div class="modal-content">
+
+                                <div class="title-container">
+                                    <div class="crud-title">
+                                        <span class="yellow">CREATE</span> 
+                                        <span class="white">ESTABLISHMENT</span> 
+                                    </div>
+                            
+                                    <div class="close-button">
+                                        <img src="../assets/est/content-icons/close-white.png" alt="Close" class="close-icon">
+                                    </div>
+                                </div>
+                            
+                                <div class="create-error-message"></div>
+                            
+                                <form class="create-establishment-form" method="post" action="/">
+                                    <label for="est-name-input">Establishment Title</label><br>
+                                    <input type="text" id="est-name-input" name="est-name" required><br>
+                                    <label for="price-range">Price Range (Low to High)</label><br>
+                                    <input type="range" id="price-range-input" min="1" max="4" value="0" step="1" required> <br>
+                                    <label for="tags">Tags (Separate by commas)</label><br>
+                                    <input type="text" id="tags-input" placeholder="Enter comma-separated tags (e.g., restaurant, Italian)"><br>
+                                    <label for="description">Establishment Description</label><br>
+                                    <textarea id="description-input" placeholder="Write a detailed description of the establishment"></textarea><br>
+                                    <label for="cover-image">Cover Image</label><br>
+                                    <input type="file" id="cover-image-input" accept="image/*" required><br><br>
+                                    <h1 id="userTag" hidden> {{userTag}} </h1> <!--to obtain owner name creating the establishment-->
+
+                                    
+                                    <button type="submit" id="submit-create-establishment">Create</button> 
+                                </form>
+                            
+                            </div>
+                    </div>
+
+                    <!--
+                        /********************** UPDATE **********************/ 
+                    -->
+
+                        <div class="modal" id="update-modal">
+                        <div class="modal-content">
+
+                            <div class="title-container">
+                                <div class="crud-title">
+                                <span class="yellow">UPDATE</span> 
+                                <span class="white">ESTABLISHMENT</span> 
+                                </div>
+                    
+                                <div class="close-button">
+                                <img src=".../assets/est/content-icons/close-white.png" alt="Close" class="close-icon">
+                                </div>
+                            </div>
+                    
+                            <div class="update-error-message"></div>
+
+                            <form class="update-establishment-form">
+
+                                <label for="establishment-select-label">Select Establishment to Update:</label><br>
+                                <select id="establishment-select" name="establishment-id" required>
+
+                                    {{#each ownerEstablishments}}
+                                        {{#each this}}
+                                            {{#if this.name}}
+                                                <option value=""> {{this.name}} </option>
+                                            {{/if}}
+                                        {{/each}}
+                                    {{/each}}
+                                </select><br>
+
+                                <label for="update-est-name-label">Establishment Title</label><br>
+                                <input type="text" id="update-est-name" name="est-name" required><br>
+                                <label for="update-price-range-label">Price Range (Low to High)</label><br>
+                                <input type="range" id="update-price-range" min="1" max="4" value="0" step="1" required> <br>
+                                <label for="update-tags-label">Tags (Separate by commas)</label><br>
+                                <input type="text" id="update-tags" placeholder="Enter comma-separated tags (e.g., restaurant, Italian)"><br>
+                                <label for="update-description-label">Establishment Description</label><br>
+                                <textarea id="update-description" placeholder="Write a detailed description of the establishment"></textarea><br>
+                                <label for="update-cover-image-label">Cover Image</label><br>
+                                <input type="file" id="update-cover-image" accept="image/*" required><br><br>
+
+                                <button type="submit" id="submit-update-establishment">UPDATE</button>
+                            </form>
+                            
+                        </div>
+                        </div>
+
+                    <!--
+                        /********************** DELETE **********************/ 
+                    -->
+
+                        <div class="modal" id="delete-modal"> 
+                            <div class="modal-content">
+
+                                <div class="title-container">
+                                    <div class="crud-title">
+                                    <span class="yellow">DELETE</span> 
+                                    <span class="white">ESTABLISHMENT</span> 
+                                    </div>
+                        
+                                    <div class="close-button">
+                                    <img src="../assets/est/content-icons/close-white.png" alt="Close" class="close-icon">
+                                    </div>
+                                </div>
+                        
+                                <div class="delete-error-message"></div>
+
+                            </div>
+                        
+                        </div>
+
                     {{else}}
                     <p> (Non-owner User)  </p>
                     {{/if}}

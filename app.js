@@ -75,8 +75,8 @@ app.engine('hbs', hbs.engine({
     extname: 'hbs',
     defaultLayout: 'home',
     layoutsDir: layoutsDir,
-    partialsDir: partialsDir
-}));
+    partialsDir: partialsDir,
+    }));
 
 app.set('view engine', 'hbs');
 app.set("views", __dirname + "/views");
@@ -345,7 +345,6 @@ app.post('/sign-up', upload.single("file"), async (req, res) => {
     }
 });
 
-
 // recover-account
 app.get('/forgot-pw', (req, res) => {
     console.log("GET request received for /forgot-pw");
@@ -405,20 +404,35 @@ app.get('/profile', checkAuthenticated, async (req, res) => {
         console.log("is owner: " + req.user.isOwner);
 
         if(req.user.isOwner) { // establishment owner
+            // TODO: DEBUG AND DOUBLE CHECK
             console.log("test first if statement");
-            const estReviews = await findEstablishmentReviews();   
+            const ownerInfo = await User.findOne({ username: req.user.username }).exec();
+            const establishmentNames = ownerInfo.establishments;
+            const estReviews = await Review.find({ 'reviews.establishmentName': { $in: establishmentNames }}).exec();
+            
+            console.log("estReviews\n");
+            console.log(estReviews);
+
             if (estReviews) {
                 for (let i = 0; i < estReviews.length; i++) {
                     console.log(i);
                     console.log("\n");
-                    let review = reviews.push({
+                    let userInfo = await User.findOne({ username: estReviews[i].username }).exec();
+                    let fileID = userInfo.profilePicture;
+                    let filePath = await File.findById(fileID).exec();
+
+                    let rawDate = estReviews[i].reviews[0].date;
+                    let date = new Date(rawDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+                    reviews.push({
                         nameDisplay: estReviews[i].username,
-                        ratingDisplay: estReviews[i].reviews.rating,
-                        dateDisplay: estReviews[i].reviews.date,
-                        upvotesDisplay: estReviews[i].reviews.upvotes,
-                        reviewDisplay: estReviews[i].reviews.review
+                        ratingDisplay: estReviews[i].reviews[0].rating,
+                        dateDisplay: date,
+                        upvotesDisplay: estReviews[i].reviews[0].upvotes,
+                        reviewDisplay: estReviews[i].reviews.review,
+                        profilePictureDisplay: path.basename(filePath.path)
                     });
-                    console.log(review);
+                    console.log(review[i]);
                 }
                 reviewCount = estReviews.length;
             } else {
@@ -433,7 +447,6 @@ app.get('/profile', checkAuthenticated, async (req, res) => {
             console.log("FUNCTION TEST");
             //console.log(userReviews);
 
-        
             if(userReviews) {
                 for (let i = 0; i < userReviews.length; i++) {
                     console.log(i);
@@ -455,6 +468,12 @@ app.get('/profile', checkAuthenticated, async (req, res) => {
                     console.log(reviews[i]);
                 }
                 reviewCount = userReviews.length;
+
+                // insert upvote logic here
+                
+
+                
+
             } else {
                 reviews = null;
             }
@@ -475,8 +494,8 @@ app.get('/profile', checkAuthenticated, async (req, res) => {
     const file_id = req.user.profilePicture;
     const pfp_path = await File.findById(file_id).exec();
 
-    console.log("pfp-path " + __dirname + pfp_path);
-    console.log(pfp_path);
+    //console.log("pfp-path " + __dirname + pfp_path);
+    //console.log(pfp_path);
 
     // OTHER CODES:
     // inside hbs file: <img src = "../../data/uploads/{{currentUserPic}}"
@@ -486,11 +505,15 @@ app.get('/profile', checkAuthenticated, async (req, res) => {
 
     ///////////////////////////////////////////////////////////////////////////
 
+    const ownerEst = await getOwnerEstablishment(req.user.username.substring(1));
+
     res.render('view-profile', {
         title: 'View Account Success',
         css: '/view-profile-section/css/profile-index.css',
-        css2: '/base-index.css',
+        css2: '/base-index.css', 
         css3: '/view-establishments-section/css/est-index.css',
+        js: '/view-establishments-section/js/est-index.js', // added est-index js for crud modal operations
+        userTag: currentUserName.substring(1), 
         currentUserPic: path.basename(pfp_path.path), 
         myName: '<h1>' + req.user.firstName + " " + req.user.lastName + '</h1>',
         numReviews: reviewCount + ' review/s', 
@@ -498,6 +521,7 @@ app.get('/profile', checkAuthenticated, async (req, res) => {
         isOwner: req.user.isOwner,
         userExists: true, 
         currUsername: req.user.username,
+        userTag: req.user.username.substring(1),
         needHeader: false,
         needHeader2: true,
         needFooter: true,
@@ -505,6 +529,7 @@ app.get('/profile', checkAuthenticated, async (req, res) => {
         taft10Logo: '/global-assets/header/taft-10.png',
         displayReplies: showReply,
         username: req.user.username,
+        ownerEstablishments: ownerEst,
         ownerReply: reply,
         // reviews display if owner:
         displayReviews: reviews,
@@ -523,8 +548,8 @@ app.get('/edit', checkAuthenticated, async (req, res) => {
     const file_id = req.user.profilePicture;
     const pfp_path = await File.findById(file_id).exec();
 
-    console.log("pfp-path " + __dirname + pfp_path);
-    console.log(pfp_path);
+    //console.log("pfp-path " + __dirname + pfp_path);
+    //console.log(pfp_path);
 
     res.render('edit-profile', {
         title: 'Edit Profile',
@@ -621,33 +646,118 @@ app.post('/reply', (req, res) => {
  *                         ESTABLISHMENTS       
  ***************************************************************/
 
+// ----------------------------------------------------------------------------------------------------------------- //
+
 // view all establishments
-app.get('/all-establishments', checkAuthenticated, (req, res) => {
+app.get('/all-establishments', checkAuthenticated, async (req, res) => {
+    
     console.log("Request received for /all-establishments");
 
+    try {
+        const establishmentsArray = await Establishment.find(); 
+
     res.render('all-establishments', {
-        title: 'All Establishments',
-        css: '/view-establishments-section/css/est-index.css',
-        css2: '/base-index.css',
-        css3: '/view-establishments-section/css/add-review.css',
-        css4: '/view-establishments-section/css/view-review.css',
-        css5: '/view-establishments-section/css/crude-index.css',
-        js: '/view-establishments-section/js/est-index.js',
-        userExists: hasUser,
-        currUsername: req.user.username,
-        needHeader: false,
-        needHeader2: true,
-        needFooter: true,
-        searchIcon: '/global-assets/header/search-icon.png',
-        taft10Logo: '/global-assets/header/taft-10.png',
-    });
+            title: 'All Establishments',
+            css: '/view-establishments-section/css/est-index.css',
+            css2: '/base-index.css',
+            css3: '/view-establishments-section/css/add-review.css',
+            css4: '/view-establishments-section/css/view-review.css',
+            css5: '/view-establishments-section/css/crud-index.css',
+            js: '/view-establishments-section/js/est-index.js',
+            userExists: hasUser,
+            currUsername: req.user.username,
+            needHeader: false,
+            needHeader2: true,
+            needFooter: true,
+            searchIcon: '/global-assets/header/search-icon.png',
+            taft10Logo: '/global-assets/header/taft-10.png',
+            establishmentsArray
+        });
+      } catch (err) {
+        console.error('Error fetching establishments:', err);
+        res.status(500).render('all-establishments', {
+          error: 'Error fetching establishments'
+        });
+      }
+
 });
 
+
+// create new est 
+const createEstablishment = async (establishmentData) => {
+    try {
+        const newEstablishment = new Establishment(establishmentData);
+        await newEstablishment.save();
+      } catch (error) {
+        console.error("Error creating establishment:", error);
+        throw new Error("Error saving establishment to database");
+      }
+};
+
+app.post('/create-establishment', async (req, res) => {
+    const establishmentData = req.body;
+    console.log("\n in app.post('/create-establishment')");
+  
+    try {
+      await createEstablishment(establishmentData);
+      console.log("Establishment created successfully!");
+      res.status(200).json({ message: 'Establishment created!' }); 
+    } catch (error) {
+      console.error("Error creating establishment:", error);
+      res.status(500).json({ message: 'Error creating establishment' }); 
+    }
+});
+
+// update establishment 
+const getOwnerEstablishment = async (currentUserName) => {
+
+    try {
+        const establishments = await Establishment.find();
+        const ownerName = currentUserName;
+
+        // get only the user's establishment/s
+        const filteredEstablishments = establishments.filter(establishment => {
+            return establishment.owner === ownerName;
+        });
+        
+        return filteredEstablishments;
+        
+      } catch (error) {
+        console.error("Error fetching establishments:", error);
+        res.status(500).json({ message: "Error fetching owner's establishments" });
+      }
+}
+
+app.put('/update-establishment', async (req, res) => {
+    
+    console.log("\n in app.put('/update-establishment')");
+    const updatedData = req.body;
+    
+    try {
+        const establishment = await Establishment.findByPk(req.body.id);
+
+        if (!establishment){
+            return res.status(404).json({ message: 'Establishment not found' });
+        }
+
+        await establishment.update(updatedData);
+        res.status(200).json({ message: 'Establishment updated successfully' });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error updating establishment' });
+    }
+});
+
+// ----------------------------------------------------------------------------------------------------------------- //
+
+/*
 app.get('/load-establishments', checkAuthenticated, (req, res) => {
     console.log("Request received for /load-establishments");
 
     res.status(200).json({ establishments });
 });
+*/
 
 app.get('/add-review', checkAuthenticated, (req, res) => {
     console.log("Request received for /add-review"); 
@@ -699,7 +809,7 @@ app.get('/taft-picks', (req, res) => {
         css4: '/view-establishments-section/css/view-review.css',
         js: '/view-establishments-section/js/est-index.js',
         userExists: hasUser,
-        currUsername: currentUserName,
+        currUsername: req.user.username,
         needHeader: false,
         needHeader2: true,
         needFooter: true,
