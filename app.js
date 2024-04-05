@@ -405,10 +405,12 @@ let replies = [];
 let showReply = false;
 let editSuccessful = false;
 let reviewCount = 0;
+let populate = false;
 
 // profile
 app.get('/profile', checkAuthenticated, async (req, res) => {
     console.log("GET request received for /profile");
+    populate = false;
 
     try {
         let reviews = [];
@@ -439,7 +441,7 @@ app.get('/profile', checkAuthenticated, async (req, res) => {
             console.log("test else statement");
             // const userReviews = await findUserReviews();
             const userReviews = await Review.find({ username: req.user.username }).exec();
-            console.log(userReviews[0].reviews[0].rating);
+            
             //const userReviews = userInfo.reviews;
             console.log("FUNCTION TEST");
             //console.log(userReviews);
