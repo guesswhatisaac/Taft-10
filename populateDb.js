@@ -65,7 +65,7 @@ async function populateDB() {
         await Establishment.deleteMany({}).exec();
         const results = await Establishment.create(establishments);
 
-        console.log('Establishment Database has been populated: ');
+        console.log('Establishment Schema has been populated: ');
         disconnect();
         process.exit();
     } catch (err) {

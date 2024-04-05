@@ -1,24 +1,24 @@
-const Review = function(username, rating, date, content, establishmentName) {
+// Review constructor function
+const Review = function(username, rating, date, review, establishmentName) {
   this.username = username;
-
-  /* TODO: LOGIC FOR USERNAME */
   this.userStatus = "De La Salle University";
   this.rating = rating;
   this.date = date;
-  this.content = content;
+  this.content = review;
   this.establishmentName = establishmentName;
-}
+};
 
-
-
+// Array to store reviews
 const reviews = [];
 
+// Function to change text
 function changeText(option) {
-    var selectedText = option.textContent;
-    var titleElement = document.querySelector('.category-dropdown-title');
-    titleElement.textContent = selectedText;
+  const selectedText = option.textContent;
+  const titleElement = document.querySelector('.category-dropdown-title');
+  titleElement.textContent = selectedText;
 }
 
+// Function to generate price range
 const generatePriceRange = (priceRange) => {
 
 if(priceRange == 1){
@@ -35,21 +35,20 @@ else if(priceRange == 4){
 }
 }
 
+// Function to generate establishment owner
 const getEstablishmentOwner = () => {
-// TODO
-}
+  // TODO
+};
 
-/* generates view review button class name */
+// Function to generate class name for view review button
 function generateReviewsButtonClass(establishmentName) {
-const name = establishmentName.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '');
-//console.log(`est-view-review-${name} view-review-btn`);
-return `est-view-review-${name} view-review-btn`;
+  const name = establishmentName.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '');
+  return `est-view-review-${name} view-review-btn`;
 }
 
-/* generates add review button class name */
+// Function to generate class name for add review button
 function generateAddReviewClass(establishmentName) {
   const name = establishmentName.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '');
-  //console.log(`add-review-${name} add-review-btn`);
   return `add-review-${name} add-review-btn`;
 }
 
@@ -69,62 +68,102 @@ this.addReviewClass = generateAddReviewClass(name);
 
 /*
 const establishments = [
-{
-  name: '24 Chicken',
-  rating: '4.9',
-  priceRange: ['₱₱', '₱₱'],
-  tags: ['Filipino', 'Chicken'],
-  description: 'If you\'re on the hunt for a chicken experience that transcends the ordinary, look no further than 24 Chicken.',
-  coverImage: '24Chicken.png',
-  reviewsButtonClass: 'est-view-review-24-chicken view-review-btn',
-  addReviewClass: 'add-review-24-chicken add-review-btn'
-},
-{
-  name: "Ate Rica's Bacsilog",
-  rating: '4.9',
-  priceRange: ['₱', '₱₱₱'],
-  tags: ['Filipino', 'Rice Meal'],
-  description: 'Ate Rica\'s Bacsilog lives up to its "Sauce Sarap" promise! Delicious, affordable Filipino comfort food with generous portions and...',
-  coverImage: 'AteRicasBacsilog.png',
-  reviewsButtonClass: 'est-view-review-ate-ricas-bacsilog view-review-btn',
-  addReviewClass: 'add-review-ate-ricas-bacsilog add-review-btn'
-},
-{
-  name: 'Tomo Coffee',
-  rating: '4.7',
-  priceRange: ['₱₱', '₱₱'],
-  tags: ['Drinks'],
-  description: 'Tucked away in a vibrant student district, Tomo Coffee is a haven for caffeine-craving scholars. I love it so much!',
-  coverImage: 'TomoCoffee.png',
-  reviewsButtonClass: 'est-view-review-tomo-coffee view-review-btn',
-  addReviewClass: 'add-review-tomo-coffee add-review-btn'
-},
-{
-  name: 'Tinuhog ni Benny',
-  rating: '5.0',
-  priceRange: ['₱', '₱₱₱'],
-  tags: ['Filipino', 'Rice Meal'],
-  description: 'Tinuhog ni Benny is a haven for budget-friendly, delicious Filipino comfort food. The highlight is undoubtedly their namesake "tinuhog"...',
-  coverImage: 'TinuhogNiBenny.png',
-  reviewsButtonClass: 'est-view-review-tinuhog-ni-benny view-review-btn',
-  addReviewClass: 'add-review-tinuhog-ni-benny add-review-btn'
-},
-{
-  name: 'Hungry Seoul',
-  rating: '4.9',
-  priceRange: ['₱₱', '₱₱'],
-  tags: ['Korean', 'Rice Meal'],
-  description: 'If you\'re craving a taste of Korea in Manila, Hungry Seoul is definitely worth a visit. This casual restaurant...',
-  coverImage: 'HungrySeoul.png',
-  reviewsButtonClass: 'est-view-review-hungry-seoul view-review-btn',
-  addReviewClass: 'add-review-hungry-seoul add-review-btn'
-},
+// {
+//   name: '24 Chicken',
+//   rating: '4.9',
+//   priceRange: ['₱₱', '₱₱'],
+//   tags: ['Filipino', 'Chicken'],
+//   description: 'If you\'re on the hunt for a chicken experience that transcends the ordinary, look no further than 24 Chicken.',
+//   coverImage: '24Chicken.png',
+//   reviewsButtonClass: 'est-view-review-24-chicken view-review-btn',
+//   addReviewClass: 'add-review-24-chicken add-review-btn'
+// },
+// {
+//   name: "Ate Rica's Bacsilog",
+//   rating: '4.9',
+//   priceRange: ['₱', '₱₱₱'],
+//   tags: ['Filipino', 'Rice Meal'],
+//   description: 'Ate Rica\'s Bacsilog lives up to its "Sauce Sarap" promise! Delicious, affordable Filipino comfort food with generous portions and...',
+//   coverImage: 'AteRicasBacsilog.png',
+//   reviewsButtonClass: 'est-view-review-ate-ricas-bacsilog view-review-btn',
+//   addReviewClass: 'add-review-ate-ricas-bacsilog add-review-btn'
+// },
+// {
+//   name: 'Tomo Coffee',
+//   rating: '4.7',
+//   priceRange: ['₱₱', '₱₱'],
+//   tags: ['Drinks'],
+//   description: 'Tucked away in a vibrant student district, Tomo Coffee is a haven for caffeine-craving scholars. I love it so much!',
+//   coverImage: 'TomoCoffee.png',
+//   reviewsButtonClass: 'est-view-review-tomo-coffee view-review-btn',
+//   addReviewClass: 'add-review-tomo-coffee add-review-btn'
+// },
+// {
+//   name: 'Tinuhog ni Benny',
+//   rating: '5.0',
+//   priceRange: ['₱', '₱₱₱'],
+//   tags: ['Filipino', 'Rice Meal'],
+//   description: 'Tinuhog ni Benny is a haven for budget-friendly, delicious Filipino comfort food. The highlight is undoubtedly their namesake "tinuhog"...',
+//   coverImage: 'TinuhogNiBenny.png',
+//   reviewsButtonClass: 'est-view-review-tinuhog-ni-benny view-review-btn',
+//   addReviewClass: 'add-review-tinuhog-ni-benny add-review-btn'
+// },
+// {
+//   name: 'Hungry Seoul',
+//   rating: '4.9',
+//   priceRange: ['₱₱', '₱₱'],
+//   tags: ['Korean', 'Rice Meal'],
+//   description: 'If you\'re craving a taste of Korea in Manila, Hungry Seoul is definitely worth a visit. This casual restaurant...',
+//   coverImage: 'HungrySeoul.png',
+//   reviewsButtonClass: 'est-view-review-hungry-seoul view-review-btn',
+//   addReviewClass: 'add-review-hungry-seoul add-review-btn'
+// },
 ];
 
 establishmentList = establishments;
 */
 
 document.addEventListener('DOMContentLoaded', function() {
+
+  fetch('/load-establishments', {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json',
+    }
+  })
+  .then(response => {
+      if (response.ok) {
+          return response.json(); 
+      } else {
+          throw new Error('Error getting data from server');
+      }
+  })
+  .then(data => {
+      data.establishments.forEach(item => {
+        const estName = item.name;
+        const priceRange = item.priceRange;
+        const tags = item.tags;
+        const description = item.description;
+        const coverImage = item.coverImage;
+
+        console.log("PRICE RANGE: " + priceRange)
+      
+        const newEstablishment = new Establishment2(estName, priceRange, tags, description, coverImage);
+      
+        initializeAddReviewWindow(newEstablishment);
+      
+        establishments.push(newEstablishment);
+        renderEstablishments(establishmentList);
+      
+      });
+      
+      console.log(data.establishments);
+  })
+  .catch(error => {
+      console.error('Error:', error);
+      alert('Error getting data from server');
+  });
+
 
 /*****************************    VIEW / HIDE MODAL    ****************************/
 
@@ -136,29 +175,22 @@ const createModal = document.getElementById('create-modal');
 const updateModal = document.getElementById('update-modal');
 const deleteModal = document.getElementById('delete-modal');
 
+// Function to show modal
 function showModal(modal) {
   modal.style.display = 'block';
-  document.body.style.backgroundColor = 'rgba(0,0,0,0.4)'; // Add background color on open
-
+  document.body.style.backgroundColor = 'rgba(0,0,0,0.4)';
 }
 
+// Function to hide modal
 function hideModal(modal) {
-  
-  document.body.style.backgroundColor = 'inherit'; // Remove background color on close
+  document.body.style.backgroundColor = 'inherit';
   modal.style.display = 'none';
-
-  const createErrorMessageElement = document.querySelector('.create-error-message');
-  createErrorMessageElement.classList.add('create-error-message'); 
-  createErrorMessageElement.textContent = '';
-
-  const updateErrorMessageElement = document.querySelector('.update-error-message');
-  updateErrorMessageElement.classList.add('update-error-message'); 
-  updateErrorMessageElement.textContent = '';
-
-  const deleteErrorMessageElement = document.querySelector('.delete-error-message');
-  deleteErrorMessageElement.classList.add('delete-error-message'); 
-  deleteErrorMessageElement.textContent = '';
-
+  // Clear error messages
+  const errorMessages = modal.querySelectorAll('.error-message');
+  errorMessages.forEach(message => {
+    message.classList.add('error-message'); 
+    message.textContent = '';
+  });
 }
 
 createButton.addEventListener('click', () => showModal(createModal));
@@ -168,10 +200,10 @@ deleteButton.addEventListener('click', () => showModal(deleteModal));
 const closeButtons = document.querySelectorAll('.close-button');
 
 closeButtons.forEach(closeButton => {
-closeButton.addEventListener('click', () => {
-  const modal = closeButton.parentElement.parentElement.parentElement; // Get the modal element
-  hideModal(modal);
-});
+  closeButton.addEventListener('click', () => {
+    const modal = closeButton.parentElement.parentElement.parentElement; // Get the modal element
+    hideModal(modal);
+  });
 });
 
 /*****************************    CREATE MODAL    ****************************/
@@ -227,20 +259,22 @@ createEstablishmentForm.addEventListener('submit', async (event) => {
 
 function initializeAddReviewWindow(newEstablishment) {
 
-const addContainer = document.querySelector('.add-container');
-const viewContainer = document.querySelector('.view-container');
+  const addContainer = document.querySelector('.add-container');
+  const viewContainer = document.querySelector('.view-container');
 
-const addReviewWindowId = `reviewWindow-${newEstablishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
-const estabName = `${newEstablishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
-console.log("ADD WINDOW ID: " + addReviewWindowId);
-const addHTML = generateAddWindow(addReviewWindowId, newEstablishment, estabName);  
+  const addReviewWindowId = `reviewWindow-${newEstablishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
+  const estabName = `${newEstablishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
+  console.log("ADD WINDOW ID: " + addReviewWindowId);
 
-const viewReviewWindowId = `view-reviewWindow-${newEstablishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
-console.log("VIEW WINDOW ID: " + viewReviewWindowId); 
-const viewHTML = generateViewWindow(viewReviewWindowId, newEstablishment, estabName);  
+  console.log("PRICE 2: " + newEstablishment.priceRange)
+  const addHTML = generateAddWindow(addReviewWindowId, newEstablishment, estabName);  
 
-viewContainer.innerHTML += viewHTML;
-addContainer.innerHTML += addHTML;
+  const viewReviewWindowId = `view-reviewWindow-${newEstablishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
+  console.log("VIEW WINDOW ID: " + viewReviewWindowId); 
+  const viewHTML = generateViewWindow(viewReviewWindowId, newEstablishment, estabName);  
+
+  viewContainer.innerHTML += viewHTML;
+  addContainer.innerHTML += addHTML;
 
 }
 
@@ -348,17 +382,17 @@ function generateViewWindow(viewReviewWindowId, establishment, estId) {
 
 document.querySelector('.search-form').addEventListener('input', handleSearch);
 
-// filter establishments based on search term
-function searchEstablishments(searchTerm) {
-searchTerm = searchTerm.toLowerCase().trim();
-if (searchTerm === "") {
-    return establishments; // return all establishments if search term is empty
-} else {
-    return establishments.filter(establishment =>
-        establishment.name.toLowerCase().includes(searchTerm)
-    );
-}
-}
+  // filter establishments based on search term
+  function searchEstablishments(searchTerm) {
+  searchTerm = searchTerm.toLowerCase().trim();
+  if (searchTerm === "") {
+      return establishments; // return all establishments if search term is empty
+  } else {
+      return establishments.filter(establishment =>
+          establishment.name.toLowerCase().includes(searchTerm)
+      );
+  }
+  }
 
 // Function to handle search
 function handleSearch() {
@@ -547,43 +581,91 @@ document.querySelector('.update-establishment-form').addEventListener('submit', 
     
     /* executed when a user submits a new review */
     document.addEventListener('click', function(event) {
-        if (event.target.classList.contains('submit-button')) {
-            const button = event.target;
-    
-            console.log("SUBMIT BUTTON CLICKED");
-    
-            const username = "User";
-            const rating = document.querySelector('input[name="rating"]:checked');
-            const content = button.closest('.review-window-container').querySelector('.comment-content').value.trim();
-            const establishmentName = button.closest('.review-window-container').querySelector('.est-title-header span.title').textContent.trim().replace(/\s+/g, '-').toLowerCase().replace(/'/g, '');
-    
-            if (!rating && content === "") {
-                alert("You cannot submit an empty review.");
-                return;
+      if (event.target.classList.contains('submit-button')) {
+          const button = event.target;
+  
+          console.log("SUBMIT BUTTON CLICKED");
+  
+          const username = "";
+          const rating = document.querySelector('input[name="rating"]:checked');
+          const review = button.closest('.review-window-container').querySelector('.comment-content').value.trim();
+          const establishmentName = button.closest('.review-window-container').querySelector('.est-title-header span.title').textContent.trim().replace(/\s+/g, '-').toLowerCase().replace(/'/g, '');
+  
+          if (!rating && content === "") {
+              alert("You cannot submit an empty review.");
+              return;
+          }
+  
+          if (!rating) {
+              alert("Please provide your rating.");
+              return;
+          }
+  
+          if (review === "") {
+              alert("Please add your review.");
+              return;
+          }
+  
+          const options = { year: 'numeric', month: 'long', day: 'numeric' };
+          const date = new Date().toLocaleDateString('en-US', options);
+  
+          // Send form data to the server using AJAX
+          const formData = {
+              rating: rating.value,
+              date: date,
+              review: review,
+              establishmentName: establishmentName
+          };
+  
+          fetch('/add-review', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(formData)
+          })
+          .then(response => {
+            if (response.ok) {
+                return response.json(); // Parse response as JSON
+            } else {
+                throw new Error('Error submitting review (im inside response)');
             }
+          })
+          .then(data => {
+              console.log("New Review:", data.newReview); 
 
-            if (!rating) {
-                alert("Please provide your rating.");
-                return;
-            }
-    
-            if (content === "") {
-                alert("Please add your review.");
-                return;
-            }
-    
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            const date = new Date().toLocaleDateString('en-US', options);
-            const newReview = new Review(username, rating.value, date, content, establishmentName);
-            reviews.push(newReview);
-    
-            renderReviews(establishmentName);
-    
-            resetStarRatingInputs();
-            button.closest('.review-window-container').querySelector('.comment-content').value = '';
-            document.querySelector(`#reviewWindow-${establishmentName}`).style.display = 'none';
-        }
-    });
+              const username = data.newReview.username;
+              console.log(username);
+              const newReview = data.newReview.reviews[data.newReview.reviews.length - 1];
+              
+              // Accessing review properties
+              const rating = newReview.rating;
+              console.log(rating); 
+
+              const rawDate = newReview.date;
+              const date = new Date(rawDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+              console.log(date); 
+
+              const review = newReview.review;
+              console.log(review); 
+
+              const establishmentName = newReview.establishmentName;
+              console.log(establishmentName); 
+
+              const addReview = new Review(username, rating, date, review, establishmentName);
+              reviews.push(addReview);
+
+              renderReviews(establishmentName);
+              resetStarRatingInputs();
+              button.closest('.review-window-container').querySelector('.comment-content').value = '';
+              document.querySelector(`#reviewWindow-${establishmentName}`).style.display = 'none';
+          })
+          .catch(error => {
+              console.error('Error:', error);
+              alert('Error submitting review');
+          });
+      }
+  });
   
     function resetStarRatingInputs() {
       document.querySelectorAll('input[name="rating"]').forEach(function(input) {
@@ -640,7 +722,6 @@ document.querySelector('.update-establishment-form').addEventListener('submit', 
       `;
     }
 
-
     /********************** PRICE SELECTION **********************/ 
     const priceButtons = document.querySelectorAll('.price-button-inner, .price-button-outer-left, .price-button-outer-right');
 
@@ -655,7 +736,7 @@ document.querySelector('.update-establishment-form').addEventListener('submit', 
     
     }
     
-        /********************** ADD & VIEW REVIEW **********************/ 
+    /********************** ADD & VIEW REVIEW **********************/ 
     // let establishmentName = '';
 
     /* event listener for Add Review buttons */
@@ -693,7 +774,8 @@ document.querySelector('.update-establishment-form').addEventListener('submit', 
     document.querySelector('.view-container').addEventListener('click', function(event) {
       if (event.target.classList.contains('close-button')) {
         const button = event.target;
-        const establishmentName = button.closest('.view-container').querySelector('.title').textContent.trim();
+        // traverse up the DOM to find the parent element containing the establishment name
+        const establishmentName = button.closest('.view-window-container').querySelector('.title').textContent.trim();
         const reviewWindowId = `view-reviewWindow-${establishmentName.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
         console.log("LOOK HERE: " + reviewWindowId);
         document.getElementById(reviewWindowId).style.display = 'none';
@@ -701,8 +783,3 @@ document.querySelector('.update-establishment-form').addEventListener('submit', 
     });
 
   });
-
-
-
-
-

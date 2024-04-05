@@ -35,12 +35,12 @@ body {
 
 .user-container {
     width: 20em;
-    height: 26.8em;
+    height: 33em;
     text-align: center;
     margin-right: 1em;
     align-items: center;
     justify-content: center;
-    margin-top: 50px;
+    margin-top: 30px;
     padding-top: 3em;
     padding-bottom: 3em;
     color: #FFFCE8;
@@ -237,12 +237,31 @@ body {
     width: 48px;
 }
 
+.upvote-display:hover {
+  background-image: url('../../global-assets/header/upvote.png');
+  background-repeat: no-repeat;
+  background-size: 30px;
+  position: relative;
+  left: 10px;
+  height: 30px;
+  width: 48px;
+}
+
+.upvote-display:hover,
+.upvote-display:hover + .upvote-count-display {
+  filter: brightness(0);
+}
+
 .upvote-container {
     color: #868686;
     text-align: center;
     align-items: center;
     font-size: small;
     font-weight: bold;
+}
+
+.circle {
+  border-radius: 50%;
 }
 
 
@@ -410,3 +429,67 @@ footer {
     height: 33px;
     border: none;
   }
+
+  .reply {
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 10px;
+  }
+
+#description {
+    resize: none;
+    height: 100px;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 9px;
+    border: 2px solid #212431;
+    border-radius: 6px;
+    font-family: 'Kanit';
+    font-size: 14px;
+    color: 212431;
+    background-color: #edead8;
+}
+
+.reply-button {
+  background-color: #B10F2E;
+  color: #FFFFFF;
+  font-family: 'Kanit';
+  border-radius: 10px;
+  border: #B10F2E;
+  height: 30px;
+  width: 80px;
+}
+
+.review-replies-container {
+  background-color: #FFC32B;
+  border-radius: 10px;
+  margin: 15px;
+  box-shadow: 0px 0px 8px rgba(51, 51, 51, 0.25);
+}
+
+#reply-display {
+  padding: 5px;
+  margin-left: 15px;
+}
+
+.username-display {
+  font-weight: bold;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+
+.replied {
+  font-weight: normal;
+  color: #212431;
+  font-style: italic;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  font-family: 'Staatliches';
+  font-size: 30px;
+  color: #d5d5d5;
+  align-items: center;
+}

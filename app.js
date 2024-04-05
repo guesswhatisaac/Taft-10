@@ -1,156 +1,76 @@
-const PORT = 3000; // TODO: Change to 3000 before submitting
+const PORT = 3000; 
 
+// Dependencies
 const express = require('express'),
       hbs = require('express-handlebars'),
       bodyParser = require('body-parser'),
-      app = express();
+      bcrypt = require('bcrypt'),
+      passport = require('passport'),
+      flash = require('express-flash'),
+      session = require('express-session'),
+      methodOverride = require('method-override'),
+      multer = require('multer'),
+      path = require('path');
+      
+const app = express();
 
+// Views
 const layoutsDir = __dirname + '/views/layouts/';
 const partialsDir = __dirname + '/views/partials/'; 
 
+// Database
 const { connect } = require('./src/models/conn.js');
-const Establishment = require('./src/models/Establishment.js');
+const User = require("./src/models/User");
+const Review = require("./src/models/Review");
+const Establishment = require("./src/models/Establishment.js")
+const File = require("./src/models/File");
 
-/************************************************************************************
- *                                      USERS
-************************************************************************************/
+let establishments = [];
 
-let userObj = "";
-let currentUserName = " "; 
-let currentUserPFP = " ";
-let hasUser = false; // checks if a user is currently logged in
-let username = "";
-let isIncorrectPass = false;
+// Multer
+const fs = require('fs');
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        const dest = './public/data/uploads/';
+        // check if the directory exists, create if not
+        if(!fs.existsSync(dest)) {
+            fs.mkdirSync(dest, { recursive: true });
+        }
+        cb(null, dest);
+    },
+    filename: function(req, file, cb) {
+        const uniqueSuffix = Date.now();
+        cb(null, uniqueSuffix + file.originalname);
+    }
+});
 
-let users = [
-    {
-        username: '@kweenyasmin',
-        email: 'asistido_yasmin@gmail.com',
-        lastname: 'Asistido',
-        firstname: 'Yasmin',
-        bio: 'To be or not to be.',
-        phoneNum: '09143227896',
-        password: '2kuyukoT',
-        profilePicture: "/global-assets/header/icon.jpg",
-        isOwner: false,
-        numReviews: 0
-    },
-    {
-        username: '@shanecloma',
-        email: 'cloma_shane@gmail.com',
-        lastname: 'Cloma',
-        firstname: 'Shane',
-        bio: 'No pain, no gain!',
-        phoneNum: '09808065541',
-        password: 'iLovemyWIF3Y',
-        profilePicture: "/global-assets/header/icon.jpg",
-        isOwner: false,
-        numReviews: 0
-    },
-    {
-        username: '@romanisaac',
-        email: 'roman_isaac@gmail.com',
-        lastname: 'Roman',
-        firstname: 'Isaac',
-        bio: 'Love is like a rosary, full of mystery.',
-        phoneNum: '09066684661',
-        password: 'valoGodz123',
-        profilePicture: "/global-assets/header/isaac-pic.jpg",
-        isOwner: false,
-        numReviews: 0
-    },
-    {
-        username: '@kathmeow',
-        email: 'cruz_kathleen@gmail.com',
-        lastname: 'Cruz',
-        firstname: 'Kathleen',
-        bio: 'Time is gold.',
-        phoneNum: '09702432277',
-        password: 'BULDAK22enjoyer',
-        profilePicture: "/global-assets/header/kathleen-pic.png",
-        isOwner: false,
-        numReviews: 0
-    },
-    {
-        username: '@alexisae',
-        email: 'arcega_alexis@gmail.com',
-        lastname: 'Arcega',
-        firstname: 'Alexis',
-        bio: 'Teamwork makes the dream work.',
-        phoneNum: '09317573077',
-        password: 'yashFOREVERloversS143',
-        profilePicture: "/global-assets/header/alexis-pic.jpeg",
-        isOwner: false,
-        numReviews: 0
-    },
-    {
-        username: '@bashruiz',
-        email: 'asistido_yasmin@gmail.com',
-        lastname: 'Ruiz',
-        firstname: 'Yashel',
-        bio: 'Shark is life!',
-        phoneNum: '09339464368',
-        password: 'BABYsharkdududu',
-        profilePicture: "/global-assets/header/yash.jpg",
-        isOwner: true,
-        numReviews: 0
-    },
-    {
-        username: '@hannissaad',
-        email: 'vinuya_hannah@gmail.com',
-        lastname: 'Vinuya',
-        firstname: 'Hannah',
-        bio: 'Slip in to the diamond life.',
-        phoneNum: '09145134782',
-        password: 'iLoveMYSHANIA22',
-        profilePicture: "/global-assets/header/hannah-pic.jpg",
-        isOwner: true,
-        numReviews: 0
-    },
-    {
-        username: '@jeylinnumbawan',
-        email: 'sandoval_jalene@gmail.com',
-        lastname: 'Sandoval',
-        firstname: 'Jalene',
-        bio: 'Stay delulu until it becomes truelulu.',
-        phoneNum: '09798243924',
-        password: 'JaLeeforevah',
-        profilePicture: "/global-assets/header/jal-pic.jpg",
-        isOwner: true,
-        numReviews: 0
-    },
-    {
-        username: '@onyourmark',
-        email: 'lee_mark@gmail.com',
-        lastname: 'Lee',
-        firstname: 'Mark',
-        bio: 'Be yourself.',
-        phoneNum: '09091632635',
-        password: 'alexisLangSapatNaILY',
-        profilePicture: "/global-assets/header/mark-pic.jpg",
-        isOwner: true,
-        numReviews: 0
-    },
-    {
-        username: '@mojicajosh',
-        email: 'mojica_josh@gmail.com',
-        lastname: 'Mojica',
-        firstname: 'Josh',
-        bio: 'Patience is a virtue.',
-        phoneNum: '09573670854',
-        password: '404KANGKONGChips',
-        profilePicture: "/global-assets/header/josh-pogi.jpg",
-        isOwner: true,
-        numReviews: 0
-    },
-]
+const upload = multer({
+    storage: storage
+})
 
-/************************************************************************************
- *                                  ESTABLISHMENTS
-************************************************************************************/
+// Passport
+const initializePassport = require('./passport');
+initializePassport(passport, 
+    async (username) => {
+    try {
+        const user = await User.findOne({ username: '@' + username }).exec();
+        return user;
+    } catch (error) {
+        console.error("Error finding user:", error);
+        return null; 
+    }}, 
+    async (id) => {
+        try {
+            const user = await User.findOne({ id: id }).exec();
+            return user;
+        } catch (error) {
+            console.error("Error finding id:", error);
+            return null; 
+        }
+    }
+);
 
-// insert variables here
-
+// HBS
 app.engine('hbs', hbs.engine({
     extname: 'hbs',
     defaultLayout: 'home',
@@ -159,26 +79,93 @@ app.engine('hbs', hbs.engine({
     }));
 
 app.set('view engine', 'hbs');
-app.use(express.static("public"));
+
+app.use(express.static(__dirname + '/public/'));
 app.use(express.json());
 app.use(bodyParser.json());
-// app.use(express.urlencoded()); 
-// app.use(bodyParser.urlencoded({ extended: false })); 
+app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: true })); 
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(
-    bodyParser.urlencoded({
-        extended: true
-    })
-);
+// Session Management
+app.use(flash());
+app.use(session({
+    secret: 'secret',
+    resave: false,
+    saveUninitialized: false
+}));
 
-// home
-app.get('/', (req, res) => {
+app.use(passport.initialize())
+app.use(passport.session())
+
+// Functions
+function checkAuthenticated(req, res, next) {
+    if(req.isAuthenticated()) {
+        return next()
+    }
+
+    res.redirect('/guest-view')
+}
+
+function checkNotAuthenticated(req, res, next) {
+    if(req.isAuthenticated()) {
+        return res.redirect('/')
+    }
+
+    next()
+}
+
+async function findEstablishmentReviews() {
+    try {
+        const ownerInfo = await User.findOne({ username: req.user.username }).exec();
+        const establishmentNames = ownerInfo.establishments;
+        const estReviews = await Review.find({ 'reviews.establishmentName': { $in: establishmentNames }}).exec();
+        
+        return estReviews;
+
+    } catch(e) {
+        console.log(e.message);
+        return null;
+    }
+}
+
+const getUsername = (req) => {
+    return req.user.username; 
+};
+
+let currentUserName = " "; 
+let hasUser = false;                // checks if a user is currently logged in
+let printUsernameErr = false;       // for username validation
+let printEditErr = false;           // for edit profile validation
+
+/****************************************************************
+ *                    HOME, SIGN-IN, SIGN-UP
+ ***************************************************************/
+
+// home with current user
+app.get('/', checkAuthenticated, async (req, res) => {
+    console.log("GET request received for /");
+
+    try {
+        // query all establishments from the database
+        establishments = await Establishment.find();
+        // console.log("Retrieved: " + establishments);
+    } catch (error) {
+        console.error("Error retrieving establishments:", error);
+
+    }
+
+    if(!req.user) {
+        hasUser = false;
+    } else {
+        hasUser = true;
+    }
+
     res.render('main', {
         title: 'Taft 10',
         css: '/home-page-section/css/home-index.css',
         userExists: hasUser,
-        currUsername: currentUserName,
+        currUsername: req.user.username,
         addcss: false,
         needHeader: true,
         needHeader2: false,
@@ -188,25 +175,62 @@ app.get('/', (req, res) => {
         ateRica: '/home-page-section/assets/ate-rica.png',
         chefBab: '/home-page-section/assets/chef-bab.png',
     });
-    isIncorrectPass = false;
+
+    console.log("curr un: " + req.user.username);
+    console.log("has user: " + hasUser);
+    console.log("is owner: " + req.user.isOwner);
+});
+
+// home without current user <- redirect here
+app.get('/guest-view', checkNotAuthenticated, (req, res) => {
+    console.log("GET request received for /guest-view");
+
+    res.render('main', {
+        title: 'Taft 10',
+        css: '/home-page-section/css/home-index.css',
+        userExists: false,
+        currUsername: null,
+        addcss: false,
+        needHeader: true,
+        needHeader2: false,
+        needFooter: true,
+        searchIcon: '/global-assets/header/search-icon.png',
+        taft10Logo: '/global-assets/header/taft-10.png',
+        ateRica: '/home-page-section/assets/ate-rica.png',
+        chefBab: '/home-page-section/assets/chef-bab.png',
+    });
+
+    console.log("has user: " + hasUser);
 });
 
 // home 
-app.get('/home', (req, res) => {
-    console.log("Request received for /home");
+app.get('/home', checkAuthenticated, (req, res) => {
+    console.log("GET request received for /home");
+
     res.redirect('/');
 });
 
-app.get('/log-out', (req, res) => {
+// log-out
+app.get('/log-out', checkAuthenticated, (req, res) => {
+    console.log("GET request received for /log-out");
+
+    printUsernameErr = false;
     hasUser = false;
-    currentUserName = " ";
-    console.log("Request received for /log-out");
-    res.redirect('/');
-})
+    
+    req.logOut(function(err) {
+        if (err) {
+            console.error("Error logging out:", err);
+            return res.status(500);
+        }
+        
+        res.redirect('/guest-view');
+    });
+});
 
 // sign-in
-app.get('/sign-in', (req, res) => {
-    console.log("Request received for /sign-in");
+app.get('/sign-in', checkNotAuthenticated, async (req, res) => {
+    console.log("GET request received for /sign-in");
+
     res.render('sign-in', {
         title: 'Sign In',
         css: '/home-page-section/css/sign-up-in-index.css',
@@ -215,53 +239,22 @@ app.get('/sign-in', (req, res) => {
         needHeader: false,
         needHeader2: false,
         needFooter: false,
-        passwordIncorrect: isIncorrectPass
     });
 });
 
 // sign-in
-app.post('/sign-in', (req, res) => {
-    console.log("Post Request received for /sign-in");
-
-    let usernameInput = req.body.username;
-    let passwordInput = req.body.password;
-    let accountExists = false;
-    let userIndex = -1;
-
-    console.log(usernameInput); 
-    console.log(passwordInput);
-
-    // check if account exists and if password is correct
-    for(let i = 0; i < users.length; i++) {
-        if(('@' + usernameInput) === users[i].username) {
-            if(passwordInput === users[i].password) {
-                accountExists = true;
-                userIndex = i;
-            } else {
-                console.log("wrong password input");
-            }
-        }
-    }
-
-    if(accountExists) {
-        console.log("Sign-in successful");
-        hasUser = true; 
-        isIncorrectPass = false;
-        currentUserName = '@' + usernameInput;
-        currentUserPFP = users[userIndex].profilePicture;
-        userObj = users[userIndex];
-        res.redirect('/home');
-    } else {
-        console.log("account does not exist");
-        isIncorrectPass = true;
-        res.redirect('/sign-in');
-    }
-    
+app.post('/sign-in', passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/sign-in',
+    failureFlash: true
+}), (req, res) => {
+    console.log("POST request received for /sign-in");
 });
 
 // sign-up
-app.get('/sign-up', (req, res) => {
-    console.log("Request received for /sign-up");
+app.get('/sign-up', checkNotAuthenticated, async (req, res) => {
+    console.log("Get Request received for /sign-up");
+    
     res.render('sign-up', {
         title: 'Sign Up',
         css: '/home-page-section/css/sign-up-in-index.css',
@@ -271,47 +264,91 @@ app.get('/sign-up', (req, res) => {
         needHeader: false,
         needHeader2: false,
         needFooter: false,
+        isValid: printUsernameErr
     });
 });
 
-// sign-up
-app.post('/sign-up', (req, res) => {
-    console.log("Post Request received for /sign-up");
-    console.log(req.body);
+app.post('/sign-up', upload.single("file"), async (req, res) => {
+    console.log("POST request received for /sign-up");
 
-    const newUser = { 
-        username: '@' + req.body.username,
-        email: req.body.email,
-        lastname: req.body.lname,
-        firstname: req.body.fname,
-        bio: req.body.description,
-        phoneNum: req.body.number,
-        password: req.body.password,
-        profilePicture: req.body.file,
-        isOwner: req.body.checkbox,
-        numReviews: 0
+    const { username, email, lname, fname, description, number, password, file, checkbox } = req.body;
+    const usernameInput = '@' + username;
+    const emailInput = email;
+    const lastNameInput = lname;
+    const firstNameInput = fname;
+    const bioInput = description;
+    const phoneInput = number;
+    const isOwnerInput = (checkbox === 'checkbox'); 
+
+    const fileData = {
+        path: req.file.path,
+        fileName: req.file.originalname
     }
 
-    users.push(newUser);
-    userObj = newUser;
-    currentUserName = '@' + req.body.username;
-    username = '@' + req.body.username;
+    console.log(req.file);
 
-    hasUser = true; 
-    currentUserPFP = req.body.file;
+    const profilePictureInput = await File.create(fileData);
+    console.log(profilePictureInput)
 
-    res.redirect('/home');
-    
-    console.log("Success sign-up");
+    await profilePictureInput.save();
 
-    // const { username, email, lname, fname, description, number, password, file, checkbox } = req.body;
-    // console.log(username, email, lname, fname, description, number, password, file, checkbox);
+    try {
+        // check if the username already exists in the database
+        const existingUser = await User.findOne({ username: usernameInput });
+        if(existingUser) {
+            console.log('Username already exists.');
+            printUsernameErr = true;
+            
+            return res.redirect('/sign-up');
+        }
 
+        // generate hash for password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // create a new user
+        const newUser = await User.create({
+            username: usernameInput,
+            email: emailInput,
+            lastName: lastNameInput,
+            firstName: firstNameInput,
+            bio: bioInput,
+            number: phoneInput,
+            password: hashedPassword,
+            profilePicture: profilePictureInput,
+            isOwner: isOwnerInput
+        });
+
+        await newUser.save()
+
+        console.log("New user created");
+        console.log(newUser);
+        
+        console.log("File");
+        console.log(newUser.profilePicture);
+
+        console.log('Success sign-up');
+        console.log('Hashed password: ' + hashedPassword);
+        
+        // log in the user after sign-up
+        req.login(newUser, function(err) {
+            if(err) {
+                console.error("Error logging in after sign-up:", err);
+                return res.status(500);
+            }
+            
+            res.redirect('/');
+        });
+    } catch(e) {
+        console.log("Error during sign-up:", e.message);
+        return res.status(500);
+    }
 });
+
 
 // recover-account
 app.get('/forgot-pw', (req, res) => {
-    console.log("Request received for /forgot-pw");
+    console.log("GET request received for /forgot-pw");
+
     res.render('forgot-pw', {
         title: 'Recover Account',
         css: '/home-page-section/css/sign-up-in-index.css',
@@ -323,14 +360,18 @@ app.get('/forgot-pw', (req, res) => {
     });
 });
 
+// forgot-pw
 app.post('/forgot-pw', (req, res) => {
-    console.log("POST Request received for /forgot-pw");
+    console.log("POST request received for /forgot-pw");
+
     console.log(req.body);
     res.redirect("/success-msg");
 });
 
+// success-msg
 app.get('/success-msg', (req, res) => {
-    console.log("Request received for /success-msg");
+    console.log("GET request received for /success-msg");
+    
     res.render('forgot-pw-response', {
         title: 'Recover Account Success',
         css: '/home-page-section/css/sign-up-in-index.css',
@@ -338,14 +379,112 @@ app.get('/success-msg', (req, res) => {
         needHeader: false,
         needHeader2: false,
         needFooter: false,
-        isOwner: userObj.isOwner
-
     });
 });
-  
+
+/****************************************************************
+ *                         PROFILE       
+ ***************************************************************/
+
+let reply = "";
+let replies = [];
+let showReply = false;
+let editSuccessful = false;
+let reviewCount = 0;
+let populate = false;
+
 // profile
-app.get('/profile', async (req, res) => {
-    console.log("Request received for /profile");
+app.get('/profile', checkAuthenticated, async (req, res) => {
+    console.log("GET request received for /profile");
+    populate = false;
+
+    try {
+        let reviews = [];
+
+        console.log("is owner: " + req.user.isOwner);
+
+        if(req.user.isOwner) { // establishment owner
+            console.log("test first if statement");
+            const estReviews = await findEstablishmentReviews();   
+            if (estReviews) {
+                for (let i = 0; i < estReviews.length; i++) {
+                    console.log(i);
+                    console.log("\n");
+                    let review = reviews.push({
+                        nameDisplay: estReviews[i].username,
+                        ratingDisplay: estReviews[i].reviews.rating,
+                        dateDisplay: estReviews[i].reviews.date,
+                        upvotesDisplay: estReviews[i].reviews.upvotes,
+                        reviewDisplay: estReviews[i].reviews.review
+                    });
+                    console.log(review);
+                }
+                reviewCount = estReviews.length;
+            } else {
+                reviews = null;
+            }
+        } else { // non-owner user
+            console.log("test else statement");
+            // const userReviews = await findUserReviews();
+            const userReviews = await Review.find({ username: req.user.username }).exec();
+            
+            //const userReviews = userInfo.reviews;
+            console.log("FUNCTION TEST");
+            //console.log(userReviews);
+
+        
+            if(userReviews) {
+                for (let i = 0; i < userReviews.length; i++) {
+                    console.log(i);
+                    let userInfo = await User.findOne({ username: userReviews[i].username }).exec();
+                    let fileID = userInfo.profilePicture;
+                    let filePath = await File.findById(fileID).exec();
+
+                    let rawDate = userReviews[i].reviews[0].date;
+                    let date = new Date(rawDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+                    reviews.push({
+                        nameDisplay: userReviews[i].username,
+                        ratingDisplay: userReviews[i].reviews[0].rating,
+                        dateDisplay: date,
+                        upvotesDisplay: userReviews[i].reviews[0].upvotes,
+                        reviewDisplay: userReviews[i].reviews[0].review,
+                        profilePictureDisplay: path.basename(filePath.path)
+                    });
+                    console.log(reviews[i]);
+                }
+                reviewCount = userReviews.length;
+            } else {
+                reviews = null;
+            }
+        }
+        
+        // TODO update this
+        if(!replies) {
+            showReply = true;
+        }
+
+    if(reviewCount > 0) {
+        populate = true
+    }
+    //////////////////////////////////////////////////////////////////////////
+    // NOTES: USE THIS CODE TO DISPLAY PROFILE PICTURE
+    
+    // inside GET add this:
+    const file_id = req.user.profilePicture;
+    const pfp_path = await File.findById(file_id).exec();
+
+    console.log("pfp-path " + __dirname + pfp_path);
+    console.log(pfp_path);
+
+    // OTHER CODES:
+    // inside hbs file: <img src = "../../data/uploads/{{currentUserPic}}"
+    // inside res.render: currentUserPic: path.basename(pfp_path.path), 
+    // inside POST method: *CHECK app.post('/sign-up') CODE 
+    //                      FOR SAVING FILES INSIDE THE DB
+
+    ///////////////////////////////////////////////////////////////////////////
+
 
     const ownerEst = await getOwnerEstablishment(currentUserName);
 
@@ -353,77 +492,144 @@ app.get('/profile', async (req, res) => {
         title: 'View Account Success',
         css: '/view-profile-section/css/profile-index.css',
         css2: '/base-index.css', 
+        css3: '/view-establishments-section/css/est-index.css',
         js: '/view-establishments-section/js/est-index.js', // added est-index js for crud modal operations
         userTag: currentUserName.substring(1), 
-        currentUserPic: '/global-assets/header/icon.jpg',
-        myName: '<h1>' + userObj.firstname + " " + userObj.lastname + '</h1>',
-        numReviews: userObj.numReviews + ' reviews',
-        userDescription: userObj.bio,
+        currentUserPic: path.basename(pfp_path.path), 
+        myName: '<h1>' + req.user.firstName + " " + req.user.lastName + '</h1>',
+        numReviews: reviewCount + ' review/s', 
+        userDescription: req.user.bio,
+        isOwner: req.user.isOwner,
+        userExists: true, 
+        currUsername: req.user.username,
         needHeader: false,
         needHeader2: true,
         needFooter: true,
-        ownerEstablishments: ownerEst,
-        isOwner: userObj.isOwner,
+        searchIcon: '/global-assets/header/search-icon.png',
+        taft10Logo: '/global-assets/header/taft-10.png',
+        displayReplies: showReply,
+        username: req.user.username,
+        ownerReply: reply,
+        // reviews display if owner:
+        displayReviews: reviews,
+        populateReviewsContainer: populate
     });
-    console.log(userObj.firstname + " " + userObj.lastname + " | username: " + currentUserName.substring(1));
-    console.log()
+
+    } catch(e) {
+        console.log(e.message);
+    }
 });
 
-// edit profile get
-app.get('/edit', (req, res) => {
-    console.log("Request received for /edit");
+// edit profile
+app.get('/edit', checkAuthenticated, async (req, res) => {
+    console.log("GET request received for /edit");
+
+    const file_id = req.user.profilePicture;
+    const pfp_path = await File.findById(file_id).exec();
+
+    console.log("pfp-path " + __dirname + pfp_path);
+    console.log(pfp_path);
+
     res.render('edit-profile', {
         title: 'Edit Profile',
-        css: '/home-page-section/css/sign-up-in-index.css',
+        css: '/view-profile-section/css/edit-profile-index.css',
         css2: '/base-index.css',
         js: '/home-page-section/js/sign-up.js',
-        userExists: false,
+        currentUserPic: path.basename(pfp_path.path), 
+        userExists: hasUser,
         needHeader: false,
         needHeader2: false,
         needFooter: false,
+        errorMsg: printEditErr,
+        usernamePlaceholder: req.user.username,
+        bioPlaceholder: req.user.bio
     });
 });
 
-// edit profile post
-app.post('/edit', (req, res) => {
-    console.log("Post Request received for /edit");
-    console.log(userObj);
+app.post('/edit', checkAuthenticated, async (req, res) => {
+    console.log("POST request received for /edit");
 
-    const newUser = { 
-        username: '@' + req.body.username,
-        email: req.body.email,
-        lastname: req.body.lname,
-        firstname: req.body.fname,
-        bio: req.body.description,
-        phoneNum: req.body.number,
-        password: req.body.password,
-        profilePicture: req.body.file,
-        isOwner: req.body.checkbox,
-        numReviews: 0
+    try {
+        let existingUsers = await User.find({ username: req.user.username });
+        let currUserID = existingUsers[0]._id;
+        let filter = { _id: currUserID };
+        let usernameInput = req.body.username;
+        let bioInput = req.body.description;
+
+        let updateFields = {};
+
+        if(usernameInput && bioInput) { // update username and bio
+            updateFields = { username: '@' + usernameInput, bio: bioInput };
+        } else if(usernameInput && !bioInput) { // update username only
+            updateFields = { username: '@' + usernameInput };
+        } else if(bioInput && !usernameInput) { // update bio only
+            updateFields = { bio: bioInput };
+        }
+
+        if(Object.keys(updateFields).length > 0) {
+            let userDoc = await User.findOneAndUpdate(filter, updateFields, {
+                new: true
+            });
+
+            if(usernameInput) {
+                req.user.username = '@' + usernameInput;
+            }
+
+            if(bioInput) {
+                req.user.bio = bioInput;
+            }
+
+            await userDoc.save();
+            console.log("Success edit");
+        } else {
+            console.log("No fields to update");
+        }
+
+        res.redirect('/profile');
+        printEditErr = false;
+
+    } catch(e) {
+        printEditErr = true;
+        console.error("Error editing profile:", e.message);
+        res.redirect('/edit');
     }
-
-    users.push(newUser);
-    userObj = newUser;
-    currentUserName = '@' + req.body.username;
-    username = '@' + req.body.username;
-
-    hasUser = true; 
-    currentUserPFP = req.body.file;
-
-    res.redirect('/profile');
-    
-    console.log("Success edit");
-
-    // const { username, email, lname, fname, description, number, password, file, checkbox } = req.body;
-    // console.log(username, email, lname, fname, description, number, password, file, checkbox);
-
 });
+
+app.get('/cancel-edit', (req, res) => {
+    console.log("GET request received for /cancel-edit");
+    res.redirect('/profile');
+});
+
+app.post('/cancel-edit', (req, res) => {
+    console.log("POST request received for /cancel-edit");
+    console.log(req.body);
+    res.redirect('/profile');
+});
+
+app.get('/reply', (req, res) => {
+    console.log("Request received for /reply");
+});
+
+app.post('/reply', (req, res) => {
+    console.log("POST request received for /post");
+    reply = req.body.description;
+    console.log(reply);
+    
+    replies.push(reply);
+    showReply = true;
+    res.redirect('/profile');
+});
+
+
+/****************************************************************
+ *                         ESTABLISHMENTS       
+ ***************************************************************/
 
 // ----------------------------------------------------------------------------------------------------------------- //
 
 // view all establishments
 
-app.get('/all-establishments', async (req, res) => {
+app.get('/all-establishments', checkAuthenticated, async (req, res) => {
     
     console.log("Request received for /all-establishments");
 
@@ -434,7 +640,8 @@ app.get('/all-establishments', async (req, res) => {
         console.log(establishmentsArray);
     
 
-        res.render('all-establishments', {
+    
+    res.render('all-establishments', {
             title: 'All Establishments',
             css: '/view-establishments-section/css/est-index.css',
             css2: '/base-index.css',
@@ -443,7 +650,7 @@ app.get('/all-establishments', async (req, res) => {
             css5: '/view-establishments-section/css/crud-index.css',
             js: '/view-establishments-section/js/est-index.js',
             userExists: hasUser,
-            currUsername: currentUserName,
+            currUsername: req.user.username,
             needHeader: false,
             needHeader2: true,
             needFooter: true,
@@ -514,6 +721,51 @@ app.get('/owners-establishments', async (req, res) => {
 
 // ----------------------------------------------------------------------------------------------------------------- //
 
+
+app.get('/load-establishments', checkAuthenticated, (req, res) => {
+    console.log("Request received for /load-establishments");
+
+    res.status(200).json({ establishments });
+});
+
+app.get('/add-review', checkAuthenticated, (req, res) => {
+    console.log("Request received for /add-review"); 
+});
+
+// route handler for POST request to '/add-review'
+app.post('/add-review', checkAuthenticated, async (req, res) => {
+    console.log("Request received for POST /add-review"); 
+    
+    const { rating, date, review, establishmentName } = req.body;
+    console.log("Username:", req.user.username);
+    console.log("Rating:", rating);
+    console.log("Review:", review);
+    console.log("Establishment Name:", establishmentName);
+
+    try {
+        const reviewCount = await Review.countDocuments();
+        console.log("ID:", reviewCount + 1);
+        
+        const newReview = new Review({
+            username: req.user.username,
+            reviews: [{
+                id: reviewCount + 1, 
+                rating: rating,
+                date: date,
+                review: review,
+                establishmentName: establishmentName
+            }]
+        });
+        await newReview.save();
+
+        // Return the newly created review data in the response
+        res.status(200).json({ newReview });
+
+    } catch (error) {
+        console.error("Error adding review:", error);
+        res.status(500).send("Error adding review");
+    }
+});
 
 // view taft picks
 app.get('/taft-picks', (req, res) => {
