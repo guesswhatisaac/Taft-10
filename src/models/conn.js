@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const MONGO_URI = "mongodb://localhost:27017";
+const MONGO_URI = "mongodb+srv://user:user@taft10.f64xwme.mongodb.net/";
 const DBNAME = "TAFT10";
 
 function connectToDB (dbName = DBNAME) {
