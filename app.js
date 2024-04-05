@@ -129,20 +129,6 @@ async function findEstablishmentReviews() {
     }
 }
 
-async function findUserReviews() {
-    try {
-        const userInfo = await Review.find({ username: req.user.username }).exec();
-        const userReviews = userInfo.reviews;
-        console.log("FUNCTION TEST");
-        console.log(userReviews);
-        return userReviews;
-
-    } catch(e) {
-        console.log(e.message);
-        return null;
-    }
-}
-
 const getUsername = (req) => {
     return req.user.username; 
 };
