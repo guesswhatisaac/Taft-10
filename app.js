@@ -1,9 +1,6 @@
-if (process.env.NPDE_ENV !== 'production') {
-    require('dotenv').config()
-}
+const PORT = 3000; 
 
-const PORT = 3000; // TODO: Change to 3000 before submitting
-
+// Dependencies
 const express = require('express'),
       hbs = require('express-handlebars'),
       bodyParser = require('body-parser'),
@@ -12,21 +9,44 @@ const express = require('express'),
       flash = require('express-flash'),
       session = require('express-session'),
       methodOverride = require('method-override'),
-      app = express();
+      multer = require('multer'),
+      path = require('path');
+      
+const app = express();
 
+// Views
 const layoutsDir = __dirname + '/views/layouts/';
 const partialsDir = __dirname + '/views/partials/'; 
 
+// Database
 const { connect } = require('./src/models/conn.js');
 const User = require("./src/models/User");
-const Review = require("./src/models/Review.js")
+const Review = require("./src/models/Review");
+const File = require("./src/models/File");
 
+// Multer
+const fs = require('fs');
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        const dest = './public/data/uploads/';
+        // check if the directory exists, create if not
+        if(!fs.existsSync(dest)) {
+            fs.mkdirSync(dest, { recursive: true });
+        }
+        cb(null, dest);
+    },
+    filename: function(req, file, cb) {
+        const uniqueSuffix = Date.now();
+        cb(null, uniqueSuffix + file.originalname);
+    }
+});
+
+const upload = multer({
+    storage: storage
+})
+
+// Passport
 const initializePassport = require('./passport');
-
-const getUsername = (req) => {
-    return req.user.username; 
-};
-
 initializePassport(passport, 
     async (username) => {
     try {
@@ -47,14 +67,7 @@ initializePassport(passport,
     }
 );
 
-let userObj = "";
-let currentUserName = " "; 
-let currentUserPFP = " ";
-let hasUser = false; // checks if a user is currently logged in
-let username = "";
-let printUsernameErr = false;
-let printEditErr = false;
-
+// HBS
 app.engine('hbs', hbs.engine({
     extname: 'hbs',
     defaultLayout: 'home',
@@ -63,16 +76,15 @@ app.engine('hbs', hbs.engine({
 }));
 
 app.set('view engine', 'hbs');
-app.use(express.static("public"));
+
+app.use(express.static(__dirname + '/public/'));
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: true })); 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.use(express.urlencoded()); 
-// app.use(bodyParser.urlencoded({ extended: false })); 
-
+// Session Management
 app.use(flash());
 app.use(session({
     secret: 'secret',
@@ -83,6 +95,7 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
+// Functions
 function checkAuthenticated(req, res, next) {
     if(req.isAuthenticated()) {
         return next()
@@ -99,8 +112,23 @@ function checkNotAuthenticated(req, res, next) {
     next()
 }
 
+const getUsername = (req) => {
+    return req.user.username; 
+};
+
+let currentUserName = " "; 
+let hasUser = false;                // checks if a user is currently logged in
+let printUsernameErr = false;       // for username validation
+let printEditErr = false;           // for edit profile validation
+
+/****************************************************************
+ *                    HOME, SIGN-IN, SIGN-UP
+ ***************************************************************/
+
 // home with current user
-app.get('/', checkAuthenticated, (req, res) => {
+app.get('/', checkAuthenticated, async (req, res) => {
+    console.log("GET request received for /");
+
     if(!req.user) {
         hasUser = false;
     } else {
@@ -127,12 +155,10 @@ app.get('/', checkAuthenticated, (req, res) => {
     console.log("is owner: " + req.user.isOwner);
 });
 
-/****************************************************************
- *                    HOME, SIGN-IN, SIGN-UP
- ***************************************************************/
-
 // home without current user <- redirect here
 app.get('/guest-view', checkNotAuthenticated, (req, res) => {
+    console.log("GET request received for /guest-view");
+
     res.render('main', {
         title: 'Taft 10',
         css: '/home-page-section/css/home-index.css',
@@ -153,20 +179,22 @@ app.get('/guest-view', checkNotAuthenticated, (req, res) => {
 
 // home 
 app.get('/home', checkAuthenticated, (req, res) => {
-    console.log("Request received for /home");
+    console.log("GET request received for /home");
+
     res.redirect('/');
 });
 
 // log-out
-app.get('/log-out', (req, res) => {
-    console.log("Request received for /log-out");
+app.get('/log-out', checkAuthenticated, (req, res) => {
+    console.log("GET request received for /log-out");
+
     printUsernameErr = false;
     hasUser = false;
     
     req.logOut(function(err) {
         if (err) {
             console.error("Error logging out:", err);
-            return res.status(500).send("Error logging out");
+            return res.status(500);
         }
         
         res.redirect('/guest-view');
@@ -175,7 +203,8 @@ app.get('/log-out', (req, res) => {
 
 // sign-in
 app.get('/sign-in', checkNotAuthenticated, async (req, res) => {
-    console.log("Request received for /sign-in");
+    console.log("GET request received for /sign-in");
+
     res.render('sign-in', {
         title: 'Sign In',
         css: '/home-page-section/css/sign-up-in-index.css',
@@ -192,12 +221,14 @@ app.post('/sign-in', passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/sign-in',
     failureFlash: true
-}));
+}), (req, res) => {
+    console.log("POST request received for /sign-in");
+});
 
 // sign-up
 app.get('/sign-up', checkNotAuthenticated, async (req, res) => {
     console.log("Get Request received for /sign-up");
-    console.log(printUsernameErr);
+    
     res.render('sign-up', {
         title: 'Sign Up',
         css: '/home-page-section/css/sign-up-in-index.css',
@@ -211,8 +242,8 @@ app.get('/sign-up', checkNotAuthenticated, async (req, res) => {
     });
 });
 
-app.post('/sign-up', async (req, res) => {
-    console.log("Post Request received for /sign-up");
+app.post('/sign-up', upload.single("file"), async (req, res) => {
+    console.log("POST request received for /sign-up");
 
     const { username, email, lname, fname, description, number, password, file, checkbox } = req.body;
     const usernameInput = '@' + username;
@@ -221,19 +252,27 @@ app.post('/sign-up', async (req, res) => {
     const firstNameInput = fname;
     const bioInput = description;
     const phoneInput = number;
-    const profilePictureInput = file;
     const isOwnerInput = (checkbox === 'checkbox'); 
 
-    console.log("req.body:");
-    console.log(req.body);
+    const fileData = {
+        path: req.file.path,
+        fileName: req.file.originalname
+    }
+
+    console.log(req.file);
+
+    const profilePictureInput = await File.create(fileData);
+    console.log(profilePictureInput)
+
+    await profilePictureInput.save();
 
     try {
         // check if the username already exists in the database
         const existingUser = await User.findOne({ username: usernameInput });
-        if (existingUser) {
+        if(existingUser) {
             console.log('Username already exists.');
-
             printUsernameErr = true;
+            
             return res.redirect('/sign-up');
         }
 
@@ -253,28 +292,37 @@ app.post('/sign-up', async (req, res) => {
             isOwner: isOwnerInput
         });
 
+        await newUser.save()
+
+        console.log("New user created");
+        console.log(newUser);
+        
+        console.log("File");
+        console.log(newUser.profilePicture);
+
         console.log('Success sign-up');
         console.log('Hashed password: ' + hashedPassword);
         
         // log in the user after sign-up
         req.login(newUser, function(err) {
-            if (err) {
+            if(err) {
                 console.error("Error logging in after sign-up:", err);
-                return res.status(500).send("Error logging in after sign-up.");
+                return res.status(500);
             }
-            // redirect the user to the home page
+            
             res.redirect('/');
         });
-    } catch(error) {
-        console.error("Error during sign-up:", error.message);
-        return res.status(500).send("An error occurred during sign-up.");
+    } catch(e) {
+        console.log("Error during sign-up:", e.message);
+        return res.status(500);
     }
 });
 
 
 // recover-account
 app.get('/forgot-pw', (req, res) => {
-    console.log("Request received for /forgot-pw");
+    console.log("GET request received for /forgot-pw");
+
     res.render('forgot-pw', {
         title: 'Recover Account',
         css: '/home-page-section/css/sign-up-in-index.css',
@@ -288,14 +336,16 @@ app.get('/forgot-pw', (req, res) => {
 
 // forgot-pw
 app.post('/forgot-pw', (req, res) => {
-    console.log("POST Request received for /forgot-pw");
+    console.log("POST request received for /forgot-pw");
+
     console.log(req.body);
     res.redirect("/success-msg");
 });
 
 // success-msg
 app.get('/success-msg', (req, res) => {
-    console.log("Request received for /success-msg");
+    console.log("GET request received for /success-msg");
+    
     res.render('forgot-pw-response', {
         title: 'Recover Account Success',
         css: '/home-page-section/css/sign-up-in-index.css',
@@ -317,22 +367,29 @@ let editSuccessful = false;
   
 // profile
 app.get('/profile', checkAuthenticated, async (req, res) => {
-    console.log("Request received for /profile");
+    console.log("GET request received for /profile");
+    
     if(!replies) {
         showReply = true;
     }
+
+    const file_id = req.user.profilePicture;
+    const pfp_path = await File.findById(file_id).exec();
+
+    console.log("pfp-path " + __dirname + pfp_path);
+    console.log(pfp_path);
 
     res.render('view-profile', {
         title: 'View Account Success',
         css: '/view-profile-section/css/profile-index.css',
         css2: '/base-index.css',
         css3: '/view-establishments-section/css/est-index.css',
-        currentUserPic: '/global-assets/header/icon.jpg',
+        currentUserPic: path.basename(pfp_path.path), 
         myName: '<h1>' + req.user.firstName + " " + req.user.lastName + '</h1>',
-        numReviews: userObj.numReviews + ' reviews', // TODO UPDATE THIS USING REVIEWS DATABASE
+        // numReviews: userObj.numReviews + ' reviews', // TODO UPDATE THIS USING REVIEWS 
         userDescription: req.user.bio,
         isOwner: req.user.isOwner,
-        userExists: hasUser,
+        userExists: true, 
         currUsername: req.user.username,
         needHeader: false,
         needHeader2: true,
@@ -345,9 +402,10 @@ app.get('/profile', checkAuthenticated, async (req, res) => {
     });
 });
 
-// edit profile get
+// edit profile
 app.get('/edit', checkAuthenticated, async (req, res) => {
-    console.log("Request received for /edit");
+    console.log("GET request received for /edit");
+
     res.render('edit-profile', {
         title: 'Edit Profile',
         css: '/view-profile-section/css/edit-profile-index.css',
@@ -365,7 +423,7 @@ app.get('/edit', checkAuthenticated, async (req, res) => {
 });
 
 app.post('/edit', checkAuthenticated, async (req, res) => {
-    console.log("Post request received for /edit");
+    console.log("POST request received for /edit");
 
     try {
         let existingUsers = await User.find({ username: req.user.username });
@@ -423,7 +481,7 @@ app.get('/reply', (req, res) => {
 });
 
 app.post('/reply', (req, res) => {
-    console.log("POST Request received for /post");
+    console.log("POST request received for /post");
     reply = req.body.description;
     console.log(reply);
     

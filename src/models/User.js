@@ -1,4 +1,5 @@
 const { Schema, SchemaTypes, model } = require('mongoose');
+const File = require("./File");
 
 const userSchema = new Schema({
     username: {
@@ -31,7 +32,8 @@ const userSchema = new Schema({
         required: true
     },
     profilePicture: {
-        type: SchemaTypes.String,
+        type: Schema.Types.ObjectId, 
+        ref: 'File', 
         required: true
     },
     isOwner: {
