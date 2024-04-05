@@ -540,7 +540,8 @@ app.get('/add-review', checkAuthenticated, (req, res) => {
 });
 
 // route handler for POST request to '/add-review'
-app.post('/add-review', checkAuthenticated, (req, res) => {
+app.post('/add-review', checkAuthenticated, async (req, res) => {
+
     console.log("Request received for POST /add-review"); 
     const { rating, date, review, establishmentName } = req.body;
     console.log("Username:", req.user.username);
@@ -548,7 +549,24 @@ app.post('/add-review', checkAuthenticated, (req, res) => {
     console.log("Review:", review);
     console.log("Establishment Name:", establishmentName);
 
-    res.send("Review submitted successfully");
+    try {
+        const newReview = new Review({
+            username: req.user.username,
+            reviews: [{
+                rating: rating,
+                date: date,
+                review: review,
+                establishmentName: establishmentName
+            }]
+        });
+        await newReview.save();
+
+        res.status(200).send("Review added to database successfully");
+
+    } catch (error) {
+        console.error("Error adding review:", error);
+        res.status(500).send("Error adding review");
+    }
 });
 
 // view taft picks
