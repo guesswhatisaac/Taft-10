@@ -504,7 +504,7 @@ app.get('/profile', checkAuthenticated, async (req, res) => {
         css3: '/view-establishments-section/css/est-index.css',
         currentUserPic: path.basename(pfp_path.path), 
         myName: '<h1>' + req.user.firstName + " " + req.user.lastName + '</h1>',
-        numReviews: reviewCount + ' reviews', 
+        numReviews: reviewCount + ' review/s', 
         userDescription: req.user.bio,
         isOwner: req.user.isOwner,
         userExists: true, 
