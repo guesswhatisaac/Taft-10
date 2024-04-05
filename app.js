@@ -1,5 +1,6 @@
 const PORT = 3000; 
 
+// Dependencies
 const express = require('express'),
       hbs = require('express-handlebars'),
       bodyParser = require('body-parser'),
@@ -9,24 +10,26 @@ const express = require('express'),
       session = require('express-session'),
       methodOverride = require('method-override'),
       multer = require('multer'),
-      path = require('path'),
-      app = express();
+      path = require('path');
+      
+const app = express();
 
+// Views
 const layoutsDir = __dirname + '/views/layouts/';
 const partialsDir = __dirname + '/views/partials/'; 
 
+// Database
 const { connect } = require('./src/models/conn.js');
 const User = require("./src/models/User");
 const Review = require("./src/models/Review");
 const File = require("./src/models/File");
 
-// const upload = path.join(__dirname, './public/data/uploads/'); 
-// const upload = multer({ dest: './public/data/uploads/' });
+// Multer
 const fs = require('fs');
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
         const dest = './public/data/uploads/';
-        // check if the directory exists, create it if not
+        // check if the directory exists, create if not
         if(!fs.existsSync(dest)) {
             fs.mkdirSync(dest, { recursive: true });
         }
@@ -42,12 +45,8 @@ const upload = multer({
     storage: storage
 })
 
+// Passport
 const initializePassport = require('./passport');
-
-const getUsername = (req) => {
-    return req.user.username; 
-};
-
 initializePassport(passport, 
     async (username) => {
     try {
@@ -68,14 +67,7 @@ initializePassport(passport,
     }
 );
 
-let userObj = "";
-let currentUserName = " "; 
-let currentUserPFP = " ";
-let hasUser = false; // checks if a user is currently logged in
-let username = "";
-let printUsernameErr = false;
-let printEditErr = false;
-
+// HBS
 app.engine('hbs', hbs.engine({
     extname: 'hbs',
     defaultLayout: 'home',
@@ -84,17 +76,15 @@ app.engine('hbs', hbs.engine({
 }));
 
 app.set('view engine', 'hbs');
+
 app.use(express.static(__dirname + '/public/'));
-// app.use(express.static("public"));
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(methodOverride('_method'));
 app.use(express.urlencoded({ extended: true })); 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.use(express.urlencoded()); 
-// app.use(bodyParser.urlencoded({ extended: false })); 
-
+// Session Management
 app.use(flash());
 app.use(session({
     secret: 'secret',
@@ -105,6 +95,7 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
+// Functions
 function checkAuthenticated(req, res, next) {
     if(req.isAuthenticated()) {
         return next()
@@ -121,8 +112,23 @@ function checkNotAuthenticated(req, res, next) {
     next()
 }
 
+const getUsername = (req) => {
+    return req.user.username; 
+};
+
+let currentUserName = " "; 
+let hasUser = false;                // checks if a user is currently logged in
+let printUsernameErr = false;       // for username validation
+let printEditErr = false;           // for edit profile validation
+
+/****************************************************************
+ *                    HOME, SIGN-IN, SIGN-UP
+ ***************************************************************/
+
 // home with current user
 app.get('/', checkAuthenticated, async (req, res) => {
+    console.log("GET request received for /");
+
     if(!req.user) {
         hasUser = false;
     } else {
@@ -149,12 +155,10 @@ app.get('/', checkAuthenticated, async (req, res) => {
     console.log("is owner: " + req.user.isOwner);
 });
 
-/****************************************************************
- *                    HOME, SIGN-IN, SIGN-UP
- ***************************************************************/
-
 // home without current user <- redirect here
 app.get('/guest-view', checkNotAuthenticated, (req, res) => {
+    console.log("GET request received for /guest-view");
+
     res.render('main', {
         title: 'Taft 10',
         css: '/home-page-section/css/home-index.css',
@@ -175,20 +179,22 @@ app.get('/guest-view', checkNotAuthenticated, (req, res) => {
 
 // home 
 app.get('/home', checkAuthenticated, (req, res) => {
-    console.log("Request received for /home");
+    console.log("GET request received for /home");
+
     res.redirect('/');
 });
 
 // log-out
-app.get('/log-out', (req, res) => {
-    console.log("Request received for /log-out");
+app.get('/log-out', checkAuthenticated, (req, res) => {
+    console.log("GET request received for /log-out");
+
     printUsernameErr = false;
     hasUser = false;
     
     req.logOut(function(err) {
         if (err) {
             console.error("Error logging out:", err);
-            return res.status(500).send("Error logging out");
+            return res.status(500);
         }
         
         res.redirect('/guest-view');
@@ -197,7 +203,8 @@ app.get('/log-out', (req, res) => {
 
 // sign-in
 app.get('/sign-in', checkNotAuthenticated, async (req, res) => {
-    console.log("Request received for /sign-in");
+    console.log("GET request received for /sign-in");
+
     res.render('sign-in', {
         title: 'Sign In',
         css: '/home-page-section/css/sign-up-in-index.css',
@@ -214,7 +221,9 @@ app.post('/sign-in', passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/sign-in',
     failureFlash: true
-}));
+}), (req, res) => {
+    console.log("POST request received for /sign-in");
+});
 
 // sign-up
 app.get('/sign-up', checkNotAuthenticated, async (req, res) => {
@@ -234,7 +243,7 @@ app.get('/sign-up', checkNotAuthenticated, async (req, res) => {
 });
 
 app.post('/sign-up', upload.single("file"), async (req, res) => {
-    console.log("Post Request received for /sign-up");
+    console.log("POST request received for /sign-up");
 
     const { username, email, lname, fname, description, number, password, file, checkbox } = req.body;
     const usernameInput = '@' + username;
@@ -252,23 +261,18 @@ app.post('/sign-up', upload.single("file"), async (req, res) => {
 
     console.log(req.file);
 
-    // const profilePictureInput = null;
-
     const profilePictureInput = await File.create(fileData);
     console.log(profilePictureInput)
 
     await profilePictureInput.save();
 
-    // console.log("req.body:");
-    // console.log(req.body);
-
     try {
         // check if the username already exists in the database
         const existingUser = await User.findOne({ username: usernameInput });
-        if (existingUser) {
+        if(existingUser) {
             console.log('Username already exists.');
-
             printUsernameErr = true;
+            
             return res.redirect('/sign-up');
         }
 
@@ -305,11 +309,11 @@ app.post('/sign-up', upload.single("file"), async (req, res) => {
                 console.error("Error logging in after sign-up:", err);
                 return res.status(500);
             }
-            // redirect the user to the home page
+            
             res.redirect('/');
         });
-    } catch(error) {
-        console.error("Error during sign-up:", error.message);
+    } catch(e) {
+        console.log("Error during sign-up:", e.message);
         return res.status(500);
     }
 });
@@ -317,7 +321,8 @@ app.post('/sign-up', upload.single("file"), async (req, res) => {
 
 // recover-account
 app.get('/forgot-pw', (req, res) => {
-    console.log("Request received for /forgot-pw");
+    console.log("GET request received for /forgot-pw");
+
     res.render('forgot-pw', {
         title: 'Recover Account',
         css: '/home-page-section/css/sign-up-in-index.css',
@@ -331,14 +336,16 @@ app.get('/forgot-pw', (req, res) => {
 
 // forgot-pw
 app.post('/forgot-pw', (req, res) => {
-    console.log("POST Request received for /forgot-pw");
+    console.log("POST request received for /forgot-pw");
+
     console.log(req.body);
     res.redirect("/success-msg");
 });
 
 // success-msg
 app.get('/success-msg', (req, res) => {
-    console.log("Request received for /success-msg");
+    console.log("GET request received for /success-msg");
+    
     res.render('forgot-pw-response', {
         title: 'Recover Account Success',
         css: '/home-page-section/css/sign-up-in-index.css',
@@ -360,7 +367,7 @@ let editSuccessful = false;
   
 // profile
 app.get('/profile', checkAuthenticated, async (req, res) => {
-    console.log("Request received for /profile");
+    console.log("GET request received for /profile");
     
     if(!replies) {
         showReply = true;
@@ -395,9 +402,10 @@ app.get('/profile', checkAuthenticated, async (req, res) => {
     });
 });
 
-// edit profile get
+// edit profile
 app.get('/edit', checkAuthenticated, async (req, res) => {
-    console.log("Request received for /edit");
+    console.log("GET request received for /edit");
+
     res.render('edit-profile', {
         title: 'Edit Profile',
         css: '/view-profile-section/css/edit-profile-index.css',
@@ -415,7 +423,7 @@ app.get('/edit', checkAuthenticated, async (req, res) => {
 });
 
 app.post('/edit', checkAuthenticated, async (req, res) => {
-    console.log("Post request received for /edit");
+    console.log("POST request received for /edit");
 
     try {
         let existingUsers = await User.find({ username: req.user.username });
@@ -473,7 +481,7 @@ app.get('/reply', (req, res) => {
 });
 
 app.post('/reply', (req, res) => {
-    console.log("POST Request received for /post");
+    console.log("POST request received for /post");
     reply = req.body.description;
     console.log(reply);
     
