@@ -751,13 +751,12 @@ app.put('/update-establishment', async (req, res) => {
 
 // ----------------------------------------------------------------------------------------------------------------- //
 
-/*
+
 app.get('/load-establishments', checkAuthenticated, (req, res) => {
     console.log("Request received for /load-establishments");
 
     res.status(200).json({ establishments });
 });
-*/
 
 app.get('/add-review', checkAuthenticated, (req, res) => {
     console.log("Request received for /add-review"); 
