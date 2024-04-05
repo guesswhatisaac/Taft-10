@@ -16,4 +16,4 @@ const replySchema = new Schema({
     }
 })
 
-module.exports = model("Review", reviewSchema)
+module.exports = model("Reply", replySchema)
