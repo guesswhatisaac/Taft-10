@@ -49,16 +49,21 @@
             <div class = "scroll-object">
                 <div class = "reviews-container">
                     {{#if populateReviewsContainer}}
-                    <div class = "review">
+                    
                         
                         {{#if isOwner}}
+                        
                             {{#each displayReviews}}
-                                {{>review}}                        
+                                <div class = "review">
+                                {{>review}}  
+                                    
+                                                   
                                 <form action="/reply" method="post" class="reply">
                                     <label for="description"> Reply to this Review: </label>
                                     <textarea id="description" placeholder="Your reply here..." name="description"></textarea>
                                     <input type="submit" value="Post Reply" class="reply-button">
                                 </form>
+                                
                             {{/each}}
                         
                             {{#if displayReplies}}
@@ -69,18 +74,22 @@
                                         <p> {{this.ownerReply}} </p>
                                     </div>
                                 </div>
+                                <br>
                                 {{/each}}
+                                </div> 
                             {{/if}}
+                        
 
                         {{else}}
-
+                        
                             {{#each displayReviews}}
-                                {{>review}}                        
+                            <div class = "review">
+                                {{>review}}  
+                            </div>          
                             {{/each}}
-                            
+                        
                         {{/if}}
                         
-                    </div>
                     {{else}}
                         <p class="center"> No reviews yet.</p>
                     {{/if}}
