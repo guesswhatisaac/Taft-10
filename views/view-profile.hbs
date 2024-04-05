@@ -48,32 +48,48 @@
         <div class = "scrollbar-container">
             <div class = "scroll-object">
                 <div class = "reviews-container">
-                    {{#if reviews}}
-                    <div class = "review">
+                    {{#if populateReviewsContainer}}
+                    
                         
                         {{#if isOwner}}
+                        
                             {{#each displayReviews}}
-                                {{>review}}                        
+                                <div class = "review">
+                                {{>review}}  
+                                    
+                                                   
                                 <form action="/reply" method="post" class="reply">
                                     <label for="description"> Reply to this Review: </label>
                                     <textarea id="description" placeholder="Your reply here..." name="description"></textarea>
                                     <input type="submit" value="Post Reply" class="reply-button">
                                 </form>
+                                
                             {{/each}}
-                        {{/if}}
-
-                        {{#if displayReplies}}
-                            {{#each reply}}
-                            <div class="review-replies-container">
-                                <div id="reply-display">
-                                    <p class="username-display"> {{this.username}} <span class="replied">replied: </span></p>
-                                    <p> {{this.ownerReply}} </p>
+                        
+                            {{#if displayReplies}}
+                                {{#each reply}}
+                                <div class="review-replies-container">
+                                    <div id="reply-display">
+                                        <p class="username-display"> {{this.username}} <span class="replied">replied: </span></p>
+                                        <p> {{this.ownerReply}} </p>
+                                    </div>
                                 </div>
-                            </div>
+                                <br>
+                                {{/each}}
+                                </div> 
+                            {{/if}}
+                        
+
+                        {{else}}
+                        
+                            {{#each displayReviews}}
+                            <div class = "review">
+                                {{>review}}  
+                            </div>          
                             {{/each}}
+                        
                         {{/if}}
                         
-                    </div>
                     {{else}}
                         <p class="center"> No reviews yet.</p>
                     {{/if}}
