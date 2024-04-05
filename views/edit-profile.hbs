@@ -3,7 +3,7 @@
     <div class = "edit-profile-container">
         <div class = "profile">
             <div class = "profile-container">
-                <img src = {{currentUserPic}} alt = "Doggo Logo" class = "user-image">
+                <img src ="../../data/uploads/{{currentUserPic}}" alt = "Doggo Logo" class = "user-image">
             </div>
         </div>
         
@@ -20,7 +20,7 @@
 
             <div class = "buttons">
                 <div class="save-button"><input type="submit" value="SAVE CHANGES" class="save" id="save-button"> </div> 
-                <div class="cancel-button"><a href = "/cancel-edit"><button class = "cancel" id="cancel-button"> CANCEL </button></a></div>
+                <div class="cancel-button"><a href = "/cancel-edit"><button type="submit" formaction="/cancel-edit" class = "cancel" id="cancel-button"> CANCEL </button></a></div>
             </div>    
 
         </div>

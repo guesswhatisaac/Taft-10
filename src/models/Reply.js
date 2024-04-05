@@ -1,11 +1,19 @@
 const { Schema, SchemaTypes, model } = require('mongoose');
+const Review = require("./Review");
 
 const replySchema = new Schema({
-    username: {
-        type: SchemaTypes.ObjectId,
+    estOwner: {
+        type: SchemaTypes.String,
         required: true,
     },
-    replies: [SchemaTypes.Number] // pass the an array of review IDs
+    userReview: { 
+        type: Schema.Types.ObjectId,
+        ref: 'Review',
+        required: true
+    },
+    reply: {
+        type: SchemaTypes.String
+    }
 })
 
-module.exports = model("Review", reviewSchema)
+module.exports = model("Reply", replySchema)
