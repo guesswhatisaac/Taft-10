@@ -55,7 +55,6 @@ function generateAddReviewClass(establishmentName) {
 
 // Establishment constructor function
 const Establishment = function(name, priceRange, tags, description, coverImage) {
-  this.id = generateEstablishmentId(); 
   this.name = name;
   this.establishmentOwner = 'SINO BA'; // TODO
   this.rating = 0;
@@ -68,7 +67,6 @@ const Establishment = function(name, priceRange, tags, description, coverImage) 
 };
 
 const Establishment2 = function(name, priceRange, tags, description, coverImage) {
-  this.id = generateEstablishmentId(); 
   this.name = name;
   this.establishmentOwner = 'SINO BA'; // TODO
   this.rating = 0;
