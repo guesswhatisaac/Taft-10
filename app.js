@@ -4,7 +4,7 @@ const PORT = 3000;
 const express = require('express'),
       hbs = require('express-handlebars'),
       bodyParser = require('body-parser'),
-      bcrypt = require('bcrypt'),
+      bcrypt = require('bcryptjs'),
       passport = require('passport'),
       flash = require('express-flash'),
       session = require('express-session'),
@@ -79,6 +79,7 @@ app.engine('hbs', hbs.engine({
     }));
 
 app.set('view engine', 'hbs');
+app.set("views", __dirname + "/views");
 
 app.use(express.static(__dirname + '/public/'));
 app.use(express.json());
@@ -751,13 +752,12 @@ app.put('/update-establishment', async (req, res) => {
 
 // ----------------------------------------------------------------------------------------------------------------- //
 
-/*
+
 app.get('/load-establishments', checkAuthenticated, (req, res) => {
     console.log("Request received for /load-establishments");
 
     res.status(200).json({ establishments });
 });
-*/
 
 app.get('/add-review', checkAuthenticated, (req, res) => {
     console.log("Request received for /add-review"); 
