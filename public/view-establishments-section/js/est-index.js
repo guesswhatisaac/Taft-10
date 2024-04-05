@@ -66,62 +66,116 @@ const Establishment = function(name, priceRange, tags, description, coverImage) 
   this.reviewsButtonClass = generateReviewsButtonClass(name);
   this.addReviewClass = generateAddReviewClass(name);
 };
+
+const Establishment2 = function(name, priceRange, tags, description, coverImage) {
+  this.id = generateEstablishmentId(); 
+  this.name = name;
+  this.establishmentOwner = 'SINO BA'; // TODO
+  this.rating = 0;
+  this.priceRange = priceRange;
+  this.tags = tags;
+  this.description = description;
+  this.coverImage = coverImage; // TODO: Only adds cover image if it exists in assets folder, uploaded images not added
+  this.reviewsButtonClass = generateReviewsButtonClass(name);
+  this.addReviewClass = generateAddReviewClass(name);
+};
+
 const establishments = [
-{
-  name: '24 Chicken',
-  rating: '4.9',
-  priceRange: ['₱₱', '₱₱'],
-  tags: ['Filipino', 'Chicken'],
-  description: 'If you\'re on the hunt for a chicken experience that transcends the ordinary, look no further than 24 Chicken.',
-  coverImage: '24Chicken.png',
-  reviewsButtonClass: 'est-view-review-24-chicken view-review-btn',
-  addReviewClass: 'add-review-24-chicken add-review-btn'
-},
-{
-  name: "Ate Rica's Bacsilog",
-  rating: '4.9',
-  priceRange: ['₱', '₱₱₱'],
-  tags: ['Filipino', 'Rice Meal'],
-  description: 'Ate Rica\'s Bacsilog lives up to its "Sauce Sarap" promise! Delicious, affordable Filipino comfort food with generous portions and...',
-  coverImage: 'AteRicasBacsilog.png',
-  reviewsButtonClass: 'est-view-review-ate-ricas-bacsilog view-review-btn',
-  addReviewClass: 'add-review-ate-ricas-bacsilog add-review-btn'
-},
-{
-  name: 'Tomo Coffee',
-  rating: '4.7',
-  priceRange: ['₱₱', '₱₱'],
-  tags: ['Drinks'],
-  description: 'Tucked away in a vibrant student district, Tomo Coffee is a haven for caffeine-craving scholars. I love it so much!',
-  coverImage: 'TomoCoffee.png',
-  reviewsButtonClass: 'est-view-review-tomo-coffee view-review-btn',
-  addReviewClass: 'add-review-tomo-coffee add-review-btn'
-},
-{
-  name: 'Tinuhog ni Benny',
-  rating: '5.0',
-  priceRange: ['₱', '₱₱₱'],
-  tags: ['Filipino', 'Rice Meal'],
-  description: 'Tinuhog ni Benny is a haven for budget-friendly, delicious Filipino comfort food. The highlight is undoubtedly their namesake "tinuhog"...',
-  coverImage: 'TinuhogNiBenny.png',
-  reviewsButtonClass: 'est-view-review-tinuhog-ni-benny view-review-btn',
-  addReviewClass: 'add-review-tinuhog-ni-benny add-review-btn'
-},
-{
-  name: 'Hungry Seoul',
-  rating: '4.9',
-  priceRange: ['₱₱', '₱₱'],
-  tags: ['Korean', 'Rice Meal'],
-  description: 'If you\'re craving a taste of Korea in Manila, Hungry Seoul is definitely worth a visit. This casual restaurant...',
-  coverImage: 'HungrySeoul.png',
-  reviewsButtonClass: 'est-view-review-hungry-seoul view-review-btn',
-  addReviewClass: 'add-review-hungry-seoul add-review-btn'
-},
+// {
+//   name: '24 Chicken',
+//   rating: '4.9',
+//   priceRange: ['₱₱', '₱₱'],
+//   tags: ['Filipino', 'Chicken'],
+//   description: 'If you\'re on the hunt for a chicken experience that transcends the ordinary, look no further than 24 Chicken.',
+//   coverImage: '24Chicken.png',
+//   reviewsButtonClass: 'est-view-review-24-chicken view-review-btn',
+//   addReviewClass: 'add-review-24-chicken add-review-btn'
+// },
+// {
+//   name: "Ate Rica's Bacsilog",
+//   rating: '4.9',
+//   priceRange: ['₱', '₱₱₱'],
+//   tags: ['Filipino', 'Rice Meal'],
+//   description: 'Ate Rica\'s Bacsilog lives up to its "Sauce Sarap" promise! Delicious, affordable Filipino comfort food with generous portions and...',
+//   coverImage: 'AteRicasBacsilog.png',
+//   reviewsButtonClass: 'est-view-review-ate-ricas-bacsilog view-review-btn',
+//   addReviewClass: 'add-review-ate-ricas-bacsilog add-review-btn'
+// },
+// {
+//   name: 'Tomo Coffee',
+//   rating: '4.7',
+//   priceRange: ['₱₱', '₱₱'],
+//   tags: ['Drinks'],
+//   description: 'Tucked away in a vibrant student district, Tomo Coffee is a haven for caffeine-craving scholars. I love it so much!',
+//   coverImage: 'TomoCoffee.png',
+//   reviewsButtonClass: 'est-view-review-tomo-coffee view-review-btn',
+//   addReviewClass: 'add-review-tomo-coffee add-review-btn'
+// },
+// {
+//   name: 'Tinuhog ni Benny',
+//   rating: '5.0',
+//   priceRange: ['₱', '₱₱₱'],
+//   tags: ['Filipino', 'Rice Meal'],
+//   description: 'Tinuhog ni Benny is a haven for budget-friendly, delicious Filipino comfort food. The highlight is undoubtedly their namesake "tinuhog"...',
+//   coverImage: 'TinuhogNiBenny.png',
+//   reviewsButtonClass: 'est-view-review-tinuhog-ni-benny view-review-btn',
+//   addReviewClass: 'add-review-tinuhog-ni-benny add-review-btn'
+// },
+// {
+//   name: 'Hungry Seoul',
+//   rating: '4.9',
+//   priceRange: ['₱₱', '₱₱'],
+//   tags: ['Korean', 'Rice Meal'],
+//   description: 'If you\'re craving a taste of Korea in Manila, Hungry Seoul is definitely worth a visit. This casual restaurant...',
+//   coverImage: 'HungrySeoul.png',
+//   reviewsButtonClass: 'est-view-review-hungry-seoul view-review-btn',
+//   addReviewClass: 'add-review-hungry-seoul add-review-btn'
+// },
 ];
 
 establishmentList = establishments;
 
 document.addEventListener('DOMContentLoaded', function() {
+
+  fetch('/load-establishments', {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json',
+    }
+  })
+  .then(response => {
+      if (response.ok) {
+          return response.json(); 
+      } else {
+          throw new Error('Error getting data from server');
+      }
+  })
+  .then(data => {
+      data.establishments.forEach(item => {
+        const estName = item.name;
+        const priceRange = item.priceRange;
+        const tags = item.tags;
+        const description = item.description;
+        const coverImage = item.coverImage;
+
+        console.log("PRICE RANGE: " + priceRange)
+      
+        const newEstablishment = new Establishment2(estName, priceRange, tags, description, coverImage);
+      
+        initializeAddReviewWindow(newEstablishment);
+      
+        establishments.push(newEstablishment);
+        renderEstablishments(establishmentList);
+      
+      });
+      
+      console.log(data.establishments);
+  })
+  .catch(error => {
+      console.error('Error:', error);
+      alert('Error getting data from server');
+  });
+
 
 /*****************************    VIEW / HIDE MODAL    ****************************/
 
@@ -196,20 +250,22 @@ console.log("New Establishment Created");
 
 function initializeAddReviewWindow(newEstablishment) {
 
-const addContainer = document.querySelector('.add-container');
-const viewContainer = document.querySelector('.view-container');
+  const addContainer = document.querySelector('.add-container');
+  const viewContainer = document.querySelector('.view-container');
 
-const addReviewWindowId = `reviewWindow-${newEstablishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
-const estabName = `${newEstablishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
-console.log("ADD WINDOW ID: " + addReviewWindowId);
-const addHTML = generateAddWindow(addReviewWindowId, newEstablishment, estabName);  
+  const addReviewWindowId = `reviewWindow-${newEstablishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
+  const estabName = `${newEstablishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
+  console.log("ADD WINDOW ID: " + addReviewWindowId);
 
-const viewReviewWindowId = `view-reviewWindow-${newEstablishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
-console.log("VIEW WINDOW ID: " + viewReviewWindowId); 
-const viewHTML = generateViewWindow(viewReviewWindowId, newEstablishment, estabName);  
+  console.log("PRICE 2: " + newEstablishment.priceRange)
+  const addHTML = generateAddWindow(addReviewWindowId, newEstablishment, estabName);  
 
-viewContainer.innerHTML += viewHTML;
-addContainer.innerHTML += addHTML;
+  const viewReviewWindowId = `view-reviewWindow-${newEstablishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
+  console.log("VIEW WINDOW ID: " + viewReviewWindowId); 
+  const viewHTML = generateViewWindow(viewReviewWindowId, newEstablishment, estabName);  
+
+  viewContainer.innerHTML += viewHTML;
+  addContainer.innerHTML += addHTML;
 
 }
 
@@ -719,7 +775,8 @@ if (establishmentToUpdate) {
     document.querySelector('.view-container').addEventListener('click', function(event) {
       if (event.target.classList.contains('close-button')) {
         const button = event.target;
-        const establishmentName = button.closest('.view-container').querySelector('.title').textContent.trim();
+        // traverse up the DOM to find the parent element containing the establishment name
+        const establishmentName = button.closest('.view-window-container').querySelector('.title').textContent.trim();
         const reviewWindowId = `view-reviewWindow-${establishmentName.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
         console.log("LOOK HERE: " + reviewWindowId);
         document.getElementById(reviewWindowId).style.display = 'none';

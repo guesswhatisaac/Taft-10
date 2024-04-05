@@ -162,7 +162,7 @@ app.get('/', checkAuthenticated, async (req, res) => {
     try {
         // query all establishments from the database
         establishments = await Establishment.find();
-        console.log("Retrieved: " + establishments);
+        // console.log("Retrieved: " + establishments);
     } catch (error) {
         console.error("Error retrieving establishments:", error);
 
@@ -623,6 +623,12 @@ app.get('/all-establishments', checkAuthenticated, (req, res) => {
         searchIcon: '/global-assets/header/search-icon.png',
         taft10Logo: '/global-assets/header/taft-10.png',
     });
+});
+
+app.get('/load-establishments', checkAuthenticated, (req, res) => {
+    console.log("Request received for /load-establishments");
+
+    res.status(200).json({ establishments });
 });
 
 app.get('/add-review', checkAuthenticated, (req, res) => {
