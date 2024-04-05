@@ -220,7 +220,7 @@
     transition: background-color 0.3s, transform 0.3s;
 }
 
-.close-button:hover {
+.close-icon:hover {
     width: 30px; 
     height: 30px;
     content: url('./view-establishments-section/assets/est/content-icons/close-filled.png'); 
@@ -416,7 +416,7 @@
   .close-button:hover {
     width: 30px; 
     height: 30px;
-    content: url('../assets/est/content-icons/close-filled.png'); 
+    content: url('./view-establishments-section/assets/est/content-icons/close-filled.png'); 
     transform: scale(1.2);
   }
   
