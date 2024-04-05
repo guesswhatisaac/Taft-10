@@ -4,7 +4,7 @@ const PORT = 3000;
 const express = require('express'),
       hbs = require('express-handlebars'),
       bodyParser = require('body-parser'),
-      bcrypt = require('bcryptjs'),
+      bcryptjs = require('bcryptjsjs'),
       passport = require('passport'),
       flash = require('express-flash'),
       session = require('express-session'),
@@ -304,7 +304,7 @@ app.post('/sign-up', upload.single("file"), async (req, res) => {
         }
 
         // generate hash for password
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword = await bcryptjs.hash(password, 10);
 
         // create a new user
         const newUser = await User.create({
