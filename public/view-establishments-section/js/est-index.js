@@ -137,46 +137,6 @@ establishmentList = establishments;
 
 document.addEventListener('DOMContentLoaded', function() {
 
-  /*
-  fetch('/load-establishments', {
-    method: 'GET',
-    headers: {
-        'Content-Type': 'application/json',
-    }
-  })
-  .then(response => {
-      if (response.ok) {
-          return response.json(); 
-      } else {
-          throw new Error('Error getting data from server');
-      }
-  })
-  .then(data => {
-      data.establishments.forEach(item => {
-        const estName = item.name;
-        const priceRange = item.priceRange;
-        const tags = item.tags;
-        const description = item.description;
-        const coverImage = item.coverImage;
-
-        console.log("PRICE RANGE: " + priceRange)
-      
-        const newEstablishment = new Establishment2(estName, priceRange, tags, description, coverImage);
-      
-        initializeAddReviewWindow(newEstablishment);
-      
-        establishments.push(newEstablishment);
-        renderEstablishments(establishmentList);
-      
-      });
-      
-      console.log(data.establishments);
-  })
-  .catch(error => {
-      console.error('Error:', error);
-      alert('Error getting data from server');
-  });
-*/
 
 /*****************************    VIEW / HIDE MODAL    ****************************/
 
@@ -326,8 +286,30 @@ deleteEstablishmentForm.addEventListener('submit', async (event) => {
 
     const establishmentId = document.querySelector('#select-est-delete').value;
 
-    
-    // send request to delete in database
+    try {
+      const response = await fetch('/delete-establishments', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json' 
+        }
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Error deleting establishment: ${response.statusText}`);
+      }
+  
+      console.log("Establishment deleted successfully!");
+  
+      // Handle successful deletion on the frontend (e.g., redirect, display message)
+      // ... your code here
+  
+    } catch (error) {
+      console.error("Error deleting establishment:", error.message);
+  
+      // Handle deletion errors on the frontend (e.g., display error message)
+      // ... your code here
+    }
+  });
 });
 
 //---------------------------------------------------------------------------
@@ -470,11 +452,11 @@ document.querySelector('.search-form').addEventListener('input', handleSearch);
   }
 
 // Function to handle search
-function handleSearch() {
-  const searchInput = document.querySelector('.search-form').value;
-  const searchResults = searchEstablishments(searchInput);
-  renderEstablishments(searchResults); 
-}
+  function handleSearch() {
+    const searchInput = document.querySelector('.search-form').value;
+    const searchResults = searchEstablishments(searchInput);
+    renderEstablishments(searchResults); 
+  }
 
 
 // #tag-input (store)
@@ -575,10 +557,7 @@ if (tagsArray.length === 0) {
 return filteredEstablishments;
 }
 
-
-
     /*********** GENERATE ESTABLISHMENTS ***********/ 
-
 
     fetchEstablishmentsFromDatabase()
     .then(establishments => {
@@ -785,7 +764,7 @@ return filteredEstablishments;
         event.target.classList.toggle('price-button-outer-left.price-button-clicked');
     
     }
-    
+
     /********************** ADD & VIEW REVIEW **********************/ 
     // let establishmentName = '';
 
@@ -848,4 +827,3 @@ return filteredEstablishments;
         upvoteCountElement.textContent = upvoteCount.toString();
     }
 });
-  });
