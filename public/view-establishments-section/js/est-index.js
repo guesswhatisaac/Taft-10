@@ -1,10 +1,10 @@
 // Review constructor function
-const Review = function(username, rating, date, content, establishmentName) {
+const Review = function(username, rating, date, review, establishmentName) {
   this.username = username;
   this.userStatus = "De La Salle University";
   this.rating = rating;
   this.date = date;
-  this.content = content;
+  this.content = review;
   this.establishmentName = establishmentName;
 };
 
@@ -570,14 +570,35 @@ if (establishmentToUpdate) {
               body: JSON.stringify(formData)
           })
           .then(response => {
-              if (response.ok) {
-                  return response.text();
-              } else {
-                  throw new Error('Error submitting review');
-              }
+            if (response.ok) {
+                return response.json(); // Parse response as JSON
+            } else {
+                throw new Error('Error submitting review (im inside response)');
+            }
           })
           .then(data => {
-              console.log(data); 
+              console.log("New Review:", data.newReview); 
+
+              const username = data.newReview.username;
+              console.log(username);
+              const newReview = data.newReview.reviews[data.newReview.reviews.length - 1];
+              
+              // Accessing review properties
+              const rating = newReview.rating;
+              console.log(rating); 
+
+              const rawDate = newReview.date;
+              const date = new Date(rawDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+              console.log(date); 
+
+              const review = newReview.review;
+              console.log(review); 
+
+              const establishmentName = newReview.establishmentName;
+              console.log(establishmentName); 
+
+              const addReview = new Review(username, rating, date, review, establishmentName);
+              reviews.push(addReview);
 
               renderReviews(establishmentName);
               resetStarRatingInputs();
@@ -586,7 +607,6 @@ if (establishmentToUpdate) {
           })
           .catch(error => {
               console.error('Error:', error);
-
               alert('Error submitting review');
           });
       }

@@ -523,8 +523,8 @@ app.get('/add-review', checkAuthenticated, (req, res) => {
 
 // route handler for POST request to '/add-review'
 app.post('/add-review', checkAuthenticated, async (req, res) => {
-
     console.log("Request received for POST /add-review"); 
+    
     const { rating, date, review, establishmentName } = req.body;
     console.log("Username:", req.user.username);
     console.log("Rating:", rating);
@@ -532,9 +532,13 @@ app.post('/add-review', checkAuthenticated, async (req, res) => {
     console.log("Establishment Name:", establishmentName);
 
     try {
+        const reviewCount = await Review.countDocuments();
+        console.log("ID:", reviewCount + 1);
+        
         const newReview = new Review({
             username: req.user.username,
             reviews: [{
+                id: reviewCount + 1, 
                 rating: rating,
                 date: date,
                 review: review,
@@ -543,7 +547,8 @@ app.post('/add-review', checkAuthenticated, async (req, res) => {
         });
         await newReview.save();
 
-        res.status(200).send("Review added to database successfully");
+        // Return the newly created review data in the response
+        res.status(200).json({ newReview });
 
     } catch (error) {
         console.error("Error adding review:", error);
