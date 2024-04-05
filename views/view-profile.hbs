@@ -131,6 +131,24 @@
                         
                                 <div class="delete-error-message"></div>
 
+                                
+                            <form class="delete-establishment-form">
+
+                                <label for="establishment-delete-label">Select Establishment to Delete:</label><br>
+                                <select id="select-est-delete" name="establishment-delete" required>
+
+                                    {{#each ownerEstablishments}}
+                                        {{#each this}}
+                                            {{#if this.name}}
+                                                <option value=""> {{this.name}} </option>
+                                            {{/if}}
+                                        {{/each}}
+                                    {{/each}}
+                                </select><br>
+
+                                <button type="submit" id="submit-delete-establishment">DELETE</button>
+                            </form>
+
                             </div>
                         
                         </div>

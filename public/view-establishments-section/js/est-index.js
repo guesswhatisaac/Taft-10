@@ -187,6 +187,67 @@ createEstablishmentForm.addEventListener('submit', async (event) => {
 
 // ----------------------------------------------------------------------------
 
+/*****************************    UPDATE MODAL    ****************************/
+
+const updateEstablishmentForm = document.querySelector('.update-establishment-form');
+
+updateEstablishmentForm.addEventListener('submit', async (event) => {
+
+    console.log("Update form submitted");
+    event.preventDefault();
+
+    const establishmentId = document.querySelector('#establishment-select').value;
+    
+    const establishmentData = {
+      id: establishmentId,
+      _id: Math.ceil(Math.random() * 100),
+      name: establishmentId,
+      owner: document.getElementById("userTag"),
+      rating: "4.3",
+      priceRange: generatePriceRange(document.querySelector('#update-price-range').value),
+      tags: document.querySelector('#update-tags').value.split(',').map(tag => tag.trim()),
+      description: document.querySelector('#update-description').value,
+      coverImage: document.querySelector('#update-cover-image').files[0], // TODO: add file path
+      reviewButtonClass: generateReviewsButtonClass(document.getElementById('est-name-input').value),
+      addReviewClass: generateAddReviewClass(document.getElementById('est-name-input').value),
+    };
+
+    fetch('/update-establishment', {
+      method: 'PUT',
+      body: JSON.stringify(establishmentData),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        errorMessageElement.textContent = 'Establishment successfully updated!';
+      } else {
+        errorMessageElement.textContent = 'Error in updating establishment.';
+      }
+    })
+    .catch(error => {
+      errorMessageElement.textContent = 'Error during update request.';
+    });
+  
+});
+
+/*****************************    DELETE MODAL    ****************************/
+const deleteEstablishmentForm = document.querySelector('.delete-establishment-form');
+
+deleteEstablishmentForm.addEventListener('submit', async (event) => {
+
+    console.log("delete form submitted");
+    event.preventDefault();
+
+    const establishmentId = document.querySelector('#select-est-delete').value;
+
+    // send request to delete in database
+});
+
+//---------------------------------------------------------------------------
+
 function initializeAddReviewWindow(newEstablishment) {
 
   const addContainer = document.querySelector('.add-container');
@@ -430,50 +491,6 @@ if (tagsArray.length === 0) {
 return filteredEstablishments;
 }
 
-/*****************************    UPDATE MODAL    ****************************/
-
-const updateEstablishmentForm = document.querySelector('.update-establishment-form');
-
-updateEstablishmentForm.addEventListener('submit', async (event) => {
-
-    console.log("Update form submitted");
-    event.preventDefault();
-
-    const establishmentId = document.querySelector('#establishment-select').value;
-    const name = document.querySelector('#update-est-name').value;
-    const priceRange = document.querySelector('#update-price-range').value;
-    const tags = document.querySelector('#update-tags').value.split(',').map(tag => tag.trim());
-    const description = document.querySelector('#update-description').value;
-    const coverImage = document.querySelector('#update-cover-image').files[0];
-
-    fetch('/update-establishment', {
-      method: 'PUT',
-      body: JSON.stringify({
-        id: establishmentId,
-        name,
-        priceRange,
-        tags,
-        description
-      }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        errorMessageElement.textContent = 'Establishment successfully updated!';
-      } else {
-        errorMessageElement.textContent = 'Error in updating establishment.';
-      }
-    })
-    .catch(error => {
-      errorMessageElement.textContent = 'Error during update request.';
-    });
-  
-});
-
-/*****************************    DELETE MODAL    ****************************/
 
 
     /*********** GENERATE ESTABLISHMENTS ***********/ 
