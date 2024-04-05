@@ -22,7 +22,10 @@ const partialsDir = __dirname + '/views/partials/';
 const { connect } = require('./src/models/conn.js');
 const User = require("./src/models/User");
 const Review = require("./src/models/Review");
+const Establishment = require("./src/models/Establishment.js")
 const File = require("./src/models/File");
+
+let establishments = [];
 
 // Multer
 const fs = require('fs');
@@ -156,6 +159,15 @@ let printEditErr = false;           // for edit profile validation
 // home with current user
 app.get('/', checkAuthenticated, async (req, res) => {
     console.log("GET request received for /");
+
+    try {
+        // query all establishments from the database
+        establishments = await Establishment.find();
+        console.log("Retrieved: " + establishments);
+    } catch (error) {
+        console.error("Error retrieving establishments:", error);
+
+    }
 
     if(!req.user) {
         hasUser = false;
