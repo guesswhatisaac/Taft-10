@@ -112,6 +112,33 @@ function checkNotAuthenticated(req, res, next) {
     next()
 }
 
+async function findEstablishmentReviews() {
+    try {
+        const ownerInfo = await User.findOne({ username: req.user.username }).exec();
+        const establishmentNames = ownerInfo.establishments;
+        const estReviews = await Review.find({ 'reviews.establishmentName': { $in: establishmentNames }}).exec();
+        
+        return estReviews;
+
+    } catch(e) {
+        console.log(e.message);
+        return null;
+    }
+}
+
+async function findUserReviews() {
+    try {
+        const userInfo = await Review.find({ username: req.user.username }).exec();
+        const userReviews = userInfo.reviews;
+
+        return userReviews;
+
+    } catch(e) {
+        console.log(e.message);
+        return null;
+    }
+}
+
 const getUsername = (req) => {
     return req.user.username; 
 };
@@ -364,14 +391,53 @@ let reply = "";
 let replies = [];
 let showReply = false;
 let editSuccessful = false;
-  
+let reviewCount = 0;
+
 // profile
 app.get('/profile', checkAuthenticated, async (req, res) => {
     console.log("GET request received for /profile");
-    
-    if(!replies) {
-        showReply = true;
-    }
+
+    try {
+        let reviews = [];
+
+        if(req.user.isOwner) { // establishment owner
+            const estReviews = await findEstablishmentReviews();   
+            if (estReviews) {
+                for (let i = 0; i < estReviews.length; i++) {
+                    reviews.push({
+                        nameDisplay: estReviews[i].username,
+                        ratingDisplay: estReviews[i].reviews.rating,
+                        dateDisplay: estReviews[i].reviews.date,
+                        upvotesDisplay: estReviews[i].reviews.upvotes,
+                        reviewDisplay: estReviews[i].reviews.review
+                    });
+                }
+                reviewCount = estReviews.length;
+            } else {
+                reviews = null;
+            }
+        } else { // non-owner user
+            const userReviews = await findUserReviews();
+            if (userReviews) {
+                for (let i = 0; i < userReviews.length; i++) {
+                    reviews.push({
+                        nameDisplay: estReviews[i].username,
+                        ratingDisplay: estReviews[i].reviews.rating,
+                        dateDisplay: estReviews[i].reviews.date,
+                        upvotesDisplay: estReviews[i].reviews.upvotes,
+                        reviewDisplay: estReviews[i].reviews.review
+                    });
+                }
+                reviewCount = userReviews.length;
+            } else {
+                reviews = null;
+            }
+        }
+        
+        // TODO update this
+        if(!replies) {
+            showReply = true;
+        }
 
     //////////////////////////////////////////////////////////////////////////
     // NOTES: USE THIS CODE TO DISPLAY PROFILE PICTURE
@@ -398,7 +464,7 @@ app.get('/profile', checkAuthenticated, async (req, res) => {
         css3: '/view-establishments-section/css/est-index.css',
         currentUserPic: path.basename(pfp_path.path), 
         myName: '<h1>' + req.user.firstName + " " + req.user.lastName + '</h1>',
-        // numReviews: userObj.numReviews + ' reviews', // TODO UPDATE THIS USING REVIEWS 
+        numReviews: reviewCount + ' reviews', 
         userDescription: req.user.bio,
         isOwner: req.user.isOwner,
         userExists: true, 
@@ -411,7 +477,13 @@ app.get('/profile', checkAuthenticated, async (req, res) => {
         displayReplies: showReply,
         username: req.user.username,
         ownerReply: reply,
+        // reviews display if owner:
+        displayReviews: reviews
     });
+
+    } catch(e) {
+        console.log(e.message);
+    }
 });
 
 // edit profile

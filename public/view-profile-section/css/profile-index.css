@@ -245,6 +245,10 @@ body {
   left: 10px;
   height: 30px;
   width: 48px;
+}
+
+.upvote-display:hover,
+.upvote-display:hover + .upvote-count-display {
   filter: brightness(0);
 }
 
@@ -475,4 +479,13 @@ footer {
   font-weight: normal;
   color: #212431;
   font-style: italic;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  font-family: 'Staatliches';
+  font-size: 30px;
+  color: #d5d5d5;
+  align-items: center;
 }

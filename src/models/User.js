@@ -43,7 +43,10 @@ const userSchema = new Schema({
     numReviews: {
         default: 0,
         type: Number
-    }
+    },
+    establishments: [{
+        type: SchemaTypes.String
+    }]
 })
 
 module.exports = model("User", userSchema)
