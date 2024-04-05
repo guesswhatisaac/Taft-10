@@ -2,14 +2,13 @@ const { Schema, SchemaTypes, model } = require('mongoose');
 
 const reviewSchema = new Schema({
     username: {
-        type: SchemaTypes.ObjectId,
-        // add model reference
+        type: SchemaTypes.String,
         required: true,
     },
     reviews: [{
         id: {
             type: SchemaTypes.Number,
-            required: true,
+            required: false,
             unique: true
             // TODO use Model.count() method in app.js to set ID- used to count the number of documents present in the collection 
         },

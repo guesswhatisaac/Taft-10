@@ -534,15 +534,16 @@ app.post('/add-review', checkAuthenticated, async (req, res) => {
     try {
         const newReview = new Review({
             username: req.user.username,
-            rating: rating,
-            date: date,
-            review: review,
-            establishmentName: establishmentName
+            reviews: [{
+                rating: rating,
+                date: date,
+                review: review,
+                establishmentName: establishmentName
+            }]
         });
-
         await newReview.save();
 
-        res.status(200).send("Review added successfully");
+        res.status(200).send("Review added to database successfully");
 
     } catch (error) {
         console.error("Error adding review:", error);
