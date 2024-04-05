@@ -75,8 +75,8 @@ app.engine('hbs', hbs.engine({
     extname: 'hbs',
     defaultLayout: 'home',
     layoutsDir: layoutsDir,
-    partialsDir: partialsDir
-}));
+    partialsDir: partialsDir,
+    }));
 
 app.set('view engine', 'hbs');
 
@@ -149,7 +149,7 @@ app.get('/', checkAuthenticated, async (req, res) => {
     try {
         // query all establishments from the database
         establishments = await Establishment.find();
-        console.log("Retrieved: " + establishments);
+        // console.log("Retrieved: " + establishments);
     } catch (error) {
         console.error("Error retrieving establishments:", error);
 
@@ -491,11 +491,16 @@ app.get('/profile', checkAuthenticated, async (req, res) => {
 
     ///////////////////////////////////////////////////////////////////////////
 
+
+    const ownerEst = await getOwnerEstablishment(currentUserName);
+
     res.render('view-profile', {
         title: 'View Account Success',
         css: '/view-profile-section/css/profile-index.css',
-        css2: '/base-index.css',
+        css2: '/base-index.css', 
         css3: '/view-establishments-section/css/est-index.css',
+        js: '/view-establishments-section/js/est-index.js', // added est-index js for crud modal operations
+        userTag: currentUserName.substring(1), 
         currentUserPic: path.basename(pfp_path.path), 
         myName: '<h1>' + req.user.firstName + " " + req.user.lastName + '</h1>',
         numReviews: reviewCount + ' review/s', 
@@ -626,26 +631,107 @@ app.post('/reply', (req, res) => {
  *                         ESTABLISHMENTS       
  ***************************************************************/
 
+// ----------------------------------------------------------------------------------------------------------------- //
+
 // view all establishments
-app.get('/all-establishments', checkAuthenticated, (req, res) => {
+
+app.get('/all-establishments', checkAuthenticated, async (req, res) => {
+    
     console.log("Request received for /all-establishments");
 
+    try {
+        const establishmentsArray = await Establishment.find(); 
+
+        console.log("EST ARRAY LENGTH ROUTER: " + establishmentsArray.length);
+        console.log(establishmentsArray);
+    
+
+    
     res.render('all-establishments', {
-        title: 'All Establishments',
-        css: '/view-establishments-section/css/est-index.css',
-        css2: '/base-index.css',
-        css3: '/view-establishments-section/css/add-review.css',
-        css4: '/view-establishments-section/css/view-review.css',
-        css5: '/view-establishments-section/css/crude-index.css',
-        js: '/view-establishments-section/js/est-index.js',
-        userExists: hasUser,
-        currUsername: req.user.username,
-        needHeader: false,
-        needHeader2: true,
-        needFooter: true,
-        searchIcon: '/global-assets/header/search-icon.png',
-        taft10Logo: '/global-assets/header/taft-10.png',
-    });
+            title: 'All Establishments',
+            css: '/view-establishments-section/css/est-index.css',
+            css2: '/base-index.css',
+            css3: '/view-establishments-section/css/add-review.css',
+            css4: '/view-establishments-section/css/view-review.css',
+            css5: '/view-establishments-section/css/crud-index.css',
+            js: '/view-establishments-section/js/est-index.js',
+            userExists: hasUser,
+            currUsername: req.user.username,
+            needHeader: false,
+            needHeader2: true,
+            needFooter: true,
+            searchIcon: '/global-assets/header/search-icon.png',
+            taft10Logo: '/global-assets/header/taft-10.png',
+            establishmentsArray
+        });
+      } catch (err) {
+        console.error('Error fetching establishments:', err);
+        res.status(500).render('all-establishments', {
+          error: 'Error fetching establishments'
+        });
+      }
+
+});
+
+
+// create new est and add it to db
+const createEstablishment = async (establishmentData) => {
+    try {
+        const newEstablishment = new Establishment(establishmentData);
+        await newEstablishment.save();
+      } catch (error) {
+        console.error("Error creating establishment:", error);
+        throw new Error("Error saving establishment to database");
+      }
+};
+
+app.post('/create-establishment', async (req, res) => {
+    const establishmentData = req.body;
+    console.log("\n in app.post('/create-establishment')");
+  
+    try {
+      await createEstablishment(establishmentData);
+      console.log("Establishment created successfully!");
+      res.status(200).json({ message: 'Establishment created!' }); 
+    } catch (error) {
+      console.error("Error creating establishment:", error);
+      res.status(500).json({ message: 'Error creating establishment' }); 
+    }
+});
+
+// update establishment
+
+const getOwnerEstablishment = async (currentUserName) => {
+
+    try {
+        const establishments = await Establishment.find();
+        const ownerName = currentUserName.substring(1);
+
+        // get only the user's establishment/s
+        const filteredEstablishments = establishments.filter(establishment => {
+            return establishment.owner === ownerName;
+        });
+        
+        return filteredEstablishments;
+        
+      } catch (error) {
+        console.error("Error fetching establishments:", error);
+        res.status(500).json({ message: "Error fetching owner's establishments" });
+      }
+}
+
+app.get('/owners-establishments', async (req, res) => {
+
+})
+
+
+// ----------------------------------------------------------------------------------------------------------------- //
+
+
+app.get('/load-establishments', checkAuthenticated, (req, res) => {
+    console.log("Request received for /load-establishments");
+
+    res.status(200).json({ establishments });
 });
 
 app.get('/add-review', checkAuthenticated, (req, res) => {

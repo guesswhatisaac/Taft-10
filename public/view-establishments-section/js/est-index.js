@@ -20,21 +20,20 @@ function changeText(option) {
 
 // Function to generate price range
 const generatePriceRange = (priceRange) => {
-  if(priceRange == 1) {
-    return ['₱', '₱₱₱'];
-  } else if(priceRange == 2) {
-    return ['₱₱', '₱₱'];
-  } else if(priceRange == 3) {
-    return ['₱₱₱', '₱'];    
-  } else if(priceRange == 4) {
-    return ['₱₱₱₱', ''];
-  }
-};
 
-// Function to generate establishment ID
-const generateEstablishmentId = () => {
-  return establishments.length + 1;
-};
+if(priceRange == 1){
+  return ['₱', '₱₱₱'];
+}
+else if(priceRange == 2){
+  return ['₱₱', '₱₱'];
+}
+else if(priceRange == 3){
+  return ['₱₱₱', '₱'];    
+}
+else if(priceRange == 4){
+  return ['₱₱₱₱', ''];
+}
+}
 
 // Function to generate establishment owner
 const getEstablishmentOwner = () => {
@@ -53,75 +52,118 @@ function generateAddReviewClass(establishmentName) {
   return `add-review-${name} add-review-btn`;
 }
 
-// Establishment constructor function
-const Establishment = function(name, priceRange, tags, description, coverImage) {
-  this.id = generateEstablishmentId(); 
-  this.name = name;
-  this.establishmentOwner = 'SINO BA'; // TODO
-  this.rating = 0;
-  this.priceRange = generatePriceRange(priceRange);
-  this.tags = tags;
-  this.description = description;
-  this.coverImage = coverImage; // TODO: Only adds cover image if it exists in assets folder, uploaded images not added
-  this.reviewsButtonClass = generateReviewsButtonClass(name);
-  this.addReviewClass = generateAddReviewClass(name);
+/*
+const Establishment = function(name, owner, rating, priceRange, tags, description, coverImage) {
+this.name = name;
+this.owner = 'SINO BA'; // TODO
+this.rating = rating;
+this.priceRange = generatePriceRange(priceRange);
+this.tags = tags;
+this.description = description;
+this.coverImage = coverImage; // TODO: Only adds cover image if it exists in assets folder, uploaded images not added
+this.reviewsButtonClass = generateReviewsButtonClass(name);
+this.addReviewClass = generateAddReviewClass(name);
 };
+*/
+
+/*
 const establishments = [
-{
-  name: '24 Chicken',
-  rating: '4.9',
-  priceRange: ['₱₱', '₱₱'],
-  tags: ['Filipino', 'Chicken'],
-  description: 'If you\'re on the hunt for a chicken experience that transcends the ordinary, look no further than 24 Chicken.',
-  coverImage: '24Chicken.png',
-  reviewsButtonClass: 'est-view-review-24-chicken view-review-btn',
-  addReviewClass: 'add-review-24-chicken add-review-btn'
-},
-{
-  name: "Ate Rica's Bacsilog",
-  rating: '4.9',
-  priceRange: ['₱', '₱₱₱'],
-  tags: ['Filipino', 'Rice Meal'],
-  description: 'Ate Rica\'s Bacsilog lives up to its "Sauce Sarap" promise! Delicious, affordable Filipino comfort food with generous portions and...',
-  coverImage: 'AteRicasBacsilog.png',
-  reviewsButtonClass: 'est-view-review-ate-ricas-bacsilog view-review-btn',
-  addReviewClass: 'add-review-ate-ricas-bacsilog add-review-btn'
-},
-{
-  name: 'Tomo Coffee',
-  rating: '4.7',
-  priceRange: ['₱₱', '₱₱'],
-  tags: ['Drinks'],
-  description: 'Tucked away in a vibrant student district, Tomo Coffee is a haven for caffeine-craving scholars. I love it so much!',
-  coverImage: 'TomoCoffee.png',
-  reviewsButtonClass: 'est-view-review-tomo-coffee view-review-btn',
-  addReviewClass: 'add-review-tomo-coffee add-review-btn'
-},
-{
-  name: 'Tinuhog ni Benny',
-  rating: '5.0',
-  priceRange: ['₱', '₱₱₱'],
-  tags: ['Filipino', 'Rice Meal'],
-  description: 'Tinuhog ni Benny is a haven for budget-friendly, delicious Filipino comfort food. The highlight is undoubtedly their namesake "tinuhog"...',
-  coverImage: 'TinuhogNiBenny.png',
-  reviewsButtonClass: 'est-view-review-tinuhog-ni-benny view-review-btn',
-  addReviewClass: 'add-review-tinuhog-ni-benny add-review-btn'
-},
-{
-  name: 'Hungry Seoul',
-  rating: '4.9',
-  priceRange: ['₱₱', '₱₱'],
-  tags: ['Korean', 'Rice Meal'],
-  description: 'If you\'re craving a taste of Korea in Manila, Hungry Seoul is definitely worth a visit. This casual restaurant...',
-  coverImage: 'HungrySeoul.png',
-  reviewsButtonClass: 'est-view-review-hungry-seoul view-review-btn',
-  addReviewClass: 'add-review-hungry-seoul add-review-btn'
-},
+// {
+//   name: '24 Chicken',
+//   rating: '4.9',
+//   priceRange: ['₱₱', '₱₱'],
+//   tags: ['Filipino', 'Chicken'],
+//   description: 'If you\'re on the hunt for a chicken experience that transcends the ordinary, look no further than 24 Chicken.',
+//   coverImage: '24Chicken.png',
+//   reviewsButtonClass: 'est-view-review-24-chicken view-review-btn',
+//   addReviewClass: 'add-review-24-chicken add-review-btn'
+// },
+// {
+//   name: "Ate Rica's Bacsilog",
+//   rating: '4.9',
+//   priceRange: ['₱', '₱₱₱'],
+//   tags: ['Filipino', 'Rice Meal'],
+//   description: 'Ate Rica\'s Bacsilog lives up to its "Sauce Sarap" promise! Delicious, affordable Filipino comfort food with generous portions and...',
+//   coverImage: 'AteRicasBacsilog.png',
+//   reviewsButtonClass: 'est-view-review-ate-ricas-bacsilog view-review-btn',
+//   addReviewClass: 'add-review-ate-ricas-bacsilog add-review-btn'
+// },
+// {
+//   name: 'Tomo Coffee',
+//   rating: '4.7',
+//   priceRange: ['₱₱', '₱₱'],
+//   tags: ['Drinks'],
+//   description: 'Tucked away in a vibrant student district, Tomo Coffee is a haven for caffeine-craving scholars. I love it so much!',
+//   coverImage: 'TomoCoffee.png',
+//   reviewsButtonClass: 'est-view-review-tomo-coffee view-review-btn',
+//   addReviewClass: 'add-review-tomo-coffee add-review-btn'
+// },
+// {
+//   name: 'Tinuhog ni Benny',
+//   rating: '5.0',
+//   priceRange: ['₱', '₱₱₱'],
+//   tags: ['Filipino', 'Rice Meal'],
+//   description: 'Tinuhog ni Benny is a haven for budget-friendly, delicious Filipino comfort food. The highlight is undoubtedly their namesake "tinuhog"...',
+//   coverImage: 'TinuhogNiBenny.png',
+//   reviewsButtonClass: 'est-view-review-tinuhog-ni-benny view-review-btn',
+//   addReviewClass: 'add-review-tinuhog-ni-benny add-review-btn'
+// },
+// {
+//   name: 'Hungry Seoul',
+//   rating: '4.9',
+//   priceRange: ['₱₱', '₱₱'],
+//   tags: ['Korean', 'Rice Meal'],
+//   description: 'If you\'re craving a taste of Korea in Manila, Hungry Seoul is definitely worth a visit. This casual restaurant...',
+//   coverImage: 'HungrySeoul.png',
+//   reviewsButtonClass: 'est-view-review-hungry-seoul view-review-btn',
+//   addReviewClass: 'add-review-hungry-seoul add-review-btn'
+// },
 ];
 
 establishmentList = establishments;
+*/
 
 document.addEventListener('DOMContentLoaded', function() {
+
+  fetch('/load-establishments', {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json',
+    }
+  })
+  .then(response => {
+      if (response.ok) {
+          return response.json(); 
+      } else {
+          throw new Error('Error getting data from server');
+      }
+  })
+  .then(data => {
+      data.establishments.forEach(item => {
+        const estName = item.name;
+        const priceRange = item.priceRange;
+        const tags = item.tags;
+        const description = item.description;
+        const coverImage = item.coverImage;
+
+        console.log("PRICE RANGE: " + priceRange)
+      
+        const newEstablishment = new Establishment2(estName, priceRange, tags, description, coverImage);
+      
+        initializeAddReviewWindow(newEstablishment);
+      
+        establishments.push(newEstablishment);
+        renderEstablishments(establishmentList);
+      
+      });
+      
+      console.log(data.establishments);
+  })
+  .catch(error => {
+      console.error('Error:', error);
+      alert('Error getting data from server');
+  });
+
 
 /*****************************    VIEW / HIDE MODAL    ****************************/
 
@@ -166,50 +208,73 @@ closeButtons.forEach(closeButton => {
 
 /*****************************    CREATE MODAL    ****************************/
 
+// MODIFIED EVENT LISTENER
+
 const createEstablishmentForm = document.querySelector('.create-establishment-form');
-
-createEstablishmentForm.addEventListener('submit', (event) => {
-event.preventDefault();
-
-const estName = document.getElementById('est-name-input').value;
-const priceRange = document.getElementById('price-range-input').value;
-const tags = document.getElementById('tags-input').value.split(','); // Split tags by comma
-const description = document.getElementById('description-input').value;
-const coverImage = 'placeholder.png'; // Access the selected file
-
-const newEstablishment = new Establishment(estName, priceRange, tags, description, coverImage);
-
-initializeAddReviewWindow(newEstablishment);
-
-establishments.push(newEstablishment);
-createEstablishmentForm.reset();
-
 const errorMessageElement = document.querySelector('.create-error-message');
-errorMessageElement.classList.add('create-error-message'); 
-errorMessageElement.textContent = 'Establishment successfully created!';
 
-console.log(establishments);
-renderEstablishments(establishmentList);
-console.log("New Establishment Created");
+createEstablishmentForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
 
+    const userTagElement = document.getElementById("userTag");
+    const userTagName = userTagElement.textContent.trim(); // Get text content and trim whitespace
+    console.log("Owner Name:", userTagName);
+
+    const establishmentData = {
+      name: document.getElementById('est-name-input').value,
+      owner: userTagName,
+      rating: '0',
+      priceRange: generatePriceRange(document.getElementById('price-range-input').value),
+      tags: document.getElementById('tags-input').value.split(','),
+      description: document.getElementById('description-input').value,
+      coverImage: '', // TODO: add file path
+      reviewButtonClass: generateReviewsButtonClass(document.getElementById('est-name-input').value),
+      addReviewClass: generateAddReviewClass(document.getElementById('est-name-input').value),
+    };
+    console.log("owner is: " + establishmentData.owner);
+    console.log("Fetching /create-establishment...");
+
+    try {
+      const response = await fetch('/create-establishment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(establishmentData)
+      });
+    
+      if (response.ok) {
+        console.log("Establishment created successfully");
+        errorMessageElement.textContent = 'Establishment successfully created!';
+        createEstablishmentForm.reset();
+      } else {
+        throw new Error(`Error creating establishment: ${response.statusText}`);
+      }
+    
+    } catch (error) {
+      errorMessageElement.textContent = 'Error creating establishment.';
+      console.error("Error creating establishment:", error);
+    }
 });
+
+// ----------------------------------------------------------------------------
 
 function initializeAddReviewWindow(newEstablishment) {
 
-const addContainer = document.querySelector('.add-container');
-const viewContainer = document.querySelector('.view-container');
+  const addContainer = document.querySelector('.add-container');
+  const viewContainer = document.querySelector('.view-container');
 
-const addReviewWindowId = `reviewWindow-${newEstablishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
-const estabName = `${newEstablishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
-console.log("ADD WINDOW ID: " + addReviewWindowId);
-const addHTML = generateAddWindow(addReviewWindowId, newEstablishment, estabName);  
+  const addReviewWindowId = `reviewWindow-${newEstablishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
+  const estabName = `${newEstablishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
+  console.log("ADD WINDOW ID: " + addReviewWindowId);
 
-const viewReviewWindowId = `view-reviewWindow-${newEstablishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
-console.log("VIEW WINDOW ID: " + viewReviewWindowId); 
-const viewHTML = generateViewWindow(viewReviewWindowId, newEstablishment, estabName);  
+  console.log("PRICE 2: " + newEstablishment.priceRange)
+  const addHTML = generateAddWindow(addReviewWindowId, newEstablishment, estabName);  
 
-viewContainer.innerHTML += viewHTML;
-addContainer.innerHTML += addHTML;
+  const viewReviewWindowId = `view-reviewWindow-${newEstablishment.name.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
+  console.log("VIEW WINDOW ID: " + viewReviewWindowId); 
+  const viewHTML = generateViewWindow(viewReviewWindowId, newEstablishment, estabName);  
+
+  viewContainer.innerHTML += viewHTML;
+  addContainer.innerHTML += addHTML;
 
 }
 
@@ -439,42 +504,24 @@ return filteredEstablishments;
 
 document.querySelector('.update-establishment-form').addEventListener('submit', function(event) {
 
-event.preventDefault();
+  event.preventDefault();
 
-const id = document.querySelector('#est-id-input').value;
-const name = document.querySelector('#update-est-name').value;
-const priceRange = document.querySelector('#update-price-range').value;
-const tags = document.querySelector('#update-tags').value.split(',').map(tag => tag.trim());
-const description = document.querySelector('#update-description').value;
-const coverImage = document.querySelector('#update-cover-image').files[0];
+  const establishmentToUpdate = document.querySelector('#establishment-select').value;
+  const name = document.querySelector('#update-est-name').value;
+  const priceRange = document.querySelector('#update-price-range').value;
+  const tags = document.querySelector('#update-tags').value.split(',').map(tag => tag.trim());
+  const description = document.querySelector('#update-description').value;
+  const coverImage = document.querySelector('#update-cover-image').files[0];
 
-console.log(establishments);
-const establishmentToUpdate = establishments.find(establishment => establishment.id == id);
-console.log(establishmentToUpdate);
+  console.log("values: " + id + name + priceRange + tags + description + coverImage);
+  console.log(establishmentToUpdate);
 
-if (establishmentToUpdate) {
-    establishmentToUpdate.name = name;
-    establishmentToUpdate.priceRange = generatePriceRange(priceRange);
-    establishmentToUpdate.tags = tags;
-    establishmentToUpdate.description = description;
-    if (coverImage) {
-        // TODO
-    }
 
-    document.querySelector('.update-establishment-form').reset();
-    
-    const errorMessageElement = document.querySelector('.update-error-message');
-    errorMessageElement.classList.add('update-error-message'); 
-    errorMessageElement.textContent = 'Establishment successfully updated!';
+  document.querySelector('.update-establishment-form').reset();
+  const errorMessageElement = document.querySelector('.update-error-message');
+  errorMessageElement.classList.add('update-error-message'); 
+  errorMessageElement.textContent = 'Establishment successfully updated!';
   
-    renderEstablishments(establishmentList);
-    console.log("Establishment Updated");
-
-} else {
-    const errorMessageElement = document.querySelector('.update-error-message');
-    errorMessageElement.classList.add('update-error-message'); 
-    errorMessageElement.textContent = 'Establishment ID not found!';
-}
 });
 
 /*****************************    DELETE MODAL    ****************************/
@@ -482,18 +529,26 @@ if (establishmentToUpdate) {
 
     /*********** GENERATE ESTABLISHMENTS ***********/ 
 
-  renderEstablishments(establishmentList);
-    
-  function renderEstablishments(establishmentList) {
-    const estContainer = document.querySelector('.est-container');
-    estContainer.innerHTML = ''; 
 
-    establishmentList.forEach(establishment => {
-      const estHTML = generateEstablishmentHTML(establishment);
-      estContainer.innerHTML += estHTML; 
+    fetchEstablishmentsFromDatabase()
+    .then(establishments => {
+      renderEstablishments(establishments);
+      console.log("Rendering ests...")
+    })
+    .catch(error => {
+      console.error('Error fetching establishments:', error);
     });
+  
+  function renderEstablishments(establishments) {
+    const estContainer = document.querySelector('.est-container');
+    estContainer.innerHTML = '';
+  
+    for (const establishment of establishments) {
+      const estHTML = generateEstablishmentHTML(establishment);
+      estContainer.innerHTML += estHTML;
+    }
   }
-
+  
   function generateEstablishmentHTML(establishment) {
     return `
       <div class="est-content">
@@ -515,7 +570,7 @@ if (establishmentToUpdate) {
           <img src="/view-establishments-section/assets/est/content-icons/review-icon.png" alt="Review Icon" class="est-review-icon">
           <div class="est-description">${establishment.description}</div>
         </div>
-
+  
         <div class="est-review-section">
           <div class="${establishment.addReviewClass}">Add Review</div>
           <div class="${establishment.reviewsButtonClass}">View Review</div>
@@ -719,7 +774,8 @@ if (establishmentToUpdate) {
     document.querySelector('.view-container').addEventListener('click', function(event) {
       if (event.target.classList.contains('close-button')) {
         const button = event.target;
-        const establishmentName = button.closest('.view-container').querySelector('.title').textContent.trim();
+        // traverse up the DOM to find the parent element containing the establishment name
+        const establishmentName = button.closest('.view-window-container').querySelector('.title').textContent.trim();
         const reviewWindowId = `view-reviewWindow-${establishmentName.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '')}`;
         console.log("LOOK HERE: " + reviewWindowId);
         document.getElementById(reviewWindowId).style.display = 'none';

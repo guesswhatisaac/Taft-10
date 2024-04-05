@@ -41,150 +41,48 @@
     </div>
 
 
-<div class="crud-container">
-    <h1>CRUD Operations</h1>
-    <div class="button-group">
-      <button class="crud-button" id="create-button">Create</button>
-      <button class="crud-button" id="update-button">Update</button>
-      <button class="crud-button" id="delete-button">Delete</button>
-    </div>
-  </div>
+<div class="est-container">
 
+{{#each establishmentsArray}}
 
-  <div class="modal" id="create-modal">
-
-        <div class="modal-content">
-
-            <div class="title-container">
-                <div class="crud-title">
-                    <span class="yellow">CREATE</span> 
-                    <span class="white">ESTABLISHMENT</span> 
-                </div>
-        
-                <div class="close-button">
-                    <img src="../assets/est/content-icons/close-white.png" alt="Close" class="close-icon">
-                </div>
-            </div>
-        
-            <div class="create-error-message"></div>
-        
-            <form class="create-establishment-form">
-        
-                <label for="est-name-input">Establishment Title</label>
-                <br>
-                <input type="text" id="est-name-input" name="est-name" required>
-                <br>
-        
-                <label for="price-range">Price Range (Low to High)</label>
-                <br>
-                <input type="range" id="price-range-input" min="1" max="4" value="0" step="1" required> <br>
-            
-                <label for="tags">Tags (Separate by commas)</label>
-                <br>
-                <input type="text" id="tags-input" placeholder="Enter comma-separated tags (e.g., restaurant, Italian)">
-                <br>
-            
-                <label for="description">Establishment Description</label>
-                <br>
-                <textarea id="description-input" placeholder="Write a detailed description of the establishment"></textarea>
-                <br>
-            
-                <label for="cover-image">Cover Image</label>
-                <br>
-                <input type="file" id="cover-image-input" accept="image/*" required>
-                <br>
-                
-                <br>
-                <button type="submit" id="submit-create-establishment">Create</button> 
-            </form>
-        
+    {{#each this}}
+     {{#if this.name}}
+    <div class="est-content">
+      <img src="/view-establishments-section/assets/est/content-cover/{{this.coverImage}}" class="est-cover">
+      <div class="est-title-container">
+        <div class="est-title">{{this.name}}</div>
+        <div class="est-rating-container">
+          <span class="est-rating">{{rating}}</span>
+          <img src="/view-establishments-section/assets/est/content-icons/rating-icon.png" alt="Rating Icon" class="est-rating-icon">
         </div>
-    </div>
-
-  <!--
-      /********************** UPDATE **********************/ 
-  -->
-
-    <div class="modal" id="update-modal">
-      <div class="modal-content">
-
-        <div class="title-container">
-            <div class="crud-title">
-              <span class="yellow">UPDATE</span> 
-              <span class="white">ESTABLISHMENT</span> 
-            </div>
-  
-            <div class="close-button">
-              <img src="../assets/est/content-icons/close-white.png" alt="Close" class="close-icon">
-            </div>
-        </div>
-  
-        <div class="update-error-message">TODO: establishment shown below must be dependent on est-owner id</div>
-
-        <form class="update-establishment-form">
+      </div>
+      <div class="est-subtitle-container">
+        <div class="est-price bold">{{priceRange.[0]}}</div>
+        <div class="est-price">{{priceRange.[1]}}</div>
+        &nbsp; • &nbsp;
         
-            <label for="est-id-input">[TEST FEATURE] Establishment ID </label>
-            <br>
-            <input type="text" id="est-id-input" name="est-id" required>
-            <br>
-    
-            <label for="update-est-name">Establishment Title</label>
-            <br>
-            <input type="text" id="update-est-name" name="est-name" required>
-            <br>
+        {{#each this.tags}}
+          <span class="food-tag">{{this}}</span>
+        {{/each}}
 
-            <label for="update-price-range">Price Range (Low to High)</label>
-            <br>
-            <input type="range" id="update-price-range" min="1" max="4" value="0" step="1" required> <br>
+      </div>
+      <div class="est-description-container">
+        <img src="/view-establishments-section/assets/est/content-icons/review-icon.png" alt="Review Icon" class="est-review-icon">
+        <div class="est-description">{{description}}</div>
+      </div>
 
-            <label for="update-tags">Tags (Separate by commas)</label>
-            <br>
-            <input type="text" id="update-tags" placeholder="Enter comma-separated tags (e.g., restaurant, Italian)">
-            <br>
-
-            <label for="update-description">Establishment Description</label>
-            <br>
-            <textarea id="update-description" placeholder="Write a detailed description of the establishment"></textarea>
-            <br>
-        
-            <label for="update-cover-image">Cover Image</label>
-            <br>
-            <input type="file" id="update-cover-image" accept="image/*" required>
-            <br>
-            
-            <br>
-            <button type="submit" id="submit-update-establishment">UPDATE</button> 
-        </form>
-        
+      <div class="est-review-section">
+        <div class="{{addReviewClass}}">Add Review</div>
+        <div class="{{reviewsButtonClass}}">View Review</div>
       </div>
     </div>
-
-  <!--
-      /********************** DELETE **********************/ 
-  -->
-
-    <div class="modal" id="delete-modal"> 
-        <div class="modal-content">
-
-            <div class="title-container">
-                <div class="crud-title">
-                  <span class="yellow">DELETE</span> 
-                  <span class="white">ESTABLISHMENT</span> 
-                </div>
-      
-                <div class="close-button">
-                  <img src="../assets/est/content-icons/close-white.png" alt="Close" class="close-icon">
-                </div>
-            </div>
-      
-            <div class="delete-error-message"></div>
-
-        </div>
+    {{/if}}
     
-    </div>
+    {{/each}}
 
-  
-    <div class="est-container"> </div>
+  {{/each}}
+
+</div>
 
     <div class="add-container"> </div>
 

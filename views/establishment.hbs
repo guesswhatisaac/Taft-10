@@ -1,0 +1,25 @@
+<div class="est-container">
+  {{#each establishments}}
+
+  <script>console.log(establishment.name + "hai ")</script>
+    <div class="est-content">
+      <img src="/view-establishments-section/assets/est/content-cover/{{establishment.coverImage}}" class="est-cover">
+      <div class="est-title-container">
+        <div class="est-title">{{establishment.name}}</div>
+        <div class="est-rating-container">
+          <span class="est-rating">{{establishment.rating}}</span> <img src="/view-establishments-section/assets/est/content-icons/rating-icon.png" alt="Rating Icon" class="est-rating-icon">
+        </div>
+      </div>
+      <div class="est-subtitle-container">
+        <div class="est-price bold">{{establishment.priceRange[0]}}</div> <div class="est-price">{{establishment.priceRange[1]}}</div> &nbsp; • &nbsp;
+        {{establishment.tags.map(tag => `<span class="food-tag">${tag}</span>`).join('')}} </div>
+      <div class="est-description-container">
+        <img src="/view-establishments-section/assets/est/content-icons/review-icon.png" alt="Review Icon" class="est-review-icon">
+        <div class="est-description">{{establishment.description}}</div>
+      </div>
+      
+      <div class="est-review-section">
+        <div class="${establishment.addReviewClass}">Add Review</div> <div class="${establishment.reviewsButtonClass}">View Review</div> </div>
+    </div>
+  {{/each}}
+</div>

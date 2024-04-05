@@ -7,6 +7,10 @@ const establishmentSchema = new Schema({
         required: true,
         unique: true
     },
+    owner: {
+        type: SchemaTypes.String,
+        required: true,
+    },
     rating: {
         type: SchemaTypes.String,
         default: '0'
