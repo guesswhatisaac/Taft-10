@@ -403,20 +403,35 @@ app.get('/profile', checkAuthenticated, async (req, res) => {
         console.log("is owner: " + req.user.isOwner);
 
         if(req.user.isOwner) { // establishment owner
+            // TODO: DEBUG AND DOUBLE CHECK
             console.log("test first if statement");
-            const estReviews = await findEstablishmentReviews();   
+            const ownerInfo = await User.findOne({ username: req.user.username }).exec();
+            const establishmentNames = ownerInfo.establishments;
+            const estReviews = await Review.find({ 'reviews.establishmentName': { $in: establishmentNames }}).exec();
+            
+            console.log("estReviews\n");
+            console.log(estReviews);
+
             if (estReviews) {
                 for (let i = 0; i < estReviews.length; i++) {
                     console.log(i);
                     console.log("\n");
-                    let review = reviews.push({
+                    let userInfo = await User.findOne({ username: estReviews[i].username }).exec();
+                    let fileID = userInfo.profilePicture;
+                    let filePath = await File.findById(fileID).exec();
+
+                    let rawDate = estReviews[i].reviews[0].date;
+                    let date = new Date(rawDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+                    reviews.push({
                         nameDisplay: estReviews[i].username,
-                        ratingDisplay: estReviews[i].reviews.rating,
-                        dateDisplay: estReviews[i].reviews.date,
-                        upvotesDisplay: estReviews[i].reviews.upvotes,
-                        reviewDisplay: estReviews[i].reviews.review
+                        ratingDisplay: estReviews[i].reviews[0].rating,
+                        dateDisplay: date,
+                        upvotesDisplay: estReviews[i].reviews[0].upvotes,
+                        reviewDisplay: estReviews[i].reviews.review,
+                        profilePictureDisplay: path.basename(filePath.path)
                     });
-                    console.log(review);
+                    console.log(review[i]);
                 }
                 reviewCount = estReviews.length;
             } else {
