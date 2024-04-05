@@ -1,16 +1,4 @@
-async function fetchOwnersEstablishments() {
-  try {
-    const response = await fetch('/owners-establishments'); // Replace with your actual URL
-    if (!response.ok) {
-      throw new Error(`Error fetching owner's establishments: ${response.statusText}`);
-    }
-    const establishments = await response.json();
-    // Use the fetched establishments data here
-  } catch (error) {
-    console.error("Error fetching establishments:", error);
-    // Handle errors here (e.g., display an error message to the user)
-  }
-}
+
 
 
 /*****************************    CREATE MODAL    ****************************/

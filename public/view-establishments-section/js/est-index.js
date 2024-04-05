@@ -326,6 +326,7 @@ deleteEstablishmentForm.addEventListener('submit', async (event) => {
 
     const establishmentId = document.querySelector('#select-est-delete').value;
 
+    
     // send request to delete in database
 });
 
