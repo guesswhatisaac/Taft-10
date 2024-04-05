@@ -9,6 +9,8 @@ const Review = function(username, rating, date, content, establishmentName) {
   this.establishmentName = establishmentName;
 }
 
+
+
 const reviews = [];
 
 function changeText(option) {
@@ -33,10 +35,6 @@ else if(priceRange == 4){
 }
 }
 
-const generateEstablishmentId = () => {
-return establishments.length + 1;
-};
-
 const getEstablishmentOwner = () => {
 // TODO
 }
@@ -44,22 +42,22 @@ const getEstablishmentOwner = () => {
 /* generates view review button class name */
 function generateReviewsButtonClass(establishmentName) {
 const name = establishmentName.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '');
-console.log(`est-view-review-${name} view-review-btn`);
+//console.log(`est-view-review-${name} view-review-btn`);
 return `est-view-review-${name} view-review-btn`;
 }
 
 /* generates add review button class name */
 function generateAddReviewClass(establishmentName) {
   const name = establishmentName.replace(/\s+/g, '-').toLowerCase().replace(/'/g, '');
-  console.log(`add-review-${name} add-review-btn`);
+  //console.log(`add-review-${name} add-review-btn`);
   return `add-review-${name} add-review-btn`;
 }
 
-const Establishment = function(name, priceRange, tags, description, coverImage) {
-this.id = generateEstablishmentId(); 
+/*
+const Establishment = function(name, owner, rating, priceRange, tags, description, coverImage) {
 this.name = name;
-this.establishmentOwner = 'SINO BA'; // TODO
-this.rating = 0;
+this.owner = 'SINO BA'; // TODO
+this.rating = rating;
 this.priceRange = generatePriceRange(priceRange);
 this.tags = tags;
 this.description = description;
@@ -67,38 +65,9 @@ this.coverImage = coverImage; // TODO: Only adds cover image if it exists in ass
 this.reviewsButtonClass = generateReviewsButtonClass(name);
 this.addReviewClass = generateAddReviewClass(name);
 };
-
-
-/*
-
-establishments = [];
-// preloaded establishments
-establishments.push(new Establishment(
-'24 Chicken', 1, ['Filipino', 'Chicken'],
-'If you\'re on the hunt for a chicken experience that transcends the ordinary, look no further than 24 Chicken.',
-'24Chicken.png'));
-
-establishments.push(new Establishment(
-"Ate Rica's Bacsilog", 1, ['Filipino', 'Rice Meal'], 
-'Ate Rica\'s Bacsilog lives up to its "Sauce Sarap" promise! Delicious, affordable Filipino comfort food with generous portions and...',
-'AteRicasBacsilog.png'));
-
-establishments.push(new Establishment(
-'Tomo Coffee', 1, ['Drinks'],
-'Tucked away in a vibrant student district, Tomo Coffee is a haven for caffeine-craving scholars. I love it so much!',
-'TomoCoffee.png'));
-
-establishments.push(new Establishment(
-'Tinuhog ni Benny', 1, ['Filipino', 'Rice Meal'],
-'Tinuhog ni Benny is a haven for budget-friendly, delicious Filipino comfort food. The highlight is undoubtedly their namesake "tinuhog"...',
-'TinuhogNiBenny.png'));
-
-establishments.push(new Establishment(
-'Hungry Seoul', 2, ['Korean', 'Rice Meal'],
-'If you\'re craving a taste of Korea in Manila, Hungry Seoul is definitely worth a visit. This casual restaurant...',
-'HungrySeoul.png'));
 */
 
+/*
 const establishments = [
 {
   name: '24 Chicken',
@@ -153,6 +122,7 @@ const establishments = [
 ];
 
 establishmentList = establishments;
+*/
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -206,33 +176,54 @@ closeButton.addEventListener('click', () => {
 
 /*****************************    CREATE MODAL    ****************************/
 
+// MODIFIED EVENT LISTENER
+
 const createEstablishmentForm = document.querySelector('.create-establishment-form');
-
-createEstablishmentForm.addEventListener('submit', (event) => {
-event.preventDefault();
-
-const estName = document.getElementById('est-name-input').value;
-const priceRange = document.getElementById('price-range-input').value;
-const tags = document.getElementById('tags-input').value.split(','); // Split tags by comma
-const description = document.getElementById('description-input').value;
-const coverImage = 'placeholder.png'; // Access the selected file
-
-const newEstablishment = new Establishment(estName, priceRange, tags, description, coverImage);
-
-initializeAddReviewWindow(newEstablishment);
-
-establishments.push(newEstablishment);
-createEstablishmentForm.reset();
-
 const errorMessageElement = document.querySelector('.create-error-message');
-errorMessageElement.classList.add('create-error-message'); 
-errorMessageElement.textContent = 'Establishment successfully created!';
 
-console.log(establishments);
-renderEstablishments(establishmentList);
-console.log("New Establishment Created");
+createEstablishmentForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
 
+    const userTagElement = document.getElementById("userTag");
+    const userTagName = userTagElement.textContent.trim(); // Get text content and trim whitespace
+    console.log("Owner Name:", userTagName);
+
+    const establishmentData = {
+      name: document.getElementById('est-name-input').value,
+      owner: userTagName,
+      rating: '0',
+      priceRange: generatePriceRange(document.getElementById('price-range-input').value),
+      tags: document.getElementById('tags-input').value.split(','),
+      description: document.getElementById('description-input').value,
+      coverImage: '', // TODO: add file path
+      reviewButtonClass: generateReviewsButtonClass(document.getElementById('est-name-input').value),
+      addReviewClass: generateAddReviewClass(document.getElementById('est-name-input').value),
+    };
+    console.log("owner is: " + establishmentData.owner);
+    console.log("Fetching /create-establishment...");
+
+    try {
+      const response = await fetch('/create-establishment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(establishmentData)
+      });
+    
+      if (response.ok) {
+        console.log("Establishment created successfully");
+        errorMessageElement.textContent = 'Establishment successfully created!';
+        createEstablishmentForm.reset();
+      } else {
+        throw new Error(`Error creating establishment: ${response.statusText}`);
+      }
+    
+    } catch (error) {
+      errorMessageElement.textContent = 'Error creating establishment.';
+      console.error("Error creating establishment:", error);
+    }
 });
+
+// ----------------------------------------------------------------------------
 
 function initializeAddReviewWindow(newEstablishment) {
 
@@ -479,42 +470,24 @@ return filteredEstablishments;
 
 document.querySelector('.update-establishment-form').addEventListener('submit', function(event) {
 
-event.preventDefault();
+  event.preventDefault();
 
-const id = document.querySelector('#est-id-input').value;
-const name = document.querySelector('#update-est-name').value;
-const priceRange = document.querySelector('#update-price-range').value;
-const tags = document.querySelector('#update-tags').value.split(',').map(tag => tag.trim());
-const description = document.querySelector('#update-description').value;
-const coverImage = document.querySelector('#update-cover-image').files[0];
+  const establishmentToUpdate = document.querySelector('#establishment-select').value;
+  const name = document.querySelector('#update-est-name').value;
+  const priceRange = document.querySelector('#update-price-range').value;
+  const tags = document.querySelector('#update-tags').value.split(',').map(tag => tag.trim());
+  const description = document.querySelector('#update-description').value;
+  const coverImage = document.querySelector('#update-cover-image').files[0];
 
-console.log(establishments);
-const establishmentToUpdate = establishments.find(establishment => establishment.id == id);
-console.log(establishmentToUpdate);
+  console.log("values: " + id + name + priceRange + tags + description + coverImage);
+  console.log(establishmentToUpdate);
 
-if (establishmentToUpdate) {
-    establishmentToUpdate.name = name;
-    establishmentToUpdate.priceRange = generatePriceRange(priceRange);
-    establishmentToUpdate.tags = tags;
-    establishmentToUpdate.description = description;
-    if (coverImage) {
-        // TODO
-    }
 
-    document.querySelector('.update-establishment-form').reset();
-    
-    const errorMessageElement = document.querySelector('.update-error-message');
-    errorMessageElement.classList.add('update-error-message'); 
-    errorMessageElement.textContent = 'Establishment successfully updated!';
+  document.querySelector('.update-establishment-form').reset();
+  const errorMessageElement = document.querySelector('.update-error-message');
+  errorMessageElement.classList.add('update-error-message'); 
+  errorMessageElement.textContent = 'Establishment successfully updated!';
   
-    renderEstablishments(establishmentList);
-    console.log("Establishment Updated");
-
-} else {
-    const errorMessageElement = document.querySelector('.update-error-message');
-    errorMessageElement.classList.add('update-error-message'); 
-    errorMessageElement.textContent = 'Establishment ID not found!';
-}
 });
 
 /*****************************    DELETE MODAL    ****************************/
@@ -522,18 +495,26 @@ if (establishmentToUpdate) {
 
     /*********** GENERATE ESTABLISHMENTS ***********/ 
 
-  renderEstablishments(establishmentList);
-    
-  function renderEstablishments(establishmentList) {
-    const estContainer = document.querySelector('.est-container');
-    estContainer.innerHTML = ''; 
 
-    establishmentList.forEach(establishment => {
-      const estHTML = generateEstablishmentHTML(establishment);
-      estContainer.innerHTML += estHTML; 
+    fetchEstablishmentsFromDatabase()
+    .then(establishments => {
+      renderEstablishments(establishments);
+      console.log("Rendering ests...")
+    })
+    .catch(error => {
+      console.error('Error fetching establishments:', error);
     });
+  
+  function renderEstablishments(establishments) {
+    const estContainer = document.querySelector('.est-container');
+    estContainer.innerHTML = '';
+  
+    for (const establishment of establishments) {
+      const estHTML = generateEstablishmentHTML(establishment);
+      estContainer.innerHTML += estHTML;
+    }
   }
-
+  
   function generateEstablishmentHTML(establishment) {
     return `
       <div class="est-content">
@@ -555,7 +536,7 @@ if (establishmentToUpdate) {
           <img src="/view-establishments-section/assets/est/content-icons/review-icon.png" alt="Review Icon" class="est-review-icon">
           <div class="est-description">${establishment.description}</div>
         </div>
-
+  
         <div class="est-review-section">
           <div class="${establishment.addReviewClass}">Add Review</div>
           <div class="${establishment.reviewsButtonClass}">View Review</div>
@@ -563,9 +544,6 @@ if (establishmentToUpdate) {
       </div>
     `;
   }
-
-
-
     
     /* executed when a user submits a new review */
     document.addEventListener('click', function(event) {

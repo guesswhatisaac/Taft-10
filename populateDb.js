@@ -4,6 +4,7 @@ const Establishment = require('./src/models/Establishment.js');
 const establishments = [
     {
         name: '24 Chicken',
+        owner: 'nathan', // NOTE: PLACEHOLDER TEST
         rating: '4.9',
         priceRange: ['₱₱', '₱₱'],
         tags: ['Filipino', 'Chicken'],
@@ -14,6 +15,7 @@ const establishments = [
     },
     {
         name: "Ate Rica's Bacsilog",
+        owner: 'nathan', // NOTE: PLACEHOLDER TEST
         rating: '4.9',
         priceRange: ['₱', '₱₱₱'],
         tags: ['Filipino', 'Rice Meal'],
@@ -24,6 +26,7 @@ const establishments = [
     },
     {
         name: 'Tomo Coffee',
+        owner: 'nathan', // NOTE: PLACEHOLDER TEST
         rating: '4.7',
         priceRange: ['₱₱', '₱₱'],
         tags: ['Drinks'],
@@ -34,6 +37,7 @@ const establishments = [
     },
     {
         name: 'Tinuhog ni Benny',
+        owner: 'nathan', // NOTE: PLACEHOLDER TEST
         rating: '5.0',
         priceRange: ['₱', '₱₱₱'],
         tags: ['Filipino', 'Rice Meal'],
@@ -44,6 +48,7 @@ const establishments = [
     },
     {
         name: 'Hungry Seoul',
+        owner: 'sheyn', // NOTE: PLACEHOLDER TEST
         rating: '4.9',
         priceRange: ['₱₱', '₱₱'],
         tags: ['Korean', 'Rice Meal'],

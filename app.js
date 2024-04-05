@@ -9,7 +9,7 @@ const layoutsDir = __dirname + '/views/layouts/';
 const partialsDir = __dirname + '/views/partials/'; 
 
 const { connect } = require('./src/models/conn.js');
-
+const Establishment = require('./src/models/Establishment.js');
 
 /************************************************************************************
  *                                      USERS
@@ -151,13 +151,12 @@ let users = [
 
 // insert variables here
 
-
 app.engine('hbs', hbs.engine({
     extname: 'hbs',
     defaultLayout: 'home',
     layoutsDir: layoutsDir,
-    partialsDir: partialsDir
-}));
+    partialsDir: partialsDir,
+    }));
 
 app.set('view engine', 'hbs');
 app.use(express.static("public"));
@@ -345,12 +344,17 @@ app.get('/success-msg', (req, res) => {
 });
   
 // profile
-app.get('/profile', (req, res) => {
+app.get('/profile', async (req, res) => {
     console.log("Request received for /profile");
+
+    const ownerEst = await getOwnerEstablishment(currentUserName);
+
     res.render('view-profile', {
         title: 'View Account Success',
         css: '/view-profile-section/css/profile-index.css',
-        css2: '/base-index.css',
+        css2: '/base-index.css', 
+        js: '/view-establishments-section/js/est-index.js', // added est-index js for crud modal operations
+        userTag: currentUserName.substring(1), 
         currentUserPic: '/global-assets/header/icon.jpg',
         myName: '<h1>' + userObj.firstname + " " + userObj.lastname + '</h1>',
         numReviews: userObj.numReviews + ' reviews',
@@ -358,9 +362,10 @@ app.get('/profile', (req, res) => {
         needHeader: false,
         needHeader2: true,
         needFooter: true,
+        ownerEstablishments: ownerEst,
         isOwner: userObj.isOwner,
     });
-    console.log(userObj.firstname + " " + userObj.lastname);
+    console.log(userObj.firstname + " " + userObj.lastname + " | username: " + currentUserName.substring(1));
     console.log()
 });
 
@@ -414,26 +419,101 @@ app.post('/edit', (req, res) => {
 
 });
 
+// ----------------------------------------------------------------------------------------------------------------- //
+
 // view all establishments
-app.get('/all-establishments', (req, res) => {
+
+app.get('/all-establishments', async (req, res) => {
+    
     console.log("Request received for /all-establishments");
-    res.render('all-establishments', {
-        title: 'All Establishments',
-        css: '/view-establishments-section/css/est-index.css',
-        css2: '/base-index.css',
-        css3: '/view-establishments-section/css/add-review.css',
-        css4: '/view-establishments-section/css/view-review.css',
-        css5: '/view-establishments-section/css/crude-index.css',
-        js: '/view-establishments-section/js/est-index.js',
-        userExists: hasUser,
-        currUsername: currentUserName,
-        needHeader: false,
-        needHeader2: true,
-        needFooter: true,
-        searchIcon: '/global-assets/header/search-icon.png',
-        taft10Logo: '/global-assets/header/taft-10.png'
-    });
+
+    try {
+        const establishmentsArray = await Establishment.find(); 
+
+        console.log("EST ARRAY LENGTH ROUTER: " + establishmentsArray.length);
+        console.log(establishmentsArray);
+    
+
+        res.render('all-establishments', {
+            title: 'All Establishments',
+            css: '/view-establishments-section/css/est-index.css',
+            css2: '/base-index.css',
+            css3: '/view-establishments-section/css/add-review.css',
+            css4: '/view-establishments-section/css/view-review.css',
+            css5: '/view-establishments-section/css/crud-index.css',
+            js: '/view-establishments-section/js/est-index.js',
+            userExists: hasUser,
+            currUsername: currentUserName,
+            needHeader: false,
+            needHeader2: true,
+            needFooter: true,
+            searchIcon: '/global-assets/header/search-icon.png',
+            taft10Logo: '/global-assets/header/taft-10.png',
+            establishmentsArray
+        });
+      } catch (err) {
+        console.error('Error fetching establishments:', err);
+        res.status(500).render('all-establishments', {
+          error: 'Error fetching establishments'
+        });
+      }
+
 });
+
+
+// create new est and add it to db
+const createEstablishment = async (establishmentData) => {
+    try {
+        const newEstablishment = new Establishment(establishmentData);
+        await newEstablishment.save();
+      } catch (error) {
+        console.error("Error creating establishment:", error);
+        throw new Error("Error saving establishment to database");
+      }
+};
+
+app.post('/create-establishment', async (req, res) => {
+    const establishmentData = req.body;
+    console.log("\n in app.post('/create-establishment')");
+  
+    try {
+      await createEstablishment(establishmentData);
+      console.log("Establishment created successfully!");
+      res.status(200).json({ message: 'Establishment created!' }); 
+    } catch (error) {
+      console.error("Error creating establishment:", error);
+      res.status(500).json({ message: 'Error creating establishment' }); 
+    }
+});
+
+// update establishment
+
+const getOwnerEstablishment = async (currentUserName) => {
+
+    try {
+        const establishments = await Establishment.find();
+        const ownerName = currentUserName.substring(1);
+
+        // get only the user's establishment/s
+        const filteredEstablishments = establishments.filter(establishment => {
+            return establishment.owner === ownerName;
+        });
+        
+        return filteredEstablishments;
+        
+      } catch (error) {
+        console.error("Error fetching establishments:", error);
+        res.status(500).json({ message: "Error fetching owner's establishments" });
+      }
+}
+
+app.get('/owners-establishments', async (req, res) => {
+
+})
+
+
+// ----------------------------------------------------------------------------------------------------------------- //
+
 
 // view taft picks
 app.get('/taft-picks', (req, res) => {
