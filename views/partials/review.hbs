@@ -10,8 +10,12 @@
         </div>
     </div>
     <div class="upvote-container">
-        <div class="upvote-display" onclick="(this, '{{this.upvotesDisplay}}')">&nbsp;</div>
-        <div class="upvote-count-display"> {{this.upvotesDisplay}} </div>
+        <div class="upvote-display">
+            <button id="upvote-button">
+                <i class="thumbs-up-sign"></i>
+            </button>
+        &nbsp;</div>
+        <input type="number" id="upvote-count-display" value="0" name=""> </div>
     </div>
 </div>
 <div id="review-text-display"> {{this.reviewDisplay}} </div>
