@@ -732,9 +732,10 @@ app.put('/update-establishment', async (req, res) => {
     
     console.log("\n in app.put('/update-establishment')");
     const updatedData = req.body;
+    const id = req.body.id;
     
     try {
-        const establishment = await Establishment.findByPk(req.body.id);
+        const establishment = await Establishment.findByIdAndUpdate(id, updatedData);
 
         if (!establishment){
             return res.status(404).json({ message: 'Establishment not found' });
