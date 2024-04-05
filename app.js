@@ -454,6 +454,12 @@ app.get('/profile', checkAuthenticated, async (req, res) => {
                     console.log(reviews[i]);
                 }
                 reviewCount = userReviews.length;
+
+                // insert upvote logic here
+                
+
+                
+
             } else {
                 reviews = null;
             }
