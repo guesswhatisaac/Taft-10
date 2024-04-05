@@ -373,11 +373,17 @@ app.get('/profile', checkAuthenticated, async (req, res) => {
         showReply = true;
     }
 
+    //////////////////////////////////////////////////////////////////////
+    // NOTES: USE THIS CODE TO DISPLAY PROFILE PICTURE
     const file_id = req.user.profilePicture;
     const pfp_path = await File.findById(file_id).exec();
 
     console.log("pfp-path " + __dirname + pfp_path);
     console.log(pfp_path);
+
+    // inside hbs file: <img src = "../../data/uploads/{{currentUserPic}}"
+    // inside res.render: currentUserPic: path.basename(pfp_path.path), 
+    /////////////////////////////////////////////////////////////////////
 
     res.render('view-profile', {
         title: 'View Account Success',
@@ -406,12 +412,18 @@ app.get('/profile', checkAuthenticated, async (req, res) => {
 app.get('/edit', checkAuthenticated, async (req, res) => {
     console.log("GET request received for /edit");
 
+    const file_id = req.user.profilePicture;
+    const pfp_path = await File.findById(file_id).exec();
+
+    console.log("pfp-path " + __dirname + pfp_path);
+    console.log(pfp_path);
+
     res.render('edit-profile', {
         title: 'Edit Profile',
         css: '/view-profile-section/css/edit-profile-index.css',
         css2: '/base-index.css',
         js: '/home-page-section/js/sign-up.js',
-        currentUserPic: req.user.profilePicture,
+        currentUserPic: path.basename(pfp_path.path), 
         userExists: hasUser,
         needHeader: false,
         needHeader2: false,
@@ -471,10 +483,16 @@ app.post('/edit', checkAuthenticated, async (req, res) => {
     }
 });
 
-app.get('/cancel-edit', checkAuthenticated, (req, res) => {
-    console.log("Request received for /cancel-edit");
+app.get('/cancel-edit', (req, res) => {
+    console.log("GET request received for /cancel-edit");
     res.redirect('/profile');
-})
+});
+
+app.post('/cancel-edit', (req, res) => {
+    console.log("POST request received for /cancel-edit");
+    console.log(req.body);
+    res.redirect('/profile');
+});
 
 app.get('/reply', (req, res) => {
     console.log("Request received for /reply");
