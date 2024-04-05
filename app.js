@@ -478,8 +478,8 @@ app.get('/profile', checkAuthenticated, async (req, res) => {
     const file_id = req.user.profilePicture;
     const pfp_path = await File.findById(file_id).exec();
 
-    console.log("pfp-path " + __dirname + pfp_path);
-    console.log(pfp_path);
+    //console.log("pfp-path " + __dirname + pfp_path);
+    //console.log(pfp_path);
 
     // OTHER CODES:
     // inside hbs file: <img src = "../../data/uploads/{{currentUserPic}}"
@@ -489,7 +489,7 @@ app.get('/profile', checkAuthenticated, async (req, res) => {
 
     ///////////////////////////////////////////////////////////////////////////
 
-    const ownerEst = await getOwnerEstablishment(currentUserName);
+    const ownerEst = await getOwnerEstablishment(req.user.username.substring(1));
 
     res.render('view-profile', {
         title: 'View Account Success',
@@ -513,6 +513,7 @@ app.get('/profile', checkAuthenticated, async (req, res) => {
         taft10Logo: '/global-assets/header/taft-10.png',
         displayReplies: showReply,
         username: req.user.username,
+        ownerEstablishments: ownerEst,
         ownerReply: reply,
         // reviews display if owner:
         displayReviews: reviews,
@@ -632,7 +633,6 @@ app.post('/reply', (req, res) => {
 // ----------------------------------------------------------------------------------------------------------------- //
 
 // view all establishments
-
 app.get('/all-establishments', checkAuthenticated, async (req, res) => {
     
     console.log("Request received for /all-establishments");
@@ -667,7 +667,7 @@ app.get('/all-establishments', checkAuthenticated, async (req, res) => {
 });
 
 
-// create new est and add it to db
+// create new est 
 const createEstablishment = async (establishmentData) => {
     try {
         const newEstablishment = new Establishment(establishmentData);
@@ -692,13 +692,12 @@ app.post('/create-establishment', async (req, res) => {
     }
 });
 
-// update establishment
-
+// update establishment 
 const getOwnerEstablishment = async (currentUserName) => {
 
     try {
         const establishments = await Establishment.find();
-        const ownerName = currentUserName.substring(1);
+        const ownerName = currentUserName;
 
         // get only the user's establishment/s
         const filteredEstablishments = establishments.filter(establishment => {
@@ -713,19 +712,36 @@ const getOwnerEstablishment = async (currentUserName) => {
       }
 }
 
-app.get('/owners-establishments', async (req, res) => {
+app.put('/update-establishment', async (req, res) => {
+    
+    console.log("\n in app.put('/update-establishment')");
+    const updatedData = req.body;
+    
+    try {
+        const establishment = await Establishment.findByPk(req.body.id);
 
-})
+        if (!establishment){
+            return res.status(404).json({ message: 'Establishment not found' });
+        }
 
+        await establishment.update(updatedData);
+        res.status(200).json({ message: 'Establishment updated successfully' });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error updating establishment' });
+    }
+});
 
 // ----------------------------------------------------------------------------------------------------------------- //
 
-
+/*
 app.get('/load-establishments', checkAuthenticated, (req, res) => {
     console.log("Request received for /load-establishments");
 
     res.status(200).json({ establishments });
 });
+*/
 
 app.get('/add-review', checkAuthenticated, (req, res) => {
     console.log("Request received for /add-review"); 

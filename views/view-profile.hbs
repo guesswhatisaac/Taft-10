@@ -82,8 +82,8 @@
 
                             <form class="update-establishment-form">
 
-                                <label for="establishment-select">Select Establishment to Update:</label><br>
-                                <select value="{{_id}}" id="establishment-select" name="establishment-id" required>
+                                <label for="establishment-select-label">Select Establishment to Update:</label><br>
+                                <select id="establishment-select" name="establishment-id" required>
 
                                     {{#each ownerEstablishments}}
                                         {{#each this}}
@@ -94,18 +94,18 @@
                                     {{/each}}
                                 </select><br>
 
-                                <label for="update-est-name">Establishment Title</label><br>
+                                <label for="update-est-name-label">Establishment Title</label><br>
                                 <input type="text" id="update-est-name" name="est-name" required><br>
-                                <label for="update-price-range">Price Range (Low to High)</label><br>
+                                <label for="update-price-range-label">Price Range (Low to High)</label><br>
                                 <input type="range" id="update-price-range" min="1" max="4" value="0" step="1" required> <br>
-                                <label for="update-tags">Tags (Separate by commas)</label><br>
+                                <label for="update-tags-label">Tags (Separate by commas)</label><br>
                                 <input type="text" id="update-tags" placeholder="Enter comma-separated tags (e.g., restaurant, Italian)"><br>
-                                <label for="update-description">Establishment Description</label><br>
+                                <label for="update-description-label">Establishment Description</label><br>
                                 <textarea id="update-description" placeholder="Write a detailed description of the establishment"></textarea><br>
-                                <label for="update-cover-image">Cover Image</label><br>
+                                <label for="update-cover-image-label">Cover Image</label><br>
                                 <input type="file" id="update-cover-image" accept="image/*" required><br><br>
 
-                                <button type="submit" id="submit-update-establishment">UPDATE</button> 
+                                <button type="submit" id="submit-update-establishment">UPDATE</button>
                             </form>
                             
                         </div>
