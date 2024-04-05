@@ -344,7 +344,6 @@ app.post('/sign-up', upload.single("file"), async (req, res) => {
     }
 });
 
-
 // recover-account
 app.get('/forgot-pw', (req, res) => {
     console.log("GET request received for /forgot-pw");
@@ -432,7 +431,6 @@ app.get('/profile', checkAuthenticated, async (req, res) => {
             console.log("FUNCTION TEST");
             //console.log(userReviews);
 
-        
             if(userReviews) {
                 for (let i = 0; i < userReviews.length; i++) {
                     console.log(i);
@@ -485,7 +483,6 @@ app.get('/profile', checkAuthenticated, async (req, res) => {
 
     ///////////////////////////////////////////////////////////////////////////
 
-
     const ownerEst = await getOwnerEstablishment(currentUserName);
 
     res.render('view-profile', {
@@ -502,6 +499,7 @@ app.get('/profile', checkAuthenticated, async (req, res) => {
         isOwner: req.user.isOwner,
         userExists: true, 
         currUsername: req.user.username,
+        userTag: req.user.username.substring(1),
         needHeader: false,
         needHeader2: true,
         needFooter: true,
@@ -527,8 +525,8 @@ app.get('/edit', checkAuthenticated, async (req, res) => {
     const file_id = req.user.profilePicture;
     const pfp_path = await File.findById(file_id).exec();
 
-    console.log("pfp-path " + __dirname + pfp_path);
-    console.log(pfp_path);
+    //console.log("pfp-path " + __dirname + pfp_path);
+    //console.log(pfp_path);
 
     res.render('edit-profile', {
         title: 'Edit Profile',
@@ -636,11 +634,6 @@ app.get('/all-establishments', checkAuthenticated, async (req, res) => {
     try {
         const establishmentsArray = await Establishment.find(); 
 
-        console.log("EST ARRAY LENGTH ROUTER: " + establishmentsArray.length);
-        console.log(establishmentsArray);
-    
-
-    
     res.render('all-establishments', {
             title: 'All Establishments',
             css: '/view-establishments-section/css/est-index.css',
@@ -778,7 +771,7 @@ app.get('/taft-picks', (req, res) => {
         css4: '/view-establishments-section/css/view-review.css',
         js: '/view-establishments-section/js/est-index.js',
         userExists: hasUser,
-        currUsername: currentUserName,
+        currUsername: req.user.username,
         needHeader: false,
         needHeader2: true,
         needFooter: true,
